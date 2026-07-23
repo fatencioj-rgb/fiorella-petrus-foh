@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bookings — Petrus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#5c1a1a;--green-dark:#2d0a0a;--gold:#b89650;--gold-light:#d4b87a;--cream:#faf7f1;--border:#e0d6c8;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter','Segoe UI',sans-serif}
+body{font-family:var(--sans);background:var(--cream);color:#2c2c2c;line-height:1.5}
+.topbar{background:var(--green-dark);padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.topbar a{color:var(--gold-light);text-decoration:none;font-size:13px;letter-spacing:1px}
+.topbar .title{font-family:var(--serif);font-size:20px;color:var(--gold);letter-spacing:2px}
+.page{max-width:1100px;margin:0 auto;padding:30px 24px 60px}
+.page-header{text-align:center;margin-bottom:24px}
+.page-header h1{font-family:var(--serif);font-size:2rem;color:var(--green-dark);letter-spacing:2px;margin-bottom:2px}
+.page-header .label-bookings{font-size:0.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+</style>
+<style>
+/* Upload */
+.upload-area{max-width:280px;margin:0 auto 20px;text-align:center}
+.upload-lock{padding:18px;background:white;border:1px solid var(--border);border-radius:8px}
+.lock-input{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:0.82rem;text-align:center;margin-bottom:8px;outline:none;background:var(--cream)}
+.lock-input:focus{border-color:var(--gold)}
+.btn-unlock{padding:8px 20px;background:var(--green-dark);color:var(--gold-light);border:none;border-radius:5px;font-family:var(--sans);font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background 0.2s}
+.btn-unlock:hover{background:var(--green)}
+.lock-error{margin-top:6px;font-size:0.72rem;color:#c0392b;min-height:16px}
+.upload-box{border:2px dashed var(--border);border-radius:8px;padding:18px;background:white;cursor:pointer;transition:border-color 0.2s,background 0.2s}
+.upload-box:hover{border-color:var(--gold);background:#fdf9f2}
+.upload-box p{font-size:0.82rem;color:var(--green-dark);font-weight:500}
+.upload-box input[type="file"]{display:none}
+.upload-status{margin-top:8px;font-size:0.78rem;color:var(--gold);font-weight:500}
+.saved-item{display:inline-block;padding:5px 10px;font-size:0.7rem;font-family:var(--sans);background:white;border:1px solid var(--border);border-radius:4px 0 0 4px;cursor:pointer;color:var(--green-dark);transition:all 0.2s}
+.saved-item:hover{border-color:var(--gold);color:var(--green)}
+.saved-item-wrap{display:inline-flex;margin:4px 6px 0 0}
+.saved-item-delete{padding:5px 8px;font-size:0.8rem;font-family:var(--sans);background:#f5f0ea;border:1px solid var(--border);border-left:none;border-radius:0 4px 4px 0;cursor:pointer;color:#999;transition:all 0.2s}
+.saved-item-delete:hover{background:#5c1a1a;color:white;border-color:#5c1a1a}
+.sec-badge{font-size:0.65rem;font-weight:700;padding:2px 6px;border-radius:3px;cursor:pointer;border:none;font-family:var(--sans);letter-spacing:0.5px;transition:all 0.2s}
+.sec-badge.s1{background:#2d7d46;color:white}
+.sec-badge.s2{background:#1a4a7a;color:white}
+.sec-badge.kt{background:#b89650;color:white}
+.sec-badge.s0{background:#ccc;color:#666}
+.star-badge{font-size:0.85rem;padding:1px 5px;border-radius:3px;cursor:pointer;border:1px solid var(--border);background:var(--cream);color:#ccc;font-family:var(--sans);transition:all 0.2s;min-width:22px;text-align:center}
+.star-badge.active{background:#fff8e1;color:#d4a017;border-color:#d4a017}
+
+/* Form */
+.form-area{display:none}
+.form-area.visible{display:block}
+.header-fields{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;padding:12px 16px;background:white;border:1px solid var(--border);border-radius:6px}
+.field-group{display:flex;flex-direction:column;gap:3px}
+.field-group label{font-size:0.62rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--green)}
+.field-group input,.field-group select{padding:7px 10px;border:1px solid var(--border);border-radius:4px;font-family:var(--sans);font-size:0.82rem;background:var(--cream)}
+
+/* Table */
+.reservations-container{background:white;border:1px solid var(--border);border-radius:6px;padding:14px;margin-bottom:14px;overflow-x:auto}
+.res-table-edit{width:100%;border-collapse:collapse;font-size:0.78rem;table-layout:auto}
+.res-table-edit th{background:var(--green-dark);color:white;padding:7px 5px;text-align:left;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.4px;white-space:nowrap}
+.res-table-edit td{padding:3px;border-bottom:1px solid var(--border);vertical-align:middle}
+.res-table-edit input,.res-table-edit select{width:100%;padding:5px 6px;border:1px solid var(--border);border-radius:3px;font-size:0.76rem;font-family:var(--sans);background:var(--cream)}
+.res-table-edit input.narrow{width:50px;min-width:30px}
+.res-table-edit input.med{width:85px}
+.res-table-edit .r-voucher{min-width:100px}
+.res-table-edit .r-occasion{min-width:80px;max-width:140px}
+.res-table-edit .r-vcode{min-width:80px;max-width:120px}
+.res-table-edit .r-vvalue{width:55px}
+.res-table-edit .r-occpos,.res-table-edit .r-allergypos{width:40px;min-width:30px}
+.drag-handle{cursor:grab;color:#bbb;font-size:1rem;padding:0 4px;user-select:none}
+.drag-handle:active{cursor:grabbing}
+tr.dragging{opacity:0.4;background:#f0e8d8}
+tr.drag-over td{border-top:2px solid var(--gold)}
+.btn-remove-row{background:none;border:none;color:#ccc;font-size:1rem;cursor:pointer;padding:2px 5px}
+.btn-remove-row:hover{color:var(--green)}
+</style>
+<style>
+/* Actions */
+.actions{display:flex;align-items:center;gap:10px;margin-bottom:24px}
+.btn{border:none;padding:9px 18px;border-radius:5px;font-family:var(--sans);font-weight:500;cursor:pointer;font-size:0.8rem;transition:background 0.2s}
+.btn-add{background:var(--gold);color:white}
+.btn-add:hover{background:#a07d3a}
+.btn-clear{background:#e8e3dc;color:#666}
+.btn-clear:hover{background:#ddd6cc}
+
+/* Print Index */
+.print-index{background:white;border:1px solid var(--border);border-radius:6px;padding:16px 20px;margin-top:10px}
+.print-btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.print-btn-item{border:1px solid var(--border);background:var(--cream);padding:10px 20px;border-radius:5px;font-family:var(--sans);font-size:0.8rem;font-weight:500;cursor:pointer;transition:all 0.2s;color:var(--green-dark)}
+.print-btn-item:hover{border-color:var(--gold);background:white;color:var(--green)}
+
+/* Print area */
+.print-area{display:none}
+.print-page{width:100%;background:white;padding:6mm;font-size:7pt;line-height:1.2;page-break-after:always;page-break-inside:avoid}
+.print-page h2{font-family:var(--serif);font-size:11pt;text-align:center;margin-bottom:0;color:var(--green-dark)}
+.print-page .p-service{text-align:center;font-size:9pt;font-weight:700;margin-bottom:4px;color:var(--green)}
+.print-header-info{display:flex;justify-content:space-between;border-bottom:1.5px solid var(--green-dark);padding-bottom:3px;margin-bottom:4px;font-weight:600;font-size:7pt}
+.print-table{width:100%;border-collapse:collapse;font-size:6.5pt;table-layout:fixed}
+.print-table th{background:var(--green-dark);color:white;padding:2px 3px;text-align:left;font-weight:600;text-transform:uppercase;font-size:5.5pt;white-space:nowrap;border-right:0.5px solid rgba(255,255,255,0.3)}
+.print-table th:last-child{border-right:none}
+.print-table td{padding:2px 3px;border-bottom:1px solid #999;border-right:0.5px solid #ccc;vertical-align:top;word-wrap:break-word;overflow-wrap:break-word}
+.print-table td:last-child{border-right:none}
+.print-table tr:nth-child(even){background:#f9f6f0}
+.print-table .allergy-cell{background:#f8d7da;color:#5c1a1a;font-weight:600;-webkit-print-color-adjust:exact;print-color-adjust:exact;white-space:normal}
+.print-table .occasion-cell{background:#ffe4c4;color:#5c1a1a;-webkit-print-color-adjust:exact;print-color-adjust:exact;white-space:normal}
+.print-table .notes-cell{white-space:normal;word-wrap:break-word;max-width:none}
+.menu-summary{margin-top:5px;padding:3px 8px;border:1.5px solid var(--gold);border-radius:3px;font-size:6.5pt;font-weight:600}
+.menu-summary span{margin-right:10px}
+.allergy-summary{margin-top:4px;padding:3px 8px;border:1.5px solid var(--green);border-radius:3px;font-size:6.5pt}
+.allergy-summary-title{font-weight:700;color:var(--green);margin-bottom:2px;font-size:7pt}
+.allergy-summary-table{width:100%;border-collapse:collapse;font-size:6pt}
+.allergy-summary-table td{padding:1px 4px;border-bottom:0.5px solid var(--border)}
+
+/* Print All - A4 quad layout */
+.print-all-page{width:210mm;height:297mm;background:white;padding:0;margin:0}
+.quad-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;width:100%;height:100%;gap:0}
+.quad-cell{padding:4mm;font-size:6pt;line-height:1.2;border:0.5px dashed #ccc;overflow:hidden;position:relative}
+.quad-cell:empty{border:none}
+.quad-cell h2{font-family:var(--serif);font-size:9pt;text-align:center;margin-bottom:0;color:var(--green-dark)}
+.quad-cell .p-service{text-align:center;font-size:7.5pt;font-weight:700;margin-bottom:3px;color:var(--green)}
+.quad-cell .print-header-info{display:flex;justify-content:space-between;border-bottom:1px solid var(--green-dark);padding-bottom:2px;margin-bottom:3px;font-weight:600;font-size:5.5pt}
+.quad-cell .print-table{font-size:5.5pt}
+.quad-cell .print-table th{padding:1.5px 2px;font-size:4.5pt}
+.quad-cell .print-table td{padding:1.5px 2px;font-size:5.5pt}
+.quad-cell .menu-summary{font-size:5.5pt;padding:2px 5px;margin-top:3px}
+.quad-cell .menu-summary span{margin-right:8px}
+.quad-cell .allergy-summary{font-size:5.5pt;padding:2px 5px;margin-top:2px}
+.quad-cell .allergy-summary-title{font-size:6pt}
+.quad-cell .allergy-summary-table{font-size:5pt}
+.quad-cell .allergy-summary-table td{padding:1px 3px}
+
+/* Print Triple - divided in sections on page */
+.print-triple-page{width:100%;background:white;padding:0;margin:0;box-sizing:border-box}
+.triple-cell{padding:3mm 4mm;font-size:6.5pt;line-height:1.25;border-bottom:0.5px dashed #999;overflow:hidden;height:50%;box-sizing:border-box}
+.triple-cell:last-child{border-bottom:none}
+.triple-cell:empty{border-bottom:none;padding:0;height:0}
+.triple-cell.page-break{page-break-before:always;border-bottom:none}
+.triple-cell h2{font-family:var(--serif);font-size:10pt;text-align:center;margin-bottom:0;color:var(--green-dark)}
+.triple-cell .p-service{text-align:center;font-size:8pt;font-weight:700;margin-bottom:3px;color:var(--green)}
+.triple-cell .print-header-info{display:flex;justify-content:space-between;border-bottom:1px solid var(--green-dark);padding-bottom:2px;margin-bottom:3px;font-weight:600;font-size:6.5pt}
+.triple-cell .print-table{font-size:6.5pt;width:100%;table-layout:fixed;border-collapse:collapse}
+.triple-cell .print-table th{padding:2px 3px;font-size:5.5pt;text-align:left;white-space:nowrap;background:none;color:#333;font-weight:700;border-bottom:1.5px solid #333;text-transform:uppercase}
+.triple-cell .print-table td{padding:2px 3px;font-size:6.5pt;text-align:left;border-bottom:1px solid #999}
+.triple-cell .menu-summary{font-size:6pt;padding:2px 5px;margin-top:4px}
+.triple-cell .menu-summary span{margin-right:10px}
+.triple-cell .allergy-summary{font-size:6pt;padding:2px 5px;margin-top:3px}
+.triple-cell .allergy-summary-title{font-size:6.5pt}
+.triple-cell .allergy-summary-table{font-size:5.5pt;width:100%;table-layout:auto}
+.triple-cell .allergy-summary-table td{padding:1px 3px}
+</style>
+<style>
+@media print{
+    body{background:white;padding:0;margin:0}
+    .topbar,.page-header,.upload-area,.form-area,.print-index{display:none !important}
+    .print-area{display:none !important}
+    .print-area.print-active{display:block !important}
+    .print-page{margin:0;padding:5mm}
+    .print-all-page{margin:0;padding:0}
+    .print-triple-page{margin:0;padding:0;width:100%;overflow:visible}
+    .quad-cell{border:0.5px dashed #ddd}
+    .triple-cell{border-bottom:0.5px dashed #ddd;overflow:hidden}
+    .triple-cell:last-child{border-bottom:none}
+    .triple-cell.page-break{page-break-before:always;border-bottom:none}
+    @page{margin:0}
+}
+@media(max-width:700px){
+    .header-fields{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+    <a href="operations.html">&larr; Back</a>
+    <span class="title">Petrus</span>
+    <span></span>
+</div>
+<div class="page">
+    <div class="page-header">
+        <h1>Bookings</h1>
+    </div>
+
+    <div class="upload-area">
+        <div class="upload-unlocked" id="uploadUnlocked">
+            <div class="upload-box" onclick="document.getElementById('csvFile').click()">
+                <p>Upload</p>
+                <input type="file" id="csvFile" accept=".csv" onchange="handleCSV(event)">
+            </div>
+            <div class="upload-status" id="uploadStatus"></div>
+            <div id="savedList" style="margin-top:12px"></div>
+        </div>
+    </div>
+
+    <div class="form-area" id="formArea">
+        <div class="header-fields">
+            <div class="field-group">
+                <label>Service</label>
+                <select id="service"><option value="LUNCH">LUNCH</option><option value="DINNER">DINNER</option></select>
+            </div>
+            <div class="field-group">
+                <label>Date</label>
+                <input type="date" id="serviceDate">
+            </div>
+            <div class="field-group">
+                <label>Covers</label>
+                <input type="number" id="covers" min="0" placeholder="—">
+            </div>
+            <div class="field-group">
+                <label>Tables</label>
+                <input type="number" id="tables" min="0" placeholder="—">
+            </div>
+        </div>
+        <div class="reservations-container">
+            <table class="res-table-edit">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Time</th>
+                        <th>Pax</th>
+                        <th>★</th>
+                        <th>Name</th>
+                        <th>Table</th>
+                        <th>Sec</th>
+                        <th>Menu</th>
+                        <th>Special Occasion</th>
+                        <th>OPos</th>
+                        <th>Allergy / Req</th>
+                        <th>APos</th>
+                        <th>Voucher Code</th>
+                        <th>Voucher £</th>
+                        <th>Notes</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="resBody"></tbody>
+            </table>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-add" onclick="addEmptyRow()">+ Add</button>
+            <button class="btn btn-clear" onclick="clearAll()">Clear</button>
+            <button class="btn" id="saveBtn" style="background:#2d7d46;color:white" onclick="saveBooking()">Save</button>
+            <span id="saveStatus" style="font-size:0.72rem;color:#2d7d46;font-weight:500"></span>
+        </div>
+
+        <!-- PRINT INDEX -->
+        <div class="print-index">
+            <div class="print-btn-row" style="margin-bottom:14px">
+                <button class="print-btn-item" onclick="printKitchen()">Kitchen</button>
+                <button class="print-btn-item" onclick="printPastry()">Pastry</button>
+                <button class="print-btn-item" onclick="printSalon(1)">Section 1</button>
+                <button class="print-btn-item" onclick="printSalon(2)">Section 2</button>
+                <button class="print-btn-item" onclick="printReception()">Reception</button>
+                <button class="print-btn-item" style="background:var(--green-dark);color:var(--cream);border-color:var(--green-dark);font-weight:600" onclick="printAll()">Print All</button>
+                <button class="print-btn-item" style="background:var(--green);color:var(--cream);border-color:var(--green);font-weight:600" onclick="printBOH()">Print A5 BOH</button>
+                <button class="print-btn-item" style="background:var(--gold);color:white;border-color:var(--gold);font-weight:600" onclick="printFOH()">Print A5 FOH</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="print-area" id="printArea">
+        <div class="print-page" id="printPage1"></div>
+    </div>
+    <div class="print-area" id="printAreaAll">
+        <div class="print-all-page">
+            <div class="quad-grid">
+                <div class="quad-cell" id="quadKitchen"></div>
+                <div class="quad-cell" id="quadPastry"></div>
+                <div class="quad-cell" id="quadSection1"></div>
+                <div class="quad-cell" id="quadSection2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="print-area" id="printAreaTriple">
+        <div class="print-triple-page">
+            <div class="triple-cell" id="tripleCell1"></div>
+            <div class="triple-cell" id="tripleCell2"></div>
+            <div class="triple-cell" id="tripleCell3"></div>
+        </div>
+    </div>
+</div>
+<!-- Firebase + Auth + Guard ADMIN -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="auth.js"></script>
+<script src="guard-admin.js"></script>
+
+<script>
+document.getElementById('serviceDate').valueAsDate = new Date();
+
+// === AUTO LOAD (no lock needed — guard-admin handles access) ===
+autoLoadBooking();
+document.getElementById('serviceDate').addEventListener('change', function() { updateSaveButton(); });
+document.getElementById('service').addEventListener('change', function() { updateSaveButton(); });
+
+// Salon sections
+var SECTION_1_TABLES = ['1','2','3','4','5','6','7','8','18'];
+var SECTION_2_TABLES = ['9','10','11','12','14','15','16','17'];
+var KT_TABLES = ['800'];
+
+// === NAME FORMATTING ===
+function toTitleCase(str) {
+    if (!str) return '';
+    return str.toLowerCase().replace(/(?:^|\s|[-'])\S/g, function(c) { return c.toUpperCase(); });
+}
+
+// === CSV ===
+function handleCSV(event) {
+    var file = event.target.files[0];
+    if (!file) return;
+    // Try to extract date from filename
+    // Format: DD-MM-YYYY (e.g. 15-07-2026)
+    var dateMatch = file.name.match(/(\d{2})-(\d{2})-(\d{4})/);
+    if (dateMatch) {
+        // DD-MM-YYYY → YYYY-MM-DD for input
+        document.getElementById('serviceDate').value = dateMatch[3]+'-'+dateMatch[2]+'-'+dateMatch[1];
+    }
+    if (/dinner/i.test(file.name)) document.getElementById('service').value = 'DINNER';
+    else if (/lunch/i.test(file.name)) document.getElementById('service').value = 'LUNCH';
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var rows = parseCSV(e.target.result);
+        populateFromCSV(rows);
+        document.getElementById('uploadStatus').textContent = rows.length + ' reservations loaded';
+    };
+    reader.readAsText(file);
+}
+
+function parseCSV(text) {
+    var lines = text.split('\n');
+    var headers = parseCSVLine(lines[0]);
+    var rows = [];
+    for (var i = 1; i < lines.length; i++) {
+        var line = lines[i].trim();
+        if (!line) continue;
+        var values = parseCSVLine(line);
+        var row = {};
+        headers.forEach(function(h, idx) {
+            row[h.trim().replace(/"/g,'')] = (values[idx]||'').replace(/"/g,'').trim();
+        });
+        rows.push(row);
+    }
+    return rows;
+}
+function parseCSVLine(line) {
+    var result = [], current = '', inQuotes = false;
+    for (var i = 0; i < line.length; i++) {
+        var c = line[i];
+        if (c === '"') inQuotes = !inQuotes;
+        else if (c === ',' && !inQuotes) { result.push(current); current = ''; }
+        else current += c;
+    }
+    result.push(current);
+    return result;
+}
+
+// === EXTRACTORS ===
+function extractMenu(notes) {
+    if (!notes) return '';
+    var found = [];
+    var pat = /Menu\s+([\w\s\u00C0-\u024F]+?)\s+at\s+P/gi;
+    var m;
+    while ((m = pat.exec(notes)) !== null) {
+        var n = m[1].trim().toLowerCase();
+        if (n.indexOf('prestige') >= 0) found.push('Prestige');
+        else if (n.indexOf('discovery') >= 0) found.push('Discovery');
+        else if (n.indexOf('la carte') >= 0 || n.indexOf('alc') >= 0) found.push('ALC');
+        else if (n.indexOf('lunch') >= 0) found.push('Lunch Menu');
+    }
+    if (found.length === 0) {
+        if (/\bPST\b/.test(notes) || /\bprestige\b/i.test(notes)) found.push('Prestige');
+        if (/\bdiscovery\b/i.test(notes)) found.push('Discovery');
+        if (/\bALC\b/.test(notes) || /[a\u00e0] la carte/i.test(notes) || /\bALC\s+Menu\b/i.test(notes) || /\bA la carte Menu\b/i.test(notes)) found.push('ALC');
+        if (/\blunch menu\b/i.test(notes) || /\bLM\b/.test(notes)) found.push('Lunch Menu');
+    }
+    return found.filter(function(v,i,a){return a.indexOf(v)===i;}).join(', ');
+}
+
+function extractAllergies(notes) {
+    if (!notes) return '';
+    var hasNoDiet = /no diet/i.test(notes);
+    var found = [];
+
+    // First: try to capture compound expressions like "Pescatarian (Halal)" or "Vegetarian (no egg)"
+    var compoundPatterns = [
+        /(\bpescatarian\b|\bpesci\b|\bpesce\b|\bpesc\b)\s*\([^)]+\)/gi,
+        /(\bvegetarian\b|\bveggie\b|\bveggy\b|\bveg\b)\s*\([^)]+\)/gi,
+        /(\bvegan\b|\bvgn\b)\s*\([^)]+\)/gi,
+        /(\bhalal\b)\s*\([^)]+\)/gi,
+        /(\bkosher\b)\s*\([^)]+\)/gi,
+        /(\bgluten\s*free\b|\bGF\b)\s*\([^)]+\)/gi,
+        /(\bdairy\s*free\b|\bDF\b)\s*\([^)]+\)/gi
+    ];
+    var hasCompound = false;
+    compoundPatterns.forEach(function(pat) {
+        var matches = notes.match(pat);
+        if (matches) {
+            matches.forEach(function(m) {
+                var normalized = m
+                    .replace(/\bpesci\b|\bpesce\b|\bpesc\b/i, 'Pescatarian')
+                    .replace(/\bveggie\b|\bveggy\b|\bveg\b/i, 'Vegetarian')
+                    .replace(/\bvgn\b/i, 'Vegan');
+                normalized = normalized.charAt(0).toUpperCase() + normalized.slice(1);
+                if (found.indexOf(normalized) < 0) found.push(normalized);
+                hasCompound = true;
+            });
+        }
+    });
+
+    // Capture "Nx [allergy]" patterns like "1x shellfish and peanuts allergy"
+    var nxPattern = notes.match(/(\d+)\s*x\s+([\w\s]+?)(?:\s+allergy|\s+intolerance)?(?:\/|,|;|\.|$)/gi);
+    if (nxPattern) {
+        nxPattern.forEach(function(m) {
+            var parts = m.match(/(\d+)\s*x\s+([\w\s]+?)(?:\s+allergy|\s+intolerance)?(?:\/|,|;|\.|$)/i);
+            if (parts && parts[2]) {
+                var items = parts[2].trim().split(/\s+and\s+|\s*&\s*/i);
+                items.forEach(function(item) {
+                    item = item.trim().replace(/\s+allergy$/i,'').replace(/\s+intolerance$/i,'');
+                    if (item && !/^no\s*diet$/i.test(item)) {
+                        var label = parts[1] + 'x ' + item.charAt(0).toUpperCase() + item.slice(1);
+                        if (found.indexOf(label) < 0) found.push(label);
+                    }
+                });
+            }
+        });
+    }
+
+    // Standard single-keyword detection
+    var patterns = [
+        {r:/shellfish/i,l:'Shellfish'},
+        {r:/peanut/i,l:'Peanut'},
+        {r:/\bnut\b|nut allergy|nuts\b/i,l:'Nut'},
+        {r:/gluten|coeliac|celiac|\bGF\b/i,l:'Gluten Free'},
+        {r:/dairy|\bDF\b/i,l:'Dairy Free'},
+        {r:/\bvegan\b|\bvgn\b/i,l:'Vegan'},
+        {r:/\bvegetarian\b|\bveggie\b|\bveggy\b|\bveg\b/i,l:'Vegetarian'},
+        {r:/\bpescatarian\b|\bpesci\b|\bpesce\b|\bpesc\b/i,l:'Pescatarian'},
+        {r:/\bhalal\b/i,l:'Halal'},
+        {r:/\bkosher\b/i,l:'Kosher'},
+        {r:/lactose/i,l:'Lactose'},
+        {r:/\begg\b|egg allergy/i,l:'Egg'},
+        {r:/\bsoy\b|\bsoya\b/i,l:'Soy'},
+        {r:/no pork/i,l:'No Pork'},
+        {r:/\bprawn\b|prawn allergy/i,l:'Prawn'},
+        {r:/\bcrab\b/i,l:'Crab'},
+        {r:/\blobster\b/i,l:'Lobster'},
+        {r:/\bsesame\b/i,l:'Sesame'},
+        {r:/\bmustard\b/i,l:'Mustard'},
+        {r:/\bsulphite\b|\bsulfite\b/i,l:'Sulphite'},
+        {r:/\blupin\b/i,l:'Lupin'},
+        {r:/\bmollusc\b|\bmollusk\b/i,l:'Mollusc'},
+        {r:/\bwheat\b/i,l:'Wheat'},
+        {r:/\bfish allergy\b/i,l:'Fish Allergy'}
+    ];
+    
+    // Only add standard labels if not already covered by compound or Nx matches
+    patterns.forEach(function(p) {
+        if (p.r.test(notes)) {
+            var alreadyCovered = found.some(function(f) {
+                return f.toLowerCase().indexOf(p.l.toLowerCase()) >= 0 ||
+                       f.toLowerCase().indexOf(p.l.split(' ')[0].toLowerCase()) >= 0;
+            });
+            if (!alreadyCovered) found.push(p.l);
+        }
+    });
+    
+    // Catch "does not eat X" / "doesn't eat X" / "cannot eat X"
+    var m1 = notes.match(/(\d+|one|two|three)\s*(?:x\s*)?(?:guest|party|person|pax|of the party)?\s*(?:does not|doesn'?t|cannot|can'?t)\s+eat\s+([\w\s]+?)(?:\.|,|;|$)/gi);
+    if (m1) {
+        m1.forEach(function(match) {
+            var numMatch = match.match(/^(\d+|one|two|three)/i);
+            var foodMatch = match.match(/(?:eat)\s+([\w\s]+?)(?:\.|,|;|$)/i);
+            if (foodMatch) {
+                var num = numMatch ? numMatch[1] : '1';
+                if (/one/i.test(num)) num = '1';
+                if (/two/i.test(num)) num = '2';
+                if (/three/i.test(num)) num = '3';
+                var label = num + 'x does not eat ' + foodMatch[1].trim();
+                if (found.indexOf(label) < 0) found.push(label);
+            }
+        });
+    }
+    if (!m1 || m1.length === 0) {
+        var m2 = notes.match(/(?:does not|doesn'?t|cannot|can'?t)\s+eat\s+([\w\s]+?)(?:\.|,|;|$)/gi);
+        if (m2) {
+            m2.forEach(function(match) {
+                var foodMatch = match.match(/(?:eat)\s+([\w\s]+?)(?:\.|,|;|$)/i);
+                if (foodMatch) {
+                    var label = 'Does not eat ' + foodMatch[1].trim();
+                    if (found.indexOf(label) < 0) found.push(label);
+                }
+            });
+        }
+    }
+    // "no beef" / "no lamb" style (but not "no diet")
+    var noFood = notes.match(/\bno\s+(beef|lamb|pork|fish|seafood|chicken|meat|red meat|alcohol|onion|garlic|spice|mushroom|tomato|pepper|cream|butter|sugar)\b/gi);
+    if (noFood) {
+        noFood.forEach(function(nf) {
+            var item = nf.replace(/^no\s+/i, '').trim();
+            var label = 'No ' + item.charAt(0).toUpperCase() + item.slice(1).toLowerCase();
+            if (found.indexOf(label) < 0) found.push(label);
+        });
+    }
+    
+    if (/FOOD & DRINK PREFERENCES:.*Allergy/i.test(notes) && found.length===0) found.push('Allergy (check notes)');
+    if (hasNoDiet && found.length===0) return '';
+    return found.filter(function(v,i,a){return a.indexOf(v)===i;}).join(', ');
+}
+function extractOccasion(notes) {
+    if (!notes) return '';
+    var occ = [];
+
+    // First get detail from VISIT NOTES (usually more specific)
+    var visitDetail = '';
+    var vm = notes.match(/VISIT NOTES:\s*(.*?)(?=SPECIAL EVENTS|GENERAL NOTES|FOOD & DRINK|GUEST REQUESTS|\d{5,}|$)/i);
+    if (vm) {
+        var vt = vm[1];
+        // "Keiko's birthday" / "John's 50th birthday"
+        var vBday = vt.match(/([\w']+'s\s+(?:\d+\w*\s*)?birthday)/i);
+        if (vBday) visitDetail = toTitleCase(vBday[1]);
+        // "5-year wedding anniversary" / "wedding anniversary"
+        var vAnniv = vt.match(/(\d+[\w-]*\s*(?:year\s+)?(?:wedding\s+)?anniversary)/i);
+        if (!visitDetail && vAnniv) visitDetail = toTitleCase(vAnniv[1]);
+        // "Raphael's birthday" style
+        if (!visitDetail) {
+            var vName = vt.match(/([\w]+'s)\s+(birthday|anniversary|celebration|engagement|graduation|retirement|promotion)/i);
+            if (vName) visitDetail = toTitleCase(vName[1] + ' ' + vName[2]);
+        }
+    }
+
+    // Then check SPECIAL EVENTS field
+    var sp = notes.match(/SPECIAL EVENTS:\s*(.*?)$/im);
+    if (sp && sp[1].trim()) {
+        var raw = sp[1].trim();
+
+        // If it's just a generic label AND we have visit detail, use visit detail
+        if (/^(birthday|anniversary|special occasion|celebration)\s*$/i.test(raw) && visitDetail) {
+            occ.push(visitDetail);
+        } else {
+            // Try to extract specific detail from SPECIAL EVENTS itself
+            // "50th Wedding Anniversary"
+            var anniv = raw.match(/(\d+\w*\s*(?:wedding\s+)?anniversary)/i);
+            if (anniv) { occ.push(toTitleCase(anniv[1])); }
+            // "John's Birthday" / "John's 30th Birthday"
+            else {
+                var bday = raw.match(/([\w']+'s\s*(?:\d+\w*\s*)?birthday)/i);
+                if (bday) { occ.push(toTitleCase(bday[0])); }
+                else if (/birthday/i.test(raw)) {
+                    // Generic "Birthday" - use visit detail if available
+                    occ.push(visitDetail || 'Birthday');
+                }
+                else if (/anniversary/i.test(raw)) {
+                    occ.push(visitDetail || 'Anniversary');
+                }
+            }
+            // Congratulations with name
+            if (/congratulations/i.test(raw)) {
+                var congName = raw.match(/congratulations\s+(?:to\s+)?(\w+)/i);
+                occ.push(congName ? 'Congrats ' + toTitleCase(congName[1]) : 'Congratulations');
+            }
+            // Other specific types
+            if (/engagement/i.test(raw) && !occ.some(function(o){return /engagement/i.test(o);})) occ.push('Engagement');
+            if (/promotion/i.test(raw) && !occ.some(function(o){return /promotion/i.test(o);})) occ.push('Promotion');
+            if (/graduation/i.test(raw) && !occ.some(function(o){return /graduation/i.test(o);})) occ.push('Graduation');
+            if (/retirement/i.test(raw) && !occ.some(function(o){return /retirement/i.test(o);})) occ.push('Retirement');
+            if (/proposal/i.test(raw) && !occ.some(function(o){return /proposal/i.test(o);})) occ.push('Proposal');
+            if (/reunion/i.test(raw) && !occ.some(function(o){return /reunion/i.test(o);})) occ.push('Reunion');
+            if (/farewell/i.test(raw) && !occ.some(function(o){return /farewell/i.test(o);})) occ.push('Farewell');
+            if (/hen\s*(do|party|night)/i.test(raw)) occ.push('Hen Party');
+            if (/stag\s*(do|party|night)/i.test(raw)) occ.push('Stag Party');
+            if (/welcome/i.test(raw) && !occ.some(function(o){return /welcome/i.test(o);})) occ.push('Welcome');
+            if (/baby\s*shower/i.test(raw)) occ.push('Baby Shower');
+            if (/celebration/i.test(raw) && occ.length === 0) occ.push('Celebration');
+            // "Special Occasion" generic — use visit detail or leave generic
+            if (/special occasion/i.test(raw) && occ.length === 0) {
+                occ.push(visitDetail || 'Special Occasion');
+            }
+            // Fallback: if nothing matched but there's meaningful text, use it
+            if (occ.length === 0 && raw.length > 2) occ.push(toTitleCase(raw));
+        }
+    } else if (visitDetail) {
+        // No SPECIAL EVENTS field but found detail in visit notes
+        occ.push(visitDetail);
+    }
+
+    return occ.filter(function(v,i,a){return a.indexOf(v)===i;}).join(', ');
+}
+
+function extractVoucher(notes) {
+    if (!notes) return '';
+    var code = extractVoucherCode(notes);
+    var val = extractVoucherValue(notes);
+    if (code && val) return code + ' - ' + val;
+    return code || val || '';
+}
+
+function extractVoucherCode(notes) {
+    if (!notes) return '';
+    var allMatches = notes.match(/[A-Za-z0-9]{7,}/g);
+    if (!allMatches) return '';
+    for (var i = 0; i < allMatches.length; i++) {
+        var code = allMatches[i];
+        var digitCount = (code.match(/\d/g) || []).length;
+        var hasLetter = /[A-Za-z]/.test(code);
+        var isWord = /^[A-Za-z]+$/.test(code);
+        if (digitCount >= 5 && hasLetter && !isWord) return code;
+    }
+    return '';
+}
+
+function extractVoucherValue(notes) {
+    if (!notes) return '';
+    var valMatch = notes.match(/[£€]\s*(\d+)\/checked/i);
+    if (valMatch) return '£' + valMatch[1];
+    return '';
+}
+
+function extractNotes(notes) {
+    if (!notes) return '';
+    var parts = [];
+    var gr = notes.match(/GUEST REQUESTS:\s*(.*?)(?=VISIT NOTES|SPECIAL EVENTS|GENERAL NOTES|\d{5,}|$)/i);
+    if (gr && gr[1].trim()) {
+        var req = gr[1].trim().replace(/Voucher:\s*\S+/i, '').trim();
+        if (req) parts.push(req);
+    }
+    return parts.join('; ');
+}
+
+// === POPULATE ===
+function populateFromCSV(rows) {
+    var tbody = document.getElementById('resBody');
+    tbody.innerHTML = '';
+    var covers = 0, tblSet = {};
+    rows.forEach(function(row) {
+        var time = row['TIME']||'';
+        var pax = parseInt(row['PARTY SIZE']||row['PAX']||'0');
+        var name = toTitleCase(row['GUEST']||row['NAME']||'');
+        var table = row['TABLE']||'';
+        var notesRaw = row['NOTES AND TAGS']||'';
+        covers += pax;
+        if (table) tblSet[table] = true;
+        addRow(time, pax, name, table, extractMenu(notesRaw), extractOccasion(notesRaw), extractAllergies(notesRaw), extractNotes(notesRaw), '', '', '', extractVoucherCode(notesRaw), extractVoucherValue(notesRaw));
+    });
+    document.getElementById('covers').value = covers;
+    document.getElementById('tables').value = Object.keys(tblSet).length;
+    document.getElementById('formArea').classList.add('visible');
+    updateSaveButton();
+}
+
+// === ROW MANAGEMENT ===
+function addRow(time, pax, name, table, menu, occasion, allergy, notes, voucher, visits, allergyPos, voucherCode, voucherValue, occasionPos, star) {
+    // Handle old-style calls where voucher is a single field
+    if (!voucherCode && voucher) { voucherCode = voucher; }
+    if (!allergyPos) allergyPos = '';
+    if (!occasionPos) occasionPos = '';
+    if (!voucherCode) voucherCode = '';
+    if (!voucherValue) voucherValue = '';
+    if (!star) star = '';
+    var tbody = document.getElementById('resBody');
+    var tr = document.createElement('tr');
+    tr.draggable = true;
+
+    // Determine section based on table number
+    function getSectionLabel(tbl) {
+        if (KT_TABLES.indexOf(tbl) >= 0) return 'KT';
+        if (SECTION_1_TABLES.indexOf(tbl) >= 0) return 'S1';
+        if (SECTION_2_TABLES.indexOf(tbl) >= 0) return 'S2';
+        return '—';
+    }
+    function getSectionClass(tbl) {
+        if (KT_TABLES.indexOf(tbl) >= 0) return 'kt';
+        if (SECTION_1_TABLES.indexOf(tbl) >= 0) return 's1';
+        if (SECTION_2_TABLES.indexOf(tbl) >= 0) return 's2';
+        return 's0';
+    }
+    var secLabel = getSectionLabel(table);
+    var secClass = getSectionClass(table);
+    var starActive = star ? ' active' : '';
+
+    tr.innerHTML =
+        '<td><span class="drag-handle">&#9776;</span></td>' +
+        '<td><input type="text" value="'+esc(time)+'" class="r-time med"></td>' +
+        '<td><input type="number" value="'+(pax||'')+'" class="r-pax narrow" min="1"></td>' +
+        '<td><button class="star-badge'+starActive+'" onclick="toggleStar(this)" title="VIP / High spender">'+(star?'\u2605':'')+' </button></td>' +
+        '<td><input type="text" value="'+esc(name)+'" class="r-name"></td>' +
+        '<td><input type="text" value="'+esc(table)+'" class="r-table narrow"></td>' +
+        '<td><button class="sec-badge '+secClass+'" onclick="toggleSection(this)" title="Click to move to other section">'+secLabel+'</button></td>' +
+        '<td><select class="r-menu">'+
+            '<option value=""'+(!menu?' selected':'')+'>—</option>'+
+            '<option value="Prestige"'+(menu.indexOf('Prestige')>=0?' selected':'')+'>Prestige</option>'+
+            '<option value="Discovery"'+(menu.indexOf('Discovery')>=0?' selected':'')+'>Discovery</option>'+
+            '<option value="ALC"'+(menu.indexOf('ALC')>=0?' selected':'')+'>ALC</option>'+
+            '<option value="Lunch Menu"'+(menu.indexOf('Lunch Menu')>=0?' selected':'')+'>Lunch Menu</option>'+
+        '</select></td>' +
+        '<td><input type="text" value="'+esc(occasion)+'" class="r-occasion"></td>' +
+        '<td><input type="text" value="'+esc(occasionPos||'')+'" class="r-occpos narrow" placeholder="p1.."></td>' +
+        '<td><input type="text" value="'+esc(allergy)+'" class="r-allergy"></td>' +
+        '<td><input type="text" value="'+esc(allergyPos||'')+'" class="r-allergypos narrow" placeholder="p1.."></td>' +
+        '<td><input type="text" value="'+esc(voucherCode||'')+'" class="r-vcode"></td>' +
+        '<td><input type="text" value="'+esc(voucherValue||'')+'" class="r-vvalue narrow"></td>' +
+        '<td><input type="text" value="'+esc(notes||'')+'" class="r-notes"></td>' +
+        '<td><button class="btn-remove-row" onclick="this.closest(\'tr\').remove();recalc();">&#215;</button></td>';
+    tbody.appendChild(tr);
+    enableDrag(tr);
+
+    // Auto-recalc when pax or table changes
+    tr.querySelector('.r-pax').addEventListener('input', recalc);
+    tr.querySelector('.r-pax').addEventListener('change', recalc);
+    tr.querySelector('.r-table').addEventListener('input', function() {
+        recalc();
+        updateSectionBadge(tr.querySelector('.r-table'));
+    });
+    tr.querySelector('.r-table').addEventListener('change', function() {
+        recalc();
+        updateSectionBadge(tr.querySelector('.r-table'));
+    });
+}
+
+// Toggle section badge manually (S1 → S2 → KT → S1)
+function toggleSection(btn) {
+    var currentSec = btn.textContent.trim();
+    if (currentSec === 'S1') {
+        btn.textContent = 'S2';
+        btn.className = 'sec-badge s2';
+    } else if (currentSec === 'S2') {
+        btn.textContent = 'KT';
+        btn.className = 'sec-badge kt';
+    } else {
+        btn.textContent = 'S1';
+        btn.className = 'sec-badge s1';
+    }
+}
+
+// Update section badge when table number is edited manually
+function updateSectionBadge(tableInput) {
+    var tr = tableInput.closest('tr');
+    var btn = tr.querySelector('.sec-badge');
+    var tbl = tableInput.value.trim();
+    if (KT_TABLES.indexOf(tbl) >= 0) {
+        btn.textContent = 'KT'; btn.className = 'sec-badge kt';
+    } else if (SECTION_1_TABLES.indexOf(tbl) >= 0) {
+        btn.textContent = 'S1'; btn.className = 'sec-badge s1';
+    } else if (SECTION_2_TABLES.indexOf(tbl) >= 0) {
+        btn.textContent = 'S2'; btn.className = 'sec-badge s2';
+    } else {
+        btn.textContent = '—'; btn.className = 'sec-badge s0';
+    }
+}
+
+function addEmptyRow() { addRow('','','','','','','','','','','','','','',''); }
+
+// Toggle star/VIP badge
+function toggleStar(btn) {
+    if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        btn.innerHTML = ' ';
+    } else {
+        btn.classList.add('active');
+        btn.innerHTML = '\u2605';
+    }
+}
+
+// Format allergy text with line breaks for print
+function formatAllergyPrint(allergy) {
+    if (!allergy) return '';
+    return allergy.replace(/,\s*/g, '<br>');
+}
+
+// Helper: filter rows by section, respecting manual override
+function filterBySection(rows, sectionNum) {
+    var tables = sectionNum === 1 ? SECTION_1_TABLES : SECTION_2_TABLES;
+    var secLabel = 'S' + sectionNum;
+    return rows.filter(function(r) {
+        if (r.section === 'S1') return sectionNum === 1;
+        if (r.section === 'S2') return sectionNum === 2;
+        return tables.indexOf(r.table) >= 0;
+    });
+}
+function esc(s) {
+    if (!s) return '';
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function recalc() {
+    var c=0, t={};
+    document.querySelectorAll('#resBody tr').forEach(function(tr){
+        c += parseInt(tr.querySelector('.r-pax').value)||0;
+        var tb = tr.querySelector('.r-table').value.trim();
+        if (tb) t[tb]=true;
+    });
+    document.getElementById('covers').value = c;
+    document.getElementById('tables').value = Object.keys(t).length;
+}
+function clearAll() {
+    if (!confirm('Clear all?')) return;
+    document.getElementById('resBody').innerHTML = '';
+    document.getElementById('covers').value = '';
+    document.getElementById('tables').value = '';
+    document.getElementById('uploadStatus').textContent = '';
+}
+
+// === DRAG TO REORDER ===
+var dragRow = null;
+function enableDrag(tr) {
+    tr.addEventListener('dragstart', function(e) {
+        dragRow = tr; tr.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move';
+    });
+    tr.addEventListener('dragend', function() {
+        tr.classList.remove('dragging');
+        document.querySelectorAll('#resBody tr').forEach(function(r){r.classList.remove('drag-over');});
+        dragRow = null;
+    });
+    tr.addEventListener('dragover', function(e) {
+        e.preventDefault(); if (dragRow && dragRow !== tr) tr.classList.add('drag-over');
+    });
+    tr.addEventListener('dragleave', function() { tr.classList.remove('drag-over'); });
+    tr.addEventListener('drop', function(e) {
+        e.preventDefault(); tr.classList.remove('drag-over');
+        if (dragRow && dragRow !== tr) {
+            var tbody = document.getElementById('resBody');
+            var rows = Array.from(tbody.querySelectorAll('tr'));
+            var fromIdx = rows.indexOf(dragRow), toIdx = rows.indexOf(tr);
+            if (fromIdx < toIdx) tbody.insertBefore(dragRow, tr.nextSibling);
+            else tbody.insertBefore(dragRow, tr);
+        }
+    });
+}
+// === GATHER ALL ROWS DATA ===
+function gatherRows() {
+    var data = [];
+    document.querySelectorAll('#resBody tr').forEach(function(tr) {
+        var secBtn = tr.querySelector('.sec-badge');
+        var secOverride = secBtn ? secBtn.textContent.trim() : '';
+        var starBtn = tr.querySelector('.star-badge');
+        var starVal = (starBtn && starBtn.classList.contains('active')) ? '1' : '';
+        data.push({
+            time: tr.querySelector('.r-time').value,
+            pax: tr.querySelector('.r-pax').value,
+            name: tr.querySelector('.r-name').value,
+            table: tr.querySelector('.r-table').value.trim(),
+            menu: tr.querySelector('.r-menu').value,
+            occasion: tr.querySelector('.r-occasion').value,
+            occasionPos: tr.querySelector('.r-occpos').value,
+            allergy: tr.querySelector('.r-allergy').value,
+            allergyPos: tr.querySelector('.r-allergypos').value,
+            notes: tr.querySelector('.r-notes').value,
+            voucherCode: tr.querySelector('.r-vcode').value,
+            voucherValue: tr.querySelector('.r-vvalue').value,
+            section: secOverride,
+            star: starVal
+        });
+    });
+    return data;
+}
+
+function getHeaderInfo() {
+    var date = document.getElementById('serviceDate').value;
+    var dateObj = new Date(date + 'T00:00:00');
+    return {
+        service: document.getElementById('service').value,
+        dateStr: dateObj.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'}),
+        covers: document.getElementById('covers').value || '0',
+        tables: document.getElementById('tables').value || '0'
+    };
+}
+
+// === PRINT ORIENTATION HELPER ===
+function showPrintArea(id) {
+    // Remove print-active from all print areas
+    document.querySelectorAll('.print-area').forEach(function(el) {
+        el.classList.remove('print-active');
+        el.style.display = 'none';
+    });
+    // Activate the target
+    var target = document.getElementById(id);
+    target.style.display = 'block';
+    target.classList.add('print-active');
+}
+
+function setPrintOrientation(rows, cols) {
+    // Remove any existing print-orientation style
+    var existing = document.getElementById('printOrientationStyle');
+    if (existing) existing.remove();
+    
+    // Hide other print areas when doing individual prints
+    showPrintArea('printArea');
+    
+    // Determine orientation: FOH (cols >= 9) = landscape, BOH = portrait
+    var useLandscape = cols >= 9;
+    var pageSize = useLandscape ? '8.5in 5.5in' : '5.5in 8.5in';
+    
+    var style = document.createElement('style');
+    style.id = 'printOrientationStyle';
+    style.textContent = '@page{size:'+pageSize+';margin:2mm}';
+    document.head.appendChild(style);
+}
+
+// === PRINT KITCHEN ===
+function printKitchen() {
+    var info = getHeaderInfo();
+    var rows = gatherRows();
+    setPrintOrientation(rows.length, 8);
+    document.getElementById('printPage1').innerHTML = buildKitchenHTML(info, rows);
+    document.getElementById('printArea').style.display = 'block';
+    setTimeout(function(){ window.print(); }, 300);
+}
+
+// === PRINT PASTRY ===
+function printPastry() {
+    var info = getHeaderInfo();
+    var rows = gatherRows();
+    setPrintOrientation(rows.length, 9);
+    document.getElementById('printPage1').innerHTML = buildPastryHTML(info, rows);
+    document.getElementById('printArea').style.display = 'block';
+    setTimeout(function(){ window.print(); }, 300);
+}
+// === PRINT SALON ===
+function printSalon(section) {
+    var info = getHeaderInfo();
+    var rows = gatherRows();
+    var sectionLabel = 'SECTION ' + section;
+    var filtered = filterBySection(rows, section);
+    setPrintOrientation(filtered.length, 11);
+    document.getElementById('printPage1').innerHTML = buildSalonHTML(info, filtered, sectionLabel, section === 1 ? SECTION_1_TABLES : SECTION_2_TABLES);
+    document.getElementById('printArea').style.display = 'block';
+    setTimeout(function(){ window.print(); }, 300);
+}
+
+// === PRINT RECEPTION ===
+function printReception() {
+    var info = getHeaderInfo();
+    var rows = gatherRows();
+    setPrintOrientation(rows.length, 11);
+    document.getElementById('printPage1').innerHTML = buildReceptionHTML(info, rows);
+    document.getElementById('printArea').style.display = 'block';
+    setTimeout(function(){ window.print(); }, 300);
+}
+
+// === PRINT ALL (Statement, each section gets its own page) ===
+function printAll() {
+    var info = getHeaderInfo();
+    var rows = gatherRows();
+
+    var existing = document.getElementById('printOrientationStyle');
+    if (existing) existing.remove();
+    var style = document.createElement('style');
+    style.id = 'printOrientationStyle';
+    style.textContent = '@page{size:5.5in 8.5in;margin:2mm}';
+    document.head.appendChild(style);
+
+    showPrintArea('printArea');
+
+    var s1Rows = filterBySection(rows, 1);
+    var s2Rows = filterBySection(rows, 2);
+
+    var pages = [];
+    pages.push(buildKitchenHTML(info, rows));
+    pages.push(buildKitchenHTML(info, rows));
+    pages.push(buildPastryHTML(info, rows));
+    if (s1Rows.length > 0) pages.push(buildSalonHTML(info, s1Rows, 'SECTION 1', SECTION_1_TABLES));
+    if (s2Rows.length > 0) pages.push(buildSalonHTML(info, s2Rows, 'SECTION 2', SECTION_2_TABLES));
+    pages.push(buildReceptionHTML(info, rows));
+
+    var allHTML = pages.map(function(content, idx) {
+        var breakStyle = idx > 0 ? ' style="page-break-before:always"' : '';
+        return '<div class="print-page"' + breakStyle + '>' + content + '</div>';
+    }).join('');
+
+    document.getElementById('printPage1').innerHTML = allHTML;
+
+    setTimeout(function(){ window.print(); }, 300);
+}
+
+function buildKitchenHTML(info, rows) {
+    var html = '';
+    var menuCount = {Prestige:0,Discovery:0,ALC:0,'Lunch Menu':0};
+    var allergyList = [];
+
+    rows.forEach(function(r) {
+        if (r.menu && menuCount[r.menu] !== undefined) menuCount[r.menu] += parseInt(r.pax)||1;
+        if (r.allergy && r.allergy.trim()) allergyList.push({name:r.name||'Guest',table:r.table,pax:r.pax,allergies:r.allergy});
+        var starName = (r.star ? '\u2605 ' : '') + esc(r.name);
+        html += '<tr><td>'+esc(r.time)+'</td><td>'+esc(r.pax)+'</td><td><strong>'+starName+'</strong></td><td>'+esc(r.table)+'</td><td>'+esc(r.menu)+'</td><td class="'+(r.allergy?'allergy-cell':'')+'">'+formatAllergyPrint(r.allergy)+'</td><td>'+esc(r.allergyPos||'')+'</td><td class="notes-cell">'+esc(r.notes)+'</td></tr>';
+    });
+    for (var i=0;i<3;i++) html += '<tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+
+    var mp = [];
+    Object.keys(menuCount).forEach(function(n){if(menuCount[n]>0)mp.push('<span>'+n+': '+menuCount[n]+'</span>');});
+    var menuHTML = mp.length ? '<div class="menu-summary">'+mp.join('')+'</div>' : '';
+
+    var allergyHTML = '';
+    if (allergyList.length) {
+        var ar = allergyList.map(function(a){return '<tr><td><strong>'+esc(a.name)+'</strong></td><td>Tbl '+esc(a.table)+'</td><td class="allergy-cell">'+formatAllergyPrint(a.allergies)+'</td></tr>';}).join('');
+        allergyHTML = '<div class="allergy-summary"><div class="allergy-summary-title">ALLERGIES</div><table class="allergy-summary-table">'+ar+'</table></div>';
+    }
+
+    return '<h2>PETRUS</h2><div class="p-service">KITCHEN \u2014 '+info.service+'</div><div class="print-header-info"><span>'+info.dateStr+'</span><span>Cvrs: '+info.covers+'</span><span>Tbls: '+info.tables+'</span></div><table class="print-table"><colgroup><col style="width:8%"><col style="width:5%"><col style="width:18%"><col style="width:5%"><col style="width:10%"><col style="width:22%"><col style="width:5%"><col style="width:27%"></colgroup><thead><tr><th>Time</th><th>Pax</th><th>Name</th><th>Tbl</th><th>Menu</th><th colspan="2">Allergy / Req</th><th>Notes</th></tr></thead><tbody>'+html+'</tbody></table>'+menuHTML+allergyHTML;
+}
+
+function buildPastryHTML(info, rows) {
+    var html = '';
+    var menuCount = {Prestige:0,Discovery:0,ALC:0,'Lunch Menu':0};
+    var allergyList = [];
+
+    rows.forEach(function(r) {
+        if (r.menu && menuCount[r.menu] !== undefined) menuCount[r.menu] += parseInt(r.pax)||1;
+        if (r.allergy && r.allergy.trim()) allergyList.push({name:r.name||'Guest',table:r.table,pax:r.pax,allergies:r.allergy});
+        var starName = (r.star ? '\u2605 ' : '') + esc(r.name);
+        var occClass = r.occasion ? 'occasion-cell' : '';
+        html += '<tr><td>'+esc(r.time)+'</td><td>'+esc(r.pax)+'</td><td><strong>'+starName+'</strong></td><td>'+esc(r.table)+'</td><td>'+esc(r.menu)+'</td><td class="'+occClass+'">'+esc(r.occasion)+'</td><td>'+esc(r.occasionPos||'')+'</td><td class="'+(r.allergy?'allergy-cell':'')+'">'+formatAllergyPrint(r.allergy)+'</td><td>'+esc(r.allergyPos||'')+'</td><td class="notes-cell">'+esc(r.notes)+'</td></tr>';
+    });
+    for (var i=0;i<3;i++) html += '<tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+
+    var mp = [];
+    Object.keys(menuCount).forEach(function(n){if(menuCount[n]>0)mp.push('<span>'+n+': '+menuCount[n]+'</span>');});
+    var menuHTML = mp.length ? '<div class="menu-summary">'+mp.join('')+'</div>' : '';
+
+    var allergyHTML = '';
+    if (allergyList.length) {
+        var ar = allergyList.map(function(a){return '<tr><td><strong>'+esc(a.name)+'</strong></td><td>Tbl '+esc(a.table)+'</td><td class="allergy-cell">'+formatAllergyPrint(a.allergies)+'</td></tr>';}).join('');
+        allergyHTML = '<div class="allergy-summary"><div class="allergy-summary-title">ALLERGIES</div><table class="allergy-summary-table">'+ar+'</table></div>';
+    }
+
+    return '<h2>PETRUS</h2><div class="p-service">PASTRY \u2014 '+info.service+'</div><div class="print-header-info"><span>'+info.dateStr+'</span><span>Cvrs: '+info.covers+'</span><span>Tbls: '+info.tables+'</span></div><table class="print-table"><colgroup><col style="width:7%"><col style="width:4%"><col style="width:16%"><col style="width:5%"><col style="width:9%"><col style="width:14%"><col style="width:5%"><col style="width:18%"><col style="width:5%"><col style="width:17%"></colgroup><thead><tr><th>Time</th><th>Pax</th><th>Name</th><th>Tbl</th><th>Menu</th><th colspan="2">Occasion</th><th colspan="2">Allergy / Req</th><th>Notes</th></tr></thead><tbody>'+html+'</tbody></table>'+menuHTML+allergyHTML;
+}
+
+function buildSalonHTML(info, filtered, sectionLabel, allowedTables) {
+    var sectionCovers = 0;
+    var html = '';
+    var allergyList = [];
+    var menuCount = {Prestige:0,Discovery:0,ALC:0,'Lunch Menu':0};
+
+    filtered.forEach(function(r) {
+        sectionCovers += parseInt(r.pax) || 0;
+        if (r.menu && menuCount[r.menu] !== undefined) menuCount[r.menu] += parseInt(r.pax)||1;
+        if (r.allergy && r.allergy.trim()) allergyList.push({name:r.name||'Guest',table:r.table,pax:r.pax,allergies:r.allergy});
+        var starName = (r.star ? '\u2605 ' : '') + esc(r.name);
+        var occClass = r.occasion ? 'occasion-cell' : '';
+        html += '<tr><td>'+esc(r.time)+'</td><td>'+esc(r.pax)+'</td><td><strong>'+starName+'</strong></td><td>'+esc(r.table)+'</td><td>'+esc(r.menu)+'</td><td class="'+occClass+'">'+esc(r.occasion)+'</td><td>'+esc(r.occasionPos||'')+'</td><td class="'+(r.allergy?'allergy-cell':'')+'">'+formatAllergyPrint(r.allergy)+'</td><td>'+esc(r.allergyPos||'')+'</td><td>'+esc(r.voucherCode||r.voucher||'')+'</td><td>'+esc(r.voucherValue||'')+'</td><td class="notes-cell">'+esc(r.notes)+'</td></tr>';
+    });
+    for (var i=0;i<3;i++) html += '<tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+
+    var mp = [];
+    Object.keys(menuCount).forEach(function(n){if(menuCount[n]>0)mp.push('<span>'+n+': '+menuCount[n]+'</span>');});
+    var menuHTML = mp.length ? '<div class="menu-summary">'+mp.join('')+'</div>' : '';
+
+    var allergyHTML = '';
+    if (allergyList.length) {
+        var ar = allergyList.map(function(a){return '<tr><td><strong>'+esc(a.name)+'</strong></td><td>Tbl '+esc(a.table)+'</td><td class="allergy-cell">'+formatAllergyPrint(a.allergies)+'</td></tr>';}).join('');
+        allergyHTML = '<div class="allergy-summary"><div class="allergy-summary-title">ALLERGIES</div><table class="allergy-summary-table">'+ar+'</table></div>';
+    }
+
+    return '<h2>PETRUS</h2><div class="p-service">'+sectionLabel+' \u2014 '+info.service+'</div><div class="print-header-info"><span>'+info.dateStr+'</span><span>Cvrs: '+sectionCovers+'</span><span>Tbls: '+filtered.length+'</span></div><table class="print-table"><colgroup><col style="width:7%"><col style="width:4%"><col style="width:15%"><col style="width:4%"><col style="width:9%"><col style="width:12%"><col style="width:4%"><col style="width:15%"><col style="width:4%"><col style="width:8%"><col style="width:5%"><col style="width:13%"></colgroup><thead><tr><th>Time</th><th>Pax</th><th>Name</th><th>Tbl</th><th>Menu</th><th colspan="2">Occasion</th><th colspan="2">Allergy / Req</th><th colspan="2">Voucher</th><th>Notes</th></tr></thead><tbody>'+html+'</tbody></table>'+menuHTML+allergyHTML;
+}
+
+// === PRINT A5 BOH (Kitchen x2 on page 1, Pastry on page 2) ===
+function printBOH() {
+    var info = getHeaderInfo();
+    var rows = gatherRows();
+
+    var existing = document.getElementById('printOrientationStyle');
+    if (existing) existing.remove();
+    var style = document.createElement('style');
+    style.id = 'printOrientationStyle';
+    style.textContent = '@page{size:5.5in 8.5in;margin:2mm}';
+    document.head.appendChild(style);
+
+    showPrintArea('printAreaTriple');
+
+    if (rows.length > 5) {
+        // Each section on its own page
+        document.getElementById('tripleCell1').innerHTML = buildKitchenHTML(info, rows);
+        document.getElementById('tripleCell1').className = 'triple-cell';
+        document.getElementById('tripleCell2').innerHTML = buildKitchenHTML(info, rows);
+        document.getElementById('tripleCell2').className = 'triple-cell page-break';
+        document.getElementById('tripleCell3').innerHTML = buildPastryHTML(info, rows);
+        document.getElementById('tripleCell3').className = 'triple-cell page-break';
+    } else {
+        // Kitchen x2 share page 1, Pastry on page 2
+        document.getElementById('tripleCell1').innerHTML = buildKitchenHTML(info, rows);
+        document.getElementById('tripleCell1').className = 'triple-cell';
+        document.getElementById('tripleCell2').innerHTML = buildKitchenHTML(info, rows);
+        document.getElementById('tripleCell2').className = 'triple-cell';
+        document.getElementById('tripleCell3').innerHTML = buildPastryHTML(info, rows);
+        document.getElementById('tripleCell3').className = 'triple-cell page-break';
+    }
+
+    setTimeout(function(){ window.print(); }, 300);
+}
+
+// === PRINT A5 FOH (Section 1 + Section 2 on page 1, Reception on page 2) ===
+function printFOH() {
+    var info = getHeaderInfo();
+    var rows = gatherRows();
+
+    var existing = document.getElementById('printOrientationStyle');
+    if (existing) existing.remove();
+    var style = document.createElement('style');
+    style.id = 'printOrientationStyle';
+    style.textContent = '@page{size:8.5in 5.5in;margin:2mm}';
+    document.head.appendChild(style);
+
+    showPrintArea('printAreaTriple');
+
+    var s1Rows = filterBySection(rows, 1);
+    var s2Rows = filterBySection(rows, 2);
+
+    if (rows.length > 5) {
+        // Each section on its own page
+        document.getElementById('tripleCell1').innerHTML = buildSalonHTML(info, s1Rows, 'SECTION 1', SECTION_1_TABLES);
+        document.getElementById('tripleCell1').className = 'triple-cell';
+        document.getElementById('tripleCell2').innerHTML = s2Rows.length > 0 ? buildSalonHTML(info, s2Rows, 'SECTION 2', SECTION_2_TABLES) : '';
+        document.getElementById('tripleCell2').className = s2Rows.length > 0 ? 'triple-cell page-break' : 'triple-cell';
+        document.getElementById('tripleCell3').innerHTML = buildReceptionHTML(info, rows);
+        document.getElementById('tripleCell3').className = 'triple-cell page-break';
+    } else {
+        // Section 1 + Section 2 share page 1, Reception on page 2
+        document.getElementById('tripleCell1').innerHTML = buildSalonHTML(info, s1Rows, 'SECTION 1', SECTION_1_TABLES);
+        document.getElementById('tripleCell1').className = 'triple-cell';
+        document.getElementById('tripleCell2').innerHTML = s2Rows.length > 0 ? buildSalonHTML(info, s2Rows, 'SECTION 2', SECTION_2_TABLES) : '';
+        document.getElementById('tripleCell2').className = 'triple-cell';
+        document.getElementById('tripleCell3').innerHTML = buildReceptionHTML(info, rows);
+        document.getElementById('tripleCell3').className = 'triple-cell page-break';
+    }
+
+    setTimeout(function(){ window.print(); }, 300);
+}
+
+function buildReceptionHTML(info, rows) {
+    var html = '';
+    var menuCount = {Prestige:0,Discovery:0,ALC:0,'Lunch Menu':0};
+    var allergyList = [];
+
+    rows.forEach(function(r) {
+        if (r.menu && menuCount[r.menu] !== undefined) menuCount[r.menu] += parseInt(r.pax)||1;
+        if (r.allergy && r.allergy.trim()) allergyList.push({name:r.name||'Guest',table:r.table,pax:r.pax,allergies:r.allergy});
+        var starName = (r.star ? '\u2605 ' : '') + esc(r.name);
+        var occClass = r.occasion ? 'occasion-cell' : '';
+        html += '<tr><td>'+esc(r.time)+'</td><td>'+esc(r.pax)+'</td><td><strong>'+starName+'</strong></td><td>'+esc(r.table)+'</td><td>'+esc(r.menu)+'</td><td class="'+occClass+'">'+esc(r.occasion)+'</td><td>'+esc(r.occasionPos||'')+'</td><td class="'+(r.allergy?'allergy-cell':'')+'">'+formatAllergyPrint(r.allergy)+'</td><td>'+esc(r.allergyPos||'')+'</td><td>'+esc(r.voucherCode||r.voucher||'')+'</td><td>'+esc(r.voucherValue||'')+'</td><td class="notes-cell">'+esc(r.notes)+'</td></tr>';
+    });
+    for (var i=0;i<3;i++) html += '<tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+
+    var mp = [];
+    Object.keys(menuCount).forEach(function(n){if(menuCount[n]>0)mp.push('<span>'+n+': '+menuCount[n]+'</span>');});
+    var menuHTML = mp.length ? '<div class="menu-summary">'+mp.join('')+'</div>' : '';
+
+    var allergyHTML = '';
+    if (allergyList.length) {
+        var ar = allergyList.map(function(a){return '<tr><td><strong>'+esc(a.name)+'</strong></td><td>Tbl '+esc(a.table)+'</td><td class="allergy-cell">'+formatAllergyPrint(a.allergies)+'</td></tr>';}).join('');
+        allergyHTML = '<div class="allergy-summary"><div class="allergy-summary-title">ALLERGIES</div><table class="allergy-summary-table">'+ar+'</table></div>';
+    }
+
+    return '<h2>PETRUS</h2><div class="p-service">RECEPTION \u2014 '+info.service+'</div><div class="print-header-info"><span>'+info.dateStr+'</span><span>Cvrs: '+info.covers+'</span><span>Tbls: '+info.tables+'</span></div><table class="print-table"><colgroup><col style="width:7%"><col style="width:4%"><col style="width:15%"><col style="width:4%"><col style="width:9%"><col style="width:12%"><col style="width:4%"><col style="width:15%"><col style="width:4%"><col style="width:8%"><col style="width:5%"><col style="width:13%"></colgroup><thead><tr><th>Time</th><th>Pax</th><th>Name</th><th>Tbl</th><th>Menu</th><th colspan="2">Occasion</th><th colspan="2">Allergy / Req</th><th colspan="2">Voucher</th><th>Notes</th></tr></thead><tbody>'+html+'</tbody></table>'+menuHTML+allergyHTML;
+}
+
+// === SAVE / LOAD BOOKINGS (Firestore) ===
+function getBookingKey() {
+    var date = document.getElementById('serviceDate').value;
+    var service = document.getElementById('service').value;
+    return date + '_' + service;
+}
+
+function saveBooking() {
+    var key = getBookingKey();
+    var data = {
+        service: document.getElementById('service').value,
+        date: document.getElementById('serviceDate').value,
+        covers: document.getElementById('covers').value,
+        tables: document.getElementById('tables').value,
+        rows: gatherRows(),
+        savedAt: new Date().toISOString(),
+        savedBy: (auth.currentUser && auth.currentUser.displayName) || 'unknown'
+    };
+    document.getElementById('saveStatus').textContent = 'Saving...';
+    db.collection('bookings').doc(key).set(data).then(function() {
+        document.getElementById('saveStatus').textContent = 'Saved \u2713';
+        setTimeout(function(){ document.getElementById('saveStatus').textContent = ''; }, 3000);
+        updateSavedList();
+        updateSaveButton();
+    }).catch(function(err) {
+        document.getElementById('saveStatus').textContent = 'Error: ' + err.message;
+        console.error('Save error:', err);
+    });
+}
+
+function updateSaveButton() {
+    var key = getBookingKey();
+    db.collection('bookings').doc(key).get().then(function(doc) {
+        var btn = document.getElementById('saveBtn');
+        if (doc.exists) {
+            btn.textContent = 'Update';
+            btn.style.background = '#b89650';
+        } else {
+            btn.textContent = 'Save';
+            btn.style.background = '#2d7d46';
+        }
+    });
+}
+
+function loadBooking(key) {
+    db.collection('bookings').doc(key).get().then(function(doc) {
+        if (!doc.exists) return;
+        var data = doc.data();
+        document.getElementById('service').value = data.service;
+        document.getElementById('serviceDate').value = data.date;
+        document.getElementById('covers').value = data.covers;
+        document.getElementById('tables').value = data.tables;
+        var tbody = document.getElementById('resBody');
+        tbody.innerHTML = '';
+        data.rows.forEach(function(r) {
+            addRow(r.time, r.pax, r.name, r.table, r.menu, r.occasion, r.allergy, r.notes, r.voucher||r.voucherCode||"", r.visits, r.allergyPos||"", r.voucherCode||r.voucher||"", r.voucherValue||"", r.occasionPos||"", r.star||"");
+        });
+        document.getElementById('formArea').classList.add('visible');
+        updateSaveButton();
+    });
+}
+
+function updateSavedList() {
+    var container = document.getElementById('savedList');
+    if (!container) return;
+    db.collection('bookings').orderBy('date', 'desc').limit(20).get().then(function(snapshot) {
+        if (snapshot.empty) {
+            container.innerHTML = '<span style="color:#999;font-size:0.72rem">No saved bookings</span>';
+            return;
+        }
+        var html = '';
+        snapshot.forEach(function(doc) {
+            var data = doc.data();
+            var dateObj = new Date(data.date + 'T00:00:00');
+            var label = dateObj.toLocaleDateString('en-GB', {weekday:'short',day:'2-digit',month:'short'}) + ' \u2014 ' + data.service + ' (' + data.rows.length + ')';
+            html += '<span class="saved-item-wrap">';
+            html += '<button class="saved-item" onclick="loadBooking(\'' + doc.id + '\')">' + label + '</button>';
+            html += '<button class="saved-item-delete" onclick="deleteBooking(\'' + doc.id + '\')" title="Delete">\u00d7</button>';
+            html += '</span>';
+        });
+        container.innerHTML = html;
+    });
+}
+
+function deleteBooking(key) {
+    if (!confirm('Delete this saved booking?')) return;
+    db.collection('bookings').doc(key).delete().then(function() {
+        updateSavedList();
+        updateSaveButton();
+    });
+}
+
+// Auto-load if there's a saved booking for today's date and service
+function autoLoad() {
+    updateSavedList();
+}
+
+function autoLoadBooking() {
+    var key = getBookingKey();
+    db.collection('bookings').doc(key).get().then(function(doc) {
+        if (doc.exists) {
+            var data = doc.data();
+            document.getElementById('service').value = data.service;
+            document.getElementById('serviceDate').value = data.date;
+            document.getElementById('covers').value = data.covers;
+            document.getElementById('tables').value = data.tables;
+            var tbody = document.getElementById('resBody');
+            tbody.innerHTML = '';
+            data.rows.forEach(function(r) {
+                addRow(r.time, r.pax, r.name, r.table, r.menu, r.occasion, r.allergy, r.notes, r.voucher||r.voucherCode||"", r.visits, r.allergyPos||"", r.voucherCode||r.voucher||"", r.voucherValue||"", r.occasionPos||"", r.star||"");
+            });
+            document.getElementById('formArea').classList.add('visible');
+        }
+        updateSaveButton();
+        updateSavedList();
+    });
+}
+
+// === FILE DRAG & DROP ===
+var uploadBox = document.querySelector('.upload-box');
+uploadBox.addEventListener('dragover', function(e){e.preventDefault();uploadBox.style.borderColor='var(--gold)';});
+uploadBox.addEventListener('dragleave', function(){uploadBox.style.borderColor='var(--border)';});
+uploadBox.addEventListener('drop', function(e){
+    e.preventDefault(); uploadBox.style.borderColor='var(--border)';
+    var file = e.dataTransfer.files[0];
+    if (file && file.name.endsWith('.csv')) {
+        document.getElementById('csvFile').files = e.dataTransfer.files;
+        handleCSV({target:{files:[file]}});
+    }
+});
+
+// Load saved booking on page load
+autoLoad();
+</script>
+</body>
+</html>

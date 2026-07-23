@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Petrus</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --green:#5c1a1a; --green-dark:#2d0a0a; --gold:#b89650; --gold-light:#d4b87a; --cream:#faf7f1; --sans:'Inter',sans-serif; --serif:'Cormorant Garamond',serif; }
+
+body { font-family:var(--sans); background:var(--cream); color:#2c2c2c; min-height:100vh; }
+
+.top-bar {
+  background:var(--green-dark);
+  padding:12px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.top-bar a { color:var(--gold); text-decoration:none; font-size:12px; letter-spacing:1px; text-transform:uppercase; }
+.top-bar a:hover { color:#fff; }
+.top-bar h2 { font-family:var(--serif); color:#fff; font-size:18px; }
+
+.admin-content {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.admin-content h1 {
+  font-family: var(--serif);
+  font-size: 28px;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+
+.admin-subtitle {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 30px;
+}
+
+/* ── Filters ──────────────────────────────────────────────────── */
+.filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filters select, .filters input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: var(--sans);
+  font-size: 13px;
+  background: #fff;
+  outline: none;
+}
+
+.filters select:focus, .filters input:focus {
+  border-color: var(--gold);
+}
+
+.filters button {
+  padding: 8px 16px;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.filters button:hover { background: var(--green-dark); }
+
+/* ── Stats ────────────────────────────────────────────────────── */
+.stats {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: #fff;
+  border: 1px solid #e8e4de;
+  border-radius: 8px;
+  padding: 16px 24px;
+  min-width: 140px;
+}
+
+.stat-card .number {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--green);
+  font-family: var(--serif);
+}
+
+.stat-card .label {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* ── Table ────────────────────────────────────────────────────── */
+.log-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.log-table thead {
+  background: var(--green-dark);
+  color: var(--gold);
+}
+
+.log-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.log-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid #f0ece6;
+}
+
+.log-table tr:last-child td { border-bottom: none; }
+
+.log-table tr:hover td { background: #faf7f1; }
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.badge-login { background: #d4edda; color: #155724; }
+.badge-logout { background: #f8d7da; color: #721c24; }
+.badge-page { background: #d1ecf1; color: #0c5460; }
+.badge-navigate { background: #fff3cd; color: #856404; }
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.empty-state p { font-size: 14px; }
+
+.access-denied {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.access-denied h2 {
+  font-family: var(--serif);
+  color: var(--green);
+  margin-bottom: 12px;
+}
+
+.access-denied p { color: #888; font-size: 14px; }
+
+#loadingState {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  font-size: 13px;
+}
+
+.load-more {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.load-more button {
+  padding: 10px 24px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--green);
+  border-radius: 6px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.load-more button:hover { background: rgba(184,150,80,0.1); }
+
+@media (max-width: 700px) {
+  .log-table { font-size: 11px; }
+  .log-table th, .log-table td { padding: 8px 10px; }
+  .stats { gap: 10px; }
+  .stat-card { min-width: 100px; padding: 12px 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a href="index.html">&larr; Back</a>
+  <h2>Petrus</h2>
+  <a href="#" id="logoutBtn">Logout</a>
+</div>
+
+<div class="admin-content" id="mainContent" style="display:none;">
+  <h1>Access Log</h1>
+  <p class="admin-subtitle">Track who accesses the site and when</p>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="number" id="statTotal">—</div>
+      <div class="label">Total Events</div>
+    </div>
+    <div class="stat-card">
+      <div class="number" id="statToday">—</div>
+      <div class="label">Today</div>
+    </div>
+    <div class="stat-card">
+      <div class="number" id="statUsers">—</div>
+      <div class="label">Unique Users</div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <select id="filterUser">
+      <option value="">All users</option>
+    </select>
+    <select id="filterAction">
+      <option value="">All actions</option>
+      <option value="login">Login</option>
+      <option value="logout">Logout</option>
+      <option value="page_view">Page View</option>
+      <option value="navigate">Navigate</option>
+    </select>
+    <input type="date" id="filterDate">
+    <button onclick="applyFilters()">Filter</button>
+    <button onclick="clearFilters()" style="background:transparent;color:#888;border:1px solid #ddd;">Clear</button>
+  </div>
+
+  <!-- Log Table -->
+  <table class="log-table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Action</th>
+        <th>Page</th>
+        <th>Date & Time</th>
+      </tr>
+    </thead>
+    <tbody id="logBody">
+    </tbody>
+  </table>
+
+  <div class="empty-state" id="emptyState" style="display:none;">
+    <p>No access logs found.</p>
+  </div>
+
+  <div class="load-more" id="loadMore" style="display:none;">
+    <button onclick="loadMoreLogs()">Load More</button>
+  </div>
+</div>
+
+<div class="access-denied" id="accessDenied" style="display:none;">
+  <h2>Access Denied</h2>
+  <p>This page is restricted to administrators.</p>
+  <p style="margin-top:16px;"><a href="index.html" style="color:var(--gold);">Return to home</a></p>
+</div>
+
+<div id="loadingState">Loading...</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="auth.js"></script>
+
+<script>
+const PAGE_SIZE = 50;
+let lastDoc = null;
+let allLogs = [];
+let currentFilters = {};
+
+// ── Auth Check ────────────────────────────────────────────────────
+auth.onAuthStateChanged(async (user) => {
+  document.getElementById('loadingState').style.display = 'none';
+
+  if (!user) {
+    window.location.href = 'index.html';
+    return;
+  }
+
+  const admin = await isAdmin(user);
+  if (!admin) {
+    document.getElementById('accessDenied').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('mainContent').style.display = 'block';
+  await loadLogs();
+  await loadUserFilter();
+});
+
+// ── Logout ────────────────────────────────────────────────────────
+document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+  e.preventDefault();
+  await petrusLogout();
+  window.location.href = 'index.html';
+});
+
+// ── Load Logs ─────────────────────────────────────────────────────
+async function loadLogs(append) {
+  if (!append) {
+    allLogs = [];
+    lastDoc = null;
+  }
+
+  let query = db.collection('access_logs')
+    .orderBy('timestamp', 'desc')
+    .limit(PAGE_SIZE);
+
+  // Apply filters
+  if (currentFilters.user) {
+    query = query.where('displayName', '==', currentFilters.user);
+  }
+  if (currentFilters.action) {
+    query = query.where('action', '==', currentFilters.action);
+  }
+
+  if (lastDoc) {
+    query = query.startAfter(lastDoc);
+  }
+
+  try {
+    const snapshot = await query.get();
+    const logs = [];
+
+    snapshot.forEach((doc) => {
+      logs.push({ id: doc.id, ...doc.data() });
+    });
+
+    lastDoc = snapshot.docs[snapshot.docs.length - 1] || null;
+    allLogs = allLogs.concat(logs);
+
+    // Date filter (client-side since Firestore range + orderBy needs composite index)
+    let filtered = allLogs;
+    if (currentFilters.date) {
+      const filterDate = currentFilters.date;
+      filtered = allLogs.filter(log => {
+        if (!log.timestamp) return false;
+        const logDate = log.timestamp.toDate().toISOString().split('T')[0];
+        return logDate === filterDate;
+      });
+    }
+
+    renderLogs(filtered);
+    updateStats(filtered);
+
+    // Show/hide load more
+    document.getElementById('loadMore').style.display =
+      snapshot.docs.length === PAGE_SIZE ? 'block' : 'none';
+
+  } catch (err) {
+    console.error('Error loading logs:', err);
+  }
+}
+
+function loadMoreLogs() {
+  loadLogs(true);
+}
+
+// ── Render Logs ───────────────────────────────────────────────────
+function renderLogs(logs) {
+  const body = document.getElementById('logBody');
+  const empty = document.getElementById('emptyState');
+
+  if (logs.length === 0) {
+    body.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+  body.innerHTML = logs.map(log => {
+    const time = log.timestamp ? formatDate(log.timestamp.toDate()) : '—';
+    const badge = getBadgeClass(log.action);
+    return `<tr>
+      <td><strong>${escapeHtml(log.displayName || '—')}</strong></td>
+      <td><span class="badge ${badge}">${log.action || '—'}</span></td>
+      <td>${escapeHtml(log.page || '—')}</td>
+      <td>${time}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Stats ─────────────────────────────────────────────────────────
+function updateStats(logs) {
+  document.getElementById('statTotal').textContent = logs.length;
+
+  const today = new Date().toISOString().split('T')[0];
+  const todayLogs = logs.filter(l => {
+    if (!l.timestamp) return false;
+    return l.timestamp.toDate().toISOString().split('T')[0] === today;
+  });
+  document.getElementById('statToday').textContent = todayLogs.length;
+
+  const uniqueUsers = new Set(logs.map(l => l.displayName).filter(Boolean));
+  document.getElementById('statUsers').textContent = uniqueUsers.size;
+}
+
+// ── Filters ───────────────────────────────────────────────────────
+async function loadUserFilter() {
+  const select = document.getElementById('filterUser');
+  try {
+    const snapshot = await db.collection('access_logs')
+      .orderBy('displayName')
+      .get();
+    const users = new Set();
+    snapshot.forEach(doc => {
+      const name = doc.data().displayName;
+      if (name) users.add(name);
+    });
+    users.forEach(name => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      select.appendChild(opt);
+    });
+  } catch (err) {
+    console.error('Error loading users:', err);
+  }
+}
+
+function applyFilters() {
+  currentFilters = {
+    user: document.getElementById('filterUser').value,
+    action: document.getElementById('filterAction').value,
+    date: document.getElementById('filterDate').value
+  };
+  loadLogs(false);
+}
+
+function clearFilters() {
+  document.getElementById('filterUser').value = '';
+  document.getElementById('filterAction').value = '';
+  document.getElementById('filterDate').value = '';
+  currentFilters = {};
+  loadLogs(false);
+}
+
+// ── Helpers ───────────────────────────────────────────────────────
+function formatDate(d) {
+  return d.toLocaleDateString('en-GB', {
+    day: '2-digit', month: 'short', year: 'numeric'
+  }) + ' ' + d.toLocaleTimeString('en-GB', {
+    hour: '2-digit', minute: '2-digit'
+  });
+}
+
+function getBadgeClass(action) {
+  switch(action) {
+    case 'login': return 'badge-login';
+    case 'logout': return 'badge-logout';
+    case 'page_view': return 'badge-page';
+    case 'navigate': return 'badge-navigate';
+    default: return '';
+  }
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+</script>
+</body>
+</html>

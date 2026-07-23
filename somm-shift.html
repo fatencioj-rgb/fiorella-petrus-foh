@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shift Log — Petrus Sommeliers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#5c1a1a;--green-dark:#2d0a0a;--gold:#b89650;--gold-light:#d4b87a;--cream:#faf7f1;--sans:'Inter',sans-serif;--serif:'Cormorant Garamond',serif}
+body{font-family:var(--sans);background:var(--cream);color:#2c2c2c;min-height:100vh}
+.top-bar{background:var(--green-dark);padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.top-bar a{color:var(--gold);text-decoration:none;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+.top-bar a:hover{color:#fff}
+.top-bar h2{font-family:var(--serif);color:#fff;font-size:18px;margin:0}
+.page{max-width:1200px;margin:0 auto;padding:24px 12px 60px}
+.header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.header-row h1{font-family:var(--serif);font-size:24px;color:var(--green)}
+.header-row .meta{font-size:12px;color:#888}
+.btn-circle{width:34px;height:34px;border-radius:50%;background:#25D366;border:none;cursor:pointer}
+.btn-circle:hover{background:#1da851}
+</style>
+<style>
+.columns{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:18px}
+@media(max-width:900px){.columns{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:550px){.columns{grid-template-columns:1fr 1fr}}
+.col{background:#fff;border:1px solid #e8e0d4;border-radius:8px;padding:12px;min-height:150px}
+.col-title{font-family:var(--sans);font-size:10px;color:var(--gold);margin-bottom:8px;text-align:center;letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
+.item{display:flex;align-items:center;gap:5px;padding:5px 0;border-bottom:1px solid #f5f0ea;font-size:11px;flex-wrap:wrap}
+.item:last-child{border-bottom:none}
+.item-name{flex:1;font-size:12px}
+.item-qty{font-size:10px;color:#666}
+.item-tag{font-size:8px;padding:2px 6px;border-radius:8px;text-transform:uppercase;letter-spacing:0.2px;font-weight:600;white-space:nowrap}
+.tag-low{background:#fff3cd;color:#856404}
+.tag-86{background:#f8d7da;color:#721c24}
+.tag-last{background:#e2d6f3;color:#4a235a}
+.tag-closed{background:#d4edda;color:#155724}
+.tag-pw{background:#cce5ff;color:#004085}
+.tag-horizon{background:#fff3cd;color:#856404}
+.tag-menu{background:#f5e6d3;color:#8a5a2b}
+.tag-pending{background:#f0f0f0;color:#888}
+.item-check{font-size:9px;cursor:pointer;padding:2px 5px;border-radius:3px;border:1px solid #ddd;background:#fff;color:#aaa;transition:all 0.15s}
+.item-check.done{background:var(--green);color:#fff;border-color:var(--green)}
+.item-author{font-size:8px;color:var(--gold)}
+.item-remove{background:none;border:none;color:#ccc;font-size:12px;cursor:pointer;padding:0 3px}
+.item-remove:hover{color:#c0392b}
+.ho-check{width:14px;height:14px;accent-color:var(--green);cursor:pointer}
+.col-add{display:flex;gap:3px;margin-top:8px}
+.col-add input{flex:1;padding:5px 7px;border:1px solid #ddd;border-radius:4px;font-size:10px;font-family:var(--sans);outline:none;min-width:0}
+.col-add input:focus{border-color:var(--gold)}
+.col-add button{padding:5px 9px;background:var(--gold);color:#fff;border:none;border-radius:4px;font-size:9px;cursor:pointer}
+.col-options{display:flex;gap:3px;margin-top:5px;flex-wrap:wrap}
+.tag-btn{padding:3px 7px;border:1px solid #ddd;border-radius:10px;font-size:8px;cursor:pointer;background:#fff;color:#666;transition:all 0.15s}
+.tag-btn:hover{border-color:var(--gold)}
+.tag-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+.qty-row{display:none;gap:4px;align-items:center;margin-top:4px}
+.qty-row.show{display:flex}
+.qty-row input{width:40px;padding:4px;border:1px solid #ddd;border-radius:3px;font-size:9px;font-family:var(--sans);outline:none;text-align:center}
+.qty-row select{padding:4px;border:1px solid #ddd;border-radius:3px;font-size:9px;font-family:var(--sans);outline:none}
+.notes-box{background:#fff;border:1px solid #e8e0d4;border-radius:8px;padding:12px}
+.notes-box label{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#999;display:block;margin-bottom:4px}
+.notes-box textarea{width:100%;padding:7px;border:1px solid #ddd;border-radius:5px;font-family:var(--sans);font-size:11px;outline:none;resize:vertical;min-height:40px}
+.notes-box textarea:focus{border-color:var(--gold)}
+.empty-col{text-align:center;padding:14px 0;color:#ccc;font-size:10px}
+.status-msg{position:fixed;bottom:20px;right:20px;background:var(--green);color:var(--cream);padding:10px 16px;border-radius:6px;font-size:12px;opacity:0;transition:opacity 0.3s;z-index:9999}
+.status-msg.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="somm-orders.html">&larr; Back</a>
+  <h2>Petrus</h2>
+  <span></span>
+</div>
+<div class="page">
+  <div class="header-row">
+    <h1 id="shiftTitle">Lunch</h1>
+    <span class="meta" id="dateMeta"></span>
+    <div class="btn-circle" onclick="shareWhatsApp()" title="Share on WhatsApp"></div>
+  </div>
+  <div class="columns" id="columnsArea"></div>
+  <div class="notes-box">
+    <label>Notes</label>
+    <textarea id="notesField" oninput="updateNotes(this.value)"></textarea>
+  </div>
+</div>
+<div class="status-msg" id="statusMsg"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="auth.js"></script>
+<script>
+// Get params from URL
+var params = new URLSearchParams(window.location.search);
+var SHIFT = params.get('shift') || 'lunch';
+var DATE = params.get('date') || new Date().toISOString().slice(0,10);
+
+var COLS = ['wine','bar','supplies','wastages','deliveries','handover'];
+var COL_LABELS = {wine:'Wine',bar:'Bar',supplies:'Supplies',wastages:'Wastages',deliveries:'Deliveries',handover:'Handover'};
+var STOCK_TAGS = ['low-stock','86','last-bottle'];
+var STOCK_TAG_LABELS = {'low-stock':'Low Stock','86':'86','last-bottle':'Last Bottle Sold'};
+var STOCK_TAG_CLASSES = {'low-stock':'tag-low','86':'tag-86','last-bottle':'tag-last'};
+var DELIV_TAGS = ['closed','pw','horizon','menu'];
+var DELIV_TAG_LABELS = {closed:'Closed',pw:'PW',horizon:'Horizon',menu:'Menu'};
+var DELIV_TAG_CLASSES = {closed:'tag-closed',pw:'tag-pw',horizon:'tag-horizon',menu:'tag-menu'};
+
+var currentUser = null;
+var dayData = null;
+var selectedTags = {};
+
+document.getElementById('shiftTitle').textContent = SHIFT.charAt(0).toUpperCase() + SHIFT.slice(1);
+var d = new Date(DATE + 'T12:00:00');
+document.getElementById('dateMeta').textContent = d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+
+COLS.forEach(function(c){ selectedTags[c] = ''; selectedTags[c+'_multi'] = []; });
+
+auth.onAuthStateChanged(function(user){
+  if(!user){window.location.href='index.html';return;}
+  currentUser = user;
+  logAccess(user,'page_view','somm-shift.html');
+  loadDay();
+});
+
+function loadDay(){
+  db.collection('somm_orders').doc(DATE).get().then(function(doc){
+    if(doc.exists){
+      dayData = doc.data();
+    } else {
+      dayData = {date:DATE, notes:''};
+    }
+    COLS.forEach(function(c){
+      var key = SHIFT + '_' + c;
+      if(!dayData[key]) dayData[key] = [];
+    });
+    if(!dayData.notes) dayData.notes = '';
+    document.getElementById('notesField').value = dayData.notes;
+    render();
+  }).catch(function(e){ console.error(e); });
+}
+</script>
+<script>
+function render(){
+  var area = document.getElementById('columnsArea');
+  var html = '';
+  COLS.forEach(function(col){
+    var key = SHIFT + '_' + col;
+    var items = dayData[key] || [];
+    html += '<div class="col"><div class="col-title">' + COL_LABELS[col] + '</div>';
+
+    if(items.length === 0){
+      html += '<div class="empty-col">—</div>';
+    } else {
+      for(var i=0; i<items.length; i++){
+        var item = items[i];
+        html += '<div class="item"><span class="item-name">' + item.name + '</span>';
+        if(item.qty) html += '<span class="item-qty">' + item.qty + ' ' + (item.unit||'') + '</span>';
+        // Tags for wine/bar/supplies
+        if(col==='wine'||col==='bar'||col==='supplies'){
+          if(item.tag) html += '<span class="item-tag ' + (STOCK_TAG_CLASSES[item.tag]||'') + '">' + (STOCK_TAG_LABELS[item.tag]||'') + '</span>';
+          if(item.tag==='86'||item.tag==='last-bottle'){
+            var dc = item.wlUpdated ? 'done' : '';
+            var lb = item.wlUpdated ? '✓' : '○';
+            html += '<span class="item-check ' + dc + '" onclick="toggleWL(\'' + key + '\',' + i + ')">' + lb + '</span>';
+          }
+        }
+        // Tags for deliveries (multi)
+        if(col==='deliveries'){
+          if(item.tags && item.tags.length > 0){
+            for(var t=0;t<item.tags.length;t++){
+              html += '<span class="item-tag ' + (DELIV_TAG_CLASSES[item.tags[t]]||'') + '">' + (DELIV_TAG_LABELS[item.tags[t]]||'') + '</span>';
+            }
+          } else {
+            html += '<span class="item-tag tag-pending">Pending</span>';
+          }
+        }
+        // Handover checkbox
+        if(col==='handover'){
+          var chk = item.done ? 'checked' : '';
+          html += '<input type="checkbox" class="ho-check" ' + chk + ' onchange="toggleHO(\'' + key + '\',' + i + ',this.checked)">';
+        }
+        html += '<span class="item-author">' + (item.author||'') + '</span>';
+        html += '<button class="item-remove" onclick="removeItem(\'' + key + '\',' + i + ')">&times;</button>';
+        html += '</div>';
+      }
+    }
+
+    // Add form
+    html += '<div class="col-add">';
+    html += '<input type="text" id="input_' + col + '" placeholder="Add..." onkeydown="if(event.key===\'Enter\')addItem(\'' + col + '\')">';
+    html += '<button onclick="addItem(\'' + col + '\')">+</button></div>';
+
+    // Tag options
+    if(col==='wine'||col==='bar'||col==='supplies'){
+      html += '<div class="col-options" id="opts_' + col + '">';
+      for(var st=0;st<STOCK_TAGS.length;st++){
+        html += '<span class="tag-btn" onclick="pickTag(\'' + col + '\',\'' + STOCK_TAGS[st] + '\',this)">' + STOCK_TAG_LABELS[STOCK_TAGS[st]] + '</span>';
+      }
+      html += '</div>';
+      html += '<div class="qty-row" id="qty_' + col + '"><input type="number" id="qtyVal_' + col + '" placeholder="Qty" min="0"><select id="qtyUnit_' + col + '"><option value="btl">btl</option><option value="uni">uni</option><option value="ml">ml</option></select></div>';
+    }
+    if(col==='wastages'){
+      html += '<div class="qty-row show" id="qty_' + col + '"><input type="number" id="qtyVal_' + col + '" placeholder="Qty" min="0"><select id="qtyUnit_' + col + '"><option value="btl">btl</option><option value="uni">uni</option><option value="ml">ml</option><option value="cl">cl</option></select></div>';
+    }
+    if(col==='deliveries'){
+      html += '<div class="col-options" id="opts_' + col + '">';
+      for(var dt=0;dt<DELIV_TAGS.length;dt++){
+        html += '<span class="tag-btn" onclick="pickMulti(\'' + col + '\',\'' + DELIV_TAGS[dt] + '\',this)">' + DELIV_TAG_LABELS[DELIV_TAGS[dt]] + '</span>';
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+  });
+  area.innerHTML = html;
+}
+</script>
+<script>
+function pickTag(col, tag, el){
+  var opts = document.getElementById('opts_' + col);
+  var btns = opts.querySelectorAll('.tag-btn');
+  for(var i=0;i<btns.length;i++) btns[i].classList.remove('active');
+  var qtyRow = document.getElementById('qty_' + col);
+  if(selectedTags[col] === tag){
+    selectedTags[col] = '';
+    if(qtyRow) qtyRow.classList.remove('show');
+  } else {
+    el.classList.add('active');
+    selectedTags[col] = tag;
+    if(qtyRow && tag === 'low-stock') qtyRow.classList.add('show');
+    else if(qtyRow) qtyRow.classList.remove('show');
+  }
+}
+
+function pickMulti(col, tag, el){
+  el.classList.toggle('active');
+  var arr = selectedTags[col + '_multi'] || [];
+  var idx = arr.indexOf(tag);
+  if(idx > -1) arr.splice(idx, 1);
+  else arr.push(tag);
+  selectedTags[col + '_multi'] = arr;
+}
+
+function addItem(col){
+  var input = document.getElementById('input_' + col);
+  var name = input.value.trim();
+  if(!name) return;
+  var key = SHIFT + '_' + col;
+  var author = currentUser.displayName || currentUser.email.split('@')[0].replace(/\./g,' ');
+  var item = {name:name, author:author, wlUpdated:false, done:false};
+
+  if(col==='wine'||col==='bar'||col==='supplies'){
+    item.tag = selectedTags[col] || '';
+    if(item.tag === 'low-stock'){
+      var qv = document.getElementById('qtyVal_' + col);
+      var qu = document.getElementById('qtyUnit_' + col);
+      item.qty = qv ? qv.value.trim() : '';
+      item.unit = qu ? qu.value : '';
+    }
+  }
+  if(col==='wastages'){
+    var qv2 = document.getElementById('qtyVal_' + col);
+    var qu2 = document.getElementById('qtyUnit_' + col);
+    item.qty = qv2 ? qv2.value.trim() : '';
+    item.unit = qu2 ? qu2.value : '';
+  }
+  if(col==='deliveries'){
+    item.tags = (selectedTags[col + '_multi'] && selectedTags[col + '_multi'].length > 0) ? selectedTags[col + '_multi'].slice() : [];
+  }
+
+  dayData[key].push(item);
+  input.value = '';
+  selectedTags[col] = '';
+  selectedTags[col + '_multi'] = [];
+  render();
+  autoSave();
+}
+
+function removeItem(key, idx){
+  dayData[key].splice(idx, 1);
+  render();
+  autoSave();
+}
+
+function toggleWL(key, idx){
+  dayData[key][idx].wlUpdated = !dayData[key][idx].wlUpdated;
+  render();
+  autoSave();
+}
+
+function toggleHO(key, idx, checked){
+  dayData[key][idx].done = checked;
+  autoSave();
+}
+
+function updateNotes(val){
+  dayData.notes = val;
+  autoSave();
+}
+
+var saveTimer = null;
+function autoSave(){
+  if(saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveDay, 800);
+}
+
+function saveDay(){
+  var payload = {date:DATE, notes:dayData.notes||'', updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
+  COLS.forEach(function(c){
+    payload[SHIFT+'_'+c] = dayData[SHIFT+'_'+c] || [];
+  });
+  db.collection('somm_orders').doc(DATE).set(payload, {merge:true}).then(function(){
+    showStatus('Saved');
+  }).catch(function(e){
+    console.error(e);
+    showStatus('Error');
+  });
+}
+
+function shareWhatsApp(){
+  var dateStr = d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+  var msg = '*Petrus Sommeliers — ' + dateStr + ' ' + SHIFT.charAt(0).toUpperCase()+SHIFT.slice(1) + '*\n';
+  COLS.forEach(function(col){
+    var items = dayData[SHIFT+'_'+col] || [];
+    if(items.length === 0) return;
+    msg += '\n_' + COL_LABELS[col] + '_\n';
+    items.forEach(function(item){
+      var l = '• ' + item.name;
+      if(item.qty) l += ' (' + item.qty + ' ' + (item.unit||'') + ')';
+      if(col==='deliveries'){
+        if(item.tags && item.tags.length) l += ' [' + item.tags.map(function(t){return DELIV_TAG_LABELS[t]||t;}).join(', ') + ']';
+        else l += ' [Pending]';
+      } else if(item.tag) l += ' [' + (STOCK_TAG_LABELS[item.tag]||item.tag) + ']';
+      if((item.tag==='86'||item.tag==='last-bottle')) l += item.wlUpdated ? ' ✅' : ' ⚠️';
+      if(col==='handover') l += item.done ? ' ✅' : ' ○';
+      l += ' — ' + item.author;
+      msg += l + '\n';
+    });
+  });
+  if(dayData.notes) msg += '\n*Notes:* ' + dayData.notes;
+  window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+}
+
+function showStatus(msg){
+  var el = document.getElementById('statusMsg');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(function(){ el.classList.remove('show'); }, 1800);
+}
+</script>
+</body>
+</html>

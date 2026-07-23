@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wine List — Petrus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#5c1a1a;--green-dark:#2d0a0a;--gold:#b89650;--gold-light:#d4b87a;--cream:#faf7f1;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter','Segoe UI',sans-serif}
+body{font-family:var(--sans);background:var(--cream);color:#2c2c2c;line-height:1.6;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.topbar{background:var(--green-dark);padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.topbar a{color:var(--gold-light);text-decoration:none;font-size:13px;letter-spacing:1px}
+.topbar .title{font-family:var(--serif);font-size:20px;color:var(--gold);letter-spacing:2px}
+.page{max-width:860px;margin:0 auto;padding:40px 24px 60px}
+h1.page-title{font-family:var(--serif);font-size:32px;color:var(--green);text-align:center;margin-bottom:6px}
+p.page-sub{text-align:center;font-size:13px;color:#888;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:40px}
+.section-accordion{margin:36px 0 20px}
+.section-accordion summary{font-family:var(--serif);font-size:22px;color:var(--green);border-bottom:1px solid var(--gold);padding-bottom:6px;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between}
+.section-accordion summary::-webkit-details-marker{display:none}
+.section-accordion summary::after{content:'+';font-family:var(--sans);font-size:20px;color:var(--gold);font-weight:300}
+.section-accordion[open] summary::after{content:'-'}
+.section-accordion .section-body{padding-top:20px}
+.wine-card{background:#fff;border:1px solid #e8e3da;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.wine-card summary{font-family:var(--serif);font-size:17px;color:var(--green);padding:18px 28px;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between}
+.wine-card summary::-webkit-details-marker{display:none}
+.wine-card summary::after{content:'+';font-family:var(--sans);font-size:18px;color:var(--gold);font-weight:300;transition:transform 0.2s}
+.wine-card[open] summary::after{content:'-'}
+.wine-card[open] summary{border-bottom:1px solid #f0ebe5}
+.wine-card .card-body{padding:20px 28px}
+.wine-card table{width:100%;border-collapse:collapse;margin-bottom:14px}
+.wine-card table td{padding:4px 0;font-size:13px;vertical-align:top}
+.wine-card table td:first-child{font-weight:600;width:28%;color:#555}
+.wine-card .prose{font-size:13px;color:#444;text-align:justify;margin-bottom:10px}
+.wine-card .prose strong{color:var(--green)}
+.wine-card h4{font-size:12px;text-transform:uppercase;letter-spacing:0.8px;color:var(--green);margin:16px 0 6px;padding-bottom:3px;border-bottom:1px solid #f0ebe5}
+.wine-card h4:first-of-type{margin-top:0}
+.sub-header{font-family:var(--serif);font-size:18px;color:var(--green);margin:28px 0 14px;padding-left:4px}
+.wine-card .print-card-btn{display:none;text-align:right;margin-top:12px;padding-top:8px;border-top:1px solid #f0ebe5}
+.wine-card .print-card-btn button{background:none;border:1px solid var(--gold);color:var(--gold);padding:5px 12px;border-radius:4px;font-size:11px;cursor:pointer;font-family:var(--sans);letter-spacing:0.5px;transition:all 0.2s}
+.wine-card .print-card-btn button:hover{background:var(--gold);color:#fff}
+.footer{text-align:center;font-size:10px;color:#aaa;letter-spacing:1px;text-transform:uppercase;margin-top:40px;cursor:pointer}
+.print-unlock{display:none;text-align:center;margin-top:12px}
+.print-unlock input{padding:8px 14px;border:1px solid var(--gold);border-radius:5px;font-family:var(--sans);font-size:12px;text-align:center;outline:none;background:#fff;width:160px}
+.print-unlock button{padding:8px 16px;background:var(--green-dark);color:var(--gold-light);border:none;border-radius:5px;font-family:var(--sans);font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;margin-left:6px}
+.print-unlock .msg{font-size:11px;color:var(--gold);margin-top:6px}
+@media print{body{display:none !important}}
+</style>
+</head>
+<body oncontextmenu="return false;">
+<div class="topbar">
+<a href="winelist.html">&larr; Back</a>
+<span class="title">Petrus</span>
+<span></span>
+</div>
+<div class="page">
+<h1 class="page-title">Wines by the Glass</h1>
+
+<details class="section-accordion" open>
+<summary>Champagne</summary>
+<div class="section-body">
+<details class="wine-card">
+<summary>Palmer &amp; Co, La Réserve, Brut Magnum, Champagne NV</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Champagne Palmer &amp; Co</td></tr>
+<tr><td>Appellation</td><td>AOC Champagne</td></tr>
+<tr><td>Region, Country</td><td>Champagne (Montagne de Reims), France</td></tr>
+<tr><td>Vintage</td><td>NV (perpetual reserve)</td></tr>
+<tr><td>Alcohol</td><td>~12 % vol.</td></tr>
+<tr><td>Style</td><td>Brut sparkling (Champagne)</td></tr>
+<tr><td>Grape Varieties</td><td>Chardonnay (50-55%), Pinot Noir (35-40%), Pinot Meunier (10-15%) <em>(percentages not confirmed for current disgorgement)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Palmer & Co is a house built on the idea of patience. While many Champagne producers rush their wines to market, Palmer ages its non-vintage Brut for four years on the lees in standard bottles and six years in Magnum, three times what the appellation requires. That commitment to time defines everything about the house.</p>
+<p class="prose">What makes La Réserve particularly interesting is its perpetual reserve system. The reserve wines used in each blend are composed of previous blends of La Réserve itself, meaning each bottle carries a thread of DNA from every vintage that came before it. It is a wine that literally contains its own history. Half the grapes come from Grand Cru and Premier Cru vineyards, and up to 35% of the final blend is reserve wine, giving a depth and maturity that belies its accessible positioning.</p>
+<p class="prose">The Magnum format is not just a larger bottle here. The slower, more graceful ageing that occurs in Magnum means the wine develops differently: more complexity, finer bubbles, greater harmony.</p>
+<h4>Viticulture</h4>
+<p class="prose">Grapes are sourced from Grand Cru and Premier Cru vineyards across the Montagne de Reims and the Côte des Blancs. The Chardonnay-dominant blend draws its precision and freshness from the chalk soils of these classified villages, while Pinot Noir from the Montagne contributes structure and Meunier adds generosity and fruit.</p>
+<h4>Winemaking</h4>
+<p class="prose">Traditional method with secondary fermentation in bottle. The key distinction is the extended lees ageing: six years in Magnum. The liqueur d'expédition is uniquely solera-based, adding yet another layer of complexity. Dosage is approximately 6.9 g/l, placing it firmly in Brut territory while retaining a subtle roundness.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Fresh, bracing acidity with extremely fine and impressively vigorous bubbles. The nose reveals apples, elderflower and hedgerow fruits, with an underlying richness from the extended ageing. On the palate there is rare fullness and maturity: the grace and power of Pinot Noir, the generosity of Meunier, and the precision of Chardonnay all in balance. The finish is long and satisfying, with a creamy, biscuity depth.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Gimonnet-Gonet, Blanc de Noirs, Brut, Champagne NV</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Champagne Gimonnet-Gonet</td></tr>
+<tr><td>Appellation</td><td>AOC Champagne</td></tr>
+<tr><td>Region, Country</td><td>Champagne, France</td></tr>
+<tr><td>Vintage</td><td>NV</td></tr>
+<tr><td>Alcohol</td><td>~12 % vol.</td></tr>
+<tr><td>Style</td><td>Brut sparkling (Blanc de Noirs)</td></tr>
+<tr><td>Grape Varieties</td><td>Pinot Noir (85%), Pinot Meunier (15%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Gimonnet-Gonet is the union of two Champagne dynasties. Anne Gonet and Philippe Gimonnet, each born into families who have made Champagne for generations, released their first bottles together in 1986. Their son Charles joined in 2012 and daughter Anne-Sophie in 2020, continuing what has become a generational pursuit of great Champagne.</p>
+<p class="prose">What makes this house distinctive is its deep roots in the Côte des Blancs. Nearly all of their 13.5 hectares lie in the Grand Cru villages of Chouilly, Cramant, Oiry, Oger and Le Mesnil-sur-Oger. This is Chardonnay country, and the vast majority of their range reflects that identity: precise, mineral-driven blanc de blancs.</p>
+<p class="prose">Which is exactly why this wine exists. They call it "L'Étonnant" (the surprising one), and the name is not accidental. In a portfolio built almost entirely on white grapes, this is their sole Blanc de Noirs, a deliberate departure sourced from Pinot Noir and Meunier parcels in the Vallée de la Marne. It is their way of showing that a house defined by Chardonnay finesse can also speak the language of Pinot with equal conviction.</p>
+<h4>Viticulture</h4>
+<p class="prose">The fruit comes from carefully selected Pinot Noir and Pinot Meunier parcels in the Vallée de la Marne, where warmer exposures and mixed chalk-clay soils lend both structure and aromatic depth. These are established vineyards with the maturity to produce grapes of concentration and complexity, quite different in character from the family's Côte des Blancs holdings.</p>
+<h4>Winemaking</h4>
+<p class="prose">A Blanc de Noirs by definition: a white Champagne made exclusively from black-skinned grapes. The pressing must be gentle and precise to extract clean juice without colour from the skins. The base wine undergoes traditional method secondary fermentation in bottle, followed by extended lees ageing that builds the creamy texture and biscuity depth. The blend includes a high volume of Grand Cru-level fruit, giving this wine a pedigree that outclasses many big-name Champagnes at higher price points.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Of rare elegance, this Blanc de Noirs brings together finesse, structure and depth in a remarkably precise balance. The nose is rich and ripe, with red berry fruit, stone fruit and a subtle breadth that comes from the Pinot Noir dominance. On the palate there is body and generosity, balanced by fresh, zesty acidity and chalky minerality. The mousse is fine and persistent. It is both delicious and surprising: proof that Gimonnet-Gonet's mastery extends well beyond their Chardonnay heartland.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Champagne Drappier, Blanc de Blancs, Brut, Champagne NV</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Champagne Drappier</td></tr>
+<tr><td>Appellation</td><td>AOC Champagne</td></tr>
+<tr><td>Region, Country</td><td>Champagne (Côte des Bar), France</td></tr>
+<tr><td>Vintage</td><td>NV</td></tr>
+<tr><td>Alcohol</td><td>~12 % vol.</td></tr>
+<tr><td>Style</td><td>Brut sparkling (Blanc de Blancs)</td></tr>
+<tr><td>Grape Varieties</td><td>Chardonnay, Blanc Vrai (Pinot Blanc) <em>(percentages not confirmed)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Drappier is Champagne's quiet rebel. Based in Urville in the Côte des Bar, the southernmost part of Champagne, the family has been making wine here since 1808. They are a Pinot Noir house at heart: 70% of their vineyards are planted to it, and their most famous wines celebrate its depth and richness. The estate has been certified organic since 2023, working with minimal sulfur and a philosophy that the best intervention is none at all.</p>
+<p class="prose">So when Drappier makes a Blanc de Blancs, it is not their default, it is a deliberate choice. They source Chardonnay from their chalk soils and add a touch of Blanc Vrai (the local name for Pinot Blanc), which brings a softness and ripeness that differentiates this from the leaner, more austere Blanc de Blancs of the Côte des Blancs. It is opulent where others are angular, generous where others are strict.</p>
+<h4>Viticulture</h4>
+<p class="prose">From chalk soils in the Côte des Bar. The southern location means slightly warmer conditions than the Côte des Blancs, allowing both Chardonnay and Pinot Blanc to reach full ripeness while retaining freshness from the chalky subsoil. Organic farming since 2023, with vineyard work that prioritises soil health.</p>
+<h4>Winemaking</h4>
+<p class="prose">Low-intervention vinification with minimal sulfur dosage during bottling. Traditional method with secondary fermentation in bottle and extended lees ageing. The gentle approach preserves the purity and fruit character of the grapes, resulting in a Blanc de Blancs that is more about pleasure than austerity.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Limpid colour with a fine, delicate mousse. The nose is classic and gourmet: citrus, white flowers and hints of pastry. On the palate it is opulent and intense, emphasising rich fruit (ripe apple, lemon juice, apricot) as much as minerality. There is fine depth of flavour and a fragrant, refreshing finish. Well balanced between richness and freshness.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Billecart-Salmon, Nicolas François Billecart, Brut Magnum, Champagne 2008</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Billecart-Salmon (family-owned)</td></tr>
+<tr><td>Appellation</td><td>AOC Champagne (Vintage)</td></tr>
+<tr><td>Region, Country</td><td>Champagne, France</td></tr>
+<tr><td>Vintage</td><td>2008</td></tr>
+<tr><td>Alcohol</td><td>~12 % vol.</td></tr>
+<tr><td>Style</td><td>Brut sparkling (Vintage Champagne)</td></tr>
+<tr><td>Grape Varieties</td><td>Pinot Noir (60%), Chardonnay (40%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Billecart-Salmon has been family-owned since 1818, making it one of the last major independent Champagne houses. Their philosophy has always been one of restraint and time. While much of the industry races to release wines young, Billecart pushes in the opposite direction: their non-vintage Brut guarantees at least three years on the lees, and their prestige cuvées wait far longer.</p>
+<p class="prose">The Nicolas François Billecart, named after the house's founder, is their statement wine. The 2008 is perhaps the very last of the great 2008 Champagnes to reach the market, released 15 years after harvest. It spent over 150 months on its lees before being disgorged in the third quarter of 2022 with a dosage of just 2.9 g/l, barely perceptible. This is Champagne as an exercise in time and patience: the profound precision and molecular detail that define Billecart are transported to a higher level of fidelity by the legendary 2008 vintage.</p>
+<h4>Viticulture</h4>
+<p class="prose">Grand Cru fruit from the finest classified villages: Chardonnay from Le Mesnil-sur-Oger, Chouilly and Cramant in the Côte des Blancs, Pinot Noir from Aÿ, Mareuil and Verzenay in the Montagne de Reims. These are among the most revered terroirs in Champagne, and the 60/40 Pinot-to-Chardonnay ratio gives the wine both structure and elegance.</p>
+<h4>Winemaking</h4>
+<p class="prose">Partial vinification in traditional old oak casks (17%), with the remaining 83% in tanks. This oak element underpins the generous character without ever dominating. Over 12 years on the lees in Billecart's cellars, then disgorged with minimal dosage. The Magnum format allows for an even more graceful evolution during this extended ageing.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Rich straw hue. The nose is layered and long: truffle, apricot, croissant, floral orange blossoms and marmalade. A saline chalk core erupts from its depths, framing pure lemon fruit and strawberry hull. It is emphatically, sublimely primary, as if time has only concentrated rather than evolved its character. With air, Pinot steps forward in gloriously pure red cherry fruits. A brilliant display of fine chalk minerality at its most profound.</p>
+<h4>Vintage 2008</h4>
+<p class="prose">The 2008 growing season started inauspiciously: spring frosts were followed by hail, and July was cold and rainy. However, a frigid winter had rested the vines well, and conditions improved dramatically from August onward. The summer was dry with constant temperatures and normal rainfall, an absence of extremes that allowed slow, steady grape maturation. By September, hand-picking began on the 15th in ideal sunny conditions with healthy grapes showing a perfect sugar-acidity balance. The vintage is often compared to 1988 for its classical elegance and longevity. Krug nicknamed it "Classic Beauty." Bollinger's cellarmaster Gilles Descôtes later called it a "miracle year" given how badly it began. This bottling is its ultimate late expression.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Veuve Clicquot 'La Grande Dame Rosé', Brut, Champagne 2015</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Veuve Clicquot (LVMH)</td></tr>
+<tr><td>Appellation</td><td>AOC Champagne (Vintage Rosé)</td></tr>
+<tr><td>Region, Country</td><td>Champagne, France</td></tr>
+<tr><td>Vintage</td><td>2015</td></tr>
+<tr><td>Alcohol</td><td>~12.5 % vol.</td></tr>
+<tr><td>Style</td><td>Brut Rosé sparkling (Prestige Cuvée)</td></tr>
+<tr><td>Grape Varieties</td><td>Pinot Noir (predominantly), Chardonnay <em>(percentages not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">The story of La Grande Dame is the story of Madame Clicquot herself. Widowed at 27 in 1805, Barbe-Nicole Clicquot-Ponsardin took over her husband's wine business and became one of the greatest entrepreneurs of any age. Her innovations shaped Champagne as we know it: she produced the first known vintage Champagne, invented the riddling table (remuage), and in 1818, created the first blended rosé Champagne.</p>
+<p class="prose">That first rosé came from a particular 1.3-hectare plot in Bouzy called Clos Colin, which she identified and nurtured specifically to provide an ideal red wine for her assemblage. Two centuries later, La Grande Dame Rosé continues to honour that tradition, using still red Pinot Noir blended into white base wine, the very technique Madame Clicquot pioneered when the idea of blending red and white was still controversial.</p>
+<p class="prose">La Grande Dame is the house's prestige cuvée, named after the title Madame Clicquot's peers gave her. The rosé uses fruit exclusively from Grand Cru vineyards and is aged for at least seven years before release.</p>
+<h4>Viticulture</h4>
+<p class="prose">Pinot Noir dominates the blend, sourced from Grand Cru vineyards in the Montagne de Reims where it provides structure and depth. Chardonnay from the Côte des Blancs adds finesse and lift. The still red wine component comes from Pinot Noir vineyards in the tradition established by Madame Clicquot's original Bouzy selection.</p>
+<h4>Winemaking</h4>
+<p class="prose">Rosé d'assemblage: still red wine from Pinot Noir is blended with the white base wine before secondary fermentation in bottle. This is the method Madame Clicquot invented in 1818. Extended lees ageing of at least seven years builds the creamy texture, toasty depth and complexity expected at prestige cuvée level. Meticulous selection and blending by the cellar master.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Pale salmon-copper colour with fine, persistent bubbles. The nose offers red fruit (strawberry, raspberry, redcurrant), floral notes of rose, and hints of spice and brioche developed during the extended ageing. On the palate it is structured and vinous, silky yet powerful, with a creamy mousse, vibrant acidity and a long, elegant finish. Minerally at its core, fresh despite its richness.</p>
+<h4>Vintage 2015</h4>
+<p class="prose">The summer of 2015 was notably arid in Champagne, with minimal rainfall from late May to mid-August, creating hydric stress particularly challenging for Pinot Noir. High temperatures pushed ABVs above 13% in the best sites, a rare occurrence in this region. Crucially, the right amount of rain arrived in mid-to-late August, giving stressed vines exactly what they needed at the last moment. Cool nights prevented acidity levels from collapsing. Harvest started on 7 September under bright conditions, but picking was complicated by heterogeneous ripening caused by the drought, and heavy showers battered the vineyards within the first week. Bollinger described wrestling to contain the "opulence" of the year. The result: exceptional red-skinned grapes with remarkable maturity, powerful fruit and full body.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Taittinger 'Comtes de Champagne Rosé', Brut, Champagne 2007</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Taittinger</td></tr>
+<tr><td>Appellation</td><td>AOC Champagne (Vintage Rosé)</td></tr>
+<tr><td>Region, Country</td><td>Champagne, France</td></tr>
+<tr><td>Vintage</td><td>2007</td></tr>
+<tr><td>Alcohol</td><td>~12 % vol.</td></tr>
+<tr><td>Style</td><td>Brut Rosé sparkling (Prestige Cuvée)</td></tr>
+<tr><td>Grape Varieties</td><td>Pinot Noir (70%), Chardonnay (30%) <em>(percentages not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">The name "Comtes de Champagne" reaches back to the medieval Counts of Champagne, who ruled the region centuries before anyone thought to put bubbles in a bottle. When the Taittinger family acquired the ancient residence of these Counts in Reims in 1932, they inherited something far more valuable than a building: the chalk cellars of the former Abbey of Saint-Nicaise, carved as quarries during the Gallo-Roman era, where their finest wines still age today.</p>
+<p class="prose">The Comtes de Champagne is Taittinger's ultimate expression. The Blanc de Blancs version (100% Chardonnay) is already legendary. The Rosé is rarer still: produced only in exceptional years, it is one of the most sought-after rosé Champagnes in the world. While the house was founded in 1734, it is the combination of these ancient cellars, almost 300 hectares of vineyard (one of the largest estates in Champagne), and an unwavering insistence on quality that sets Taittinger apart.</p>
+<h4>Viticulture</h4>
+<p class="prose">Exclusively Grand Cru fruit. The Pinot Noir comes from the finest plots in the Montagne de Reims, while Chardonnay is sourced from the Côte des Blancs. The rosé colour is achieved through the addition of still Bouzy Rouge, red wine from Pinot Noir grown in the Grand Cru village of Bouzy.</p>
+<h4>Winemaking</h4>
+<p class="prose">The still red wine from Bouzy is blended with the white base before secondary fermentation. The wine then ages on its lees in Taittinger's Gallo-Roman chalk cellars for over 12 years. At nearly 15 years of age before release, this 2007 has had time to develop extraordinary complexity and integration. The chalk cellars maintain a constant cool temperature that allows this slow, graceful evolution.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Delicate salmon-pink hue with copper reflections and fine, persistent bubbles. The nose is complex and evolved: wild strawberry, blood orange, dried rose petals, praline and toasted brioche. On the palate it is vinous and structured, with creamy texture, bright acidity, and layers of red fruit, spice and mineral complexity that unfold over several minutes. The finish is exceptionally long and refined, a testament to both the vintage and the extraordinary time spent in those ancient cellars.</p>
+<h4>Vintage 2007</h4>
+<p class="prose">Challenging weather during spring and summer had many Champagne producers worried: conditions were warm and humid with rain through much of the growing season, and hail badly hit the Aube (Côte des Bar). However, a brilliant August and warm, dry September made for an outstanding but small crop of Pinot Noir, described as the best since 1952. Chardonnays were bigger and more foursquare, not in the same league as the Pinots that year. This makes the 2007 a particularly strong vintage for Pinot Noir-dominant cuvées, which is precisely what the Comtes de Champagne Rosé is.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Palmer &amp; Co, Rosé Solera, Brut, Champagne NV</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Champagne Palmer &amp; Co</td></tr>
+<tr><td>Appellation</td><td>AOC Champagne</td></tr>
+<tr><td>Region, Country</td><td>Champagne (Montagne de Reims), France</td></tr>
+<tr><td>Vintage</td><td>NV (perpetual reserve)</td></tr>
+<tr><td>Alcohol</td><td>12 % vol.</td></tr>
+<tr><td>Style</td><td>Brut Rosé sparkling (Champagne)</td></tr>
+<tr><td>Grape Varieties</td><td>Chardonnay (42%), Pinot Noir (40%), Pinot Meunier (10%), Pinot Noir solera (8%) <em>(percentages approximate, varying by disgorgement)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Palmer & Co was founded in 1947 by seven grower families in Avize who decided, in the shadow of the Second World War, that pooling their Grand Cru and Premier Cru vineyards would produce better wine than going it alone. They moved to Reims in 1959, acquired cellars, and built what is today a cooperative of over 200 members farming across 40 crus in the Montagne de Reims and Côte des Blancs.</p>
+<p class="prose">What separates Palmer from other cooperatives is the seriousness of the winemaking. Under chef de cave Xavier Berdin, the house ages its wines far longer than the appellation demands and uses old Burgundian oak casks and perpetual reserves to build complexity. The Rosé Solera is perhaps the most distinctive wine in their range: a rosé Champagne whose colour and depth come not from simple blending or saignée, but from a solera of Pinot Noir that has been running continuously for over forty years. It is a technique borrowed from Jerez, applied to Champagne, producing something with a memory that stretches back decades.</p>
+<h4>Viticulture</h4>
+<p class="prose">The fruit is sourced from Premier Cru and Grand Cru vineyards across the Montagne de Reims, where the chalk soils and northern exposures give Pinot Noir its characteristic structure and depth. Chardonnay comes from classified parcels in the Côte des Blancs, contributing freshness and precision to the blend.</p>
+<h4>Winemaking</h4>
+<p class="prose">Traditional method with secondary fermentation in bottle. The defining element here is the solera: 8% of the final blend comes from a perpetual reserve of Pinot Noir started over forty years ago and maintained in stainless steel. Each year, a portion is drawn off for blending and replenished with fresh wine, meaning the solera carries a thread of every vintage since its inception. The remainder of the blend undergoes partial fermentation in 15-year-old Burgundian oak barrels for eight to ten months before assemblage. Reserve wines make up 30–35% of the blend. The wine is aged on the lees for three years in standard bottles and five years in Magnum. Dosage is approximately 8 g/l.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">A vibrant, pale rose-gold in the glass with a fine, persistent bead. The nose is intense and layered: wild strawberry leads, followed by red and black currants, delicate vanilla, cinnamon spice, and a pastry-like richness from the extended lees ageing. On the palate it is fresh yet full-bodied, with a soft creaminess and fine tannins from the solera Pinot Noir. Red fruit persists through the mid-palate, joined by notes of lychee and a subtle ginger warmth on the finish. The mousse is refined and the length impressive. It is a rosé Champagne with genuine depth and memory.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+</div>
+</details>
+<!-- End Champagne -->
+
+<details class="section-accordion">
+<summary>Sparkling</summary>
+<div class="section-body">
+<details class="wine-card">
+<summary>Coates &amp; Seely Réserve, Brut, Hampshire, England NV</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Coates &amp; Seely</td></tr>
+<tr><td>Appellation</td><td>Hampshire, England</td></tr>
+<tr><td>Region, Country</td><td>Hampshire, England</td></tr>
+<tr><td>Vintage</td><td>NV</td></tr>
+<tr><td>Alcohol</td><td>~12 % vol.</td></tr>
+<tr><td>Style</td><td>Brut sparkling (English)</td></tr>
+<tr><td>Grape Varieties</td><td>Chardonnay (65%), Pinot Noir (35%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Coates & Seely was born from a consoling bottle of Champagne and a lost rugby match. In 2007, on the eve of the Rugby World Cup final, Nicholas Coates travelled to Bordeaux to support his old friend Christian Seely, who was living in a country of 60 million people all wanting England to lose. England did lose. Halfway through the second consoling bottle of Champagne, Coates said: "We live in Hampshire, where we have chalk slopes. Have you ever thought of making English sparkling wine?"</p>
+<p class="prose">The idea stuck. Nick Coates, a retired City financier, and Christian Seely, the managing director of AXA Millésimes' wine division (responsible for Château Pichon-Longueville, Château Suduiraut and Quinta do Noval) brought together English ambition and world-class winemaking experience. They planted their Hampshire chalk slopes with Chardonnay, Pinot Noir and Pinot Meunier, the same varieties, and geologically identical chalk, as Champagne.</p>
+<p class="prose">They call their method "méthode Britannique" with a wink. Production is deliberately small-scale and artisanal (around 45,000 bottles a year), allowing them to make wines to the most exacting standards in their own unique way.</p>
+<h4>Viticulture</h4>
+<p class="prose">The vineyards sit on chalk soils in Hampshire that are geologically identical to those of the Champagne region. This chalk provides the mineral backbone, excellent drainage and high natural acidity that are essential for producing world-class sparkling wine. The cool English climate means a long growing season with gradual ripening.</p>
+<h4>Winemaking</h4>
+<p class="prose">Traditional method with secondary fermentation in bottle. The Brut Réserve is a blend of 65% Chardonnay and 35% Pinot Noir, incorporating reserves from previous years for depth and consistency. Lees-aged for 2.5 to 3 years, building the creamy texture and biscuity complexity that characterise the best traditional method wines.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Richness with notes of apples, elderflower and hedgerow fruits. The palate is lean and structured, with high acidity, sweet-and-sour sensations and a fine chalky minerality. Long, succulent and brisk on the finish. A wine that is unmistakably English in its freshness, yet entirely serious in its ambition.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Coates &amp; Seely Rosé, Brut, Hampshire, England NV</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Coates &amp; Seely</td></tr>
+<tr><td>Appellation</td><td>Hampshire, England</td></tr>
+<tr><td>Region, Country</td><td>Hampshire, England</td></tr>
+<tr><td>Vintage</td><td>NV</td></tr>
+<tr><td>Alcohol</td><td>~12 % vol.</td></tr>
+<tr><td>Style</td><td>Brut Rosé sparkling (English)</td></tr>
+<tr><td>Grape Varieties</td><td>Pinot Noir (65%), Pinot Meunier (35%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">The same partnership as the Réserve: Nicholas Coates and Christian Seely, two old friends from business school whose shared passion for wine led them from a lost rugby match in Bordeaux to planting chalk slopes in Hampshire. Christian's day job running Pichon-Longueville, Suduiraut and Quinta do Noval means this small English estate benefits from a depth of winemaking knowledge normally reserved for the world's greatest châteaux.</p>
+<p class="prose">While the Réserve showcases Chardonnay elegance, the Rosé flips the script entirely. It is built on Pinot Noir and Pinot Meunier, the same black-skinned varieties that give body and fruit to the finest rosé Champagnes. Where the Réserve is all precision and chalk, the Rosé is warmth, generosity and red-fruit charm.</p>
+<h4>Viticulture</h4>
+<p class="prose">Same Hampshire chalk as the Réserve. The Pinot Noir and Pinot Meunier grown here benefit from the cool English climate, which preserves acidity and freshness while allowing the fruit to develop aromatic complexity during the long growing season.</p>
+<h4>Winemaking</h4>
+<p class="prose">Traditional method. The rosé colour is achieved through brief skin contact with Pinot Noir before pressing, extracting just enough pigment and flavour without tannin. Extended lees ageing of over 2.5 years develops the creamy mousse and complexity. The blend of 65% Pinot Noir and 35% Pinot Meunier gives structure from the former and fruity generosity from the latter.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">A joyful English sparkling rosé. The colour is a delicate pink, and the nose opens with big notes of red fruits: strawberry, raspberry, redcurrant. There is a slightly sweet fruitiness that is immediately appealing. On the palate it is fresh and elegant, with a fine mousse, crisp acidity and enough body to hold its own at the table. Charming and precise in equal measure.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Coates &amp; Seely, La Perfide Rosé, Brut, Hampshire, England 2014</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Coates &amp; Seely</td></tr>
+<tr><td>Appellation</td><td>Hampshire, England</td></tr>
+<tr><td>Region, Country</td><td>Hampshire, England</td></tr>
+<tr><td>Vintage</td><td>2014</td></tr>
+<tr><td>Alcohol</td><td>~12 % vol.</td></tr>
+<tr><td>Style</td><td>Brut Rosé sparkling (English vintage)</td></tr>
+<tr><td>Grape Varieties</td><td>Pinot Noir, Pinot Meunier <em>(percentages not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">The same Coates & Seely story: Nicholas Coates and Christian Seely, born from a consoling bottle of Champagne after England lost the 2007 Rugby World Cup final. But "La Perfide" is where the duo's quiet English humour comes fully into its own.</p>
+<p class="prose">The name is a deliberate provocation. "La Perfide Albion" is how the French have referred to England for centuries: perfidious, treacherous, not to be trusted. Coates & Seely borrowed the insult and made it their prestige cuvée, a vintage wine produced only in exceptional years and intended to prove that English sparkling can rival the very best of Champagne. The joke landed rather well when the original La Perfide Blanc de Blancs 2009 won the inaugural UK Wine Awards supreme champion in 2017, beating nearly 300 English and Welsh competitors. Its sister wine, La Perfide Rosé, took best sparkling rosé in the same competition.</p>
+<p class="prose">Where the standard Rosé NV is charming and accessible, La Perfide Rosé is something else entirely. It is vintage-dated, longer-aged, and made only when the fruit merits it. It represents the absolute pinnacle of what this small Hampshire estate can produce in pink.</p>
+<h4>Viticulture</h4>
+<p class="prose">The grapes come from Coates & Seely's own chalk slopes near Whitchurch in North Hampshire. The soils are geologically identical to those of the Champagne region: pure chalk providing excellent drainage, mineral complexity and the high natural acidity essential for serious sparkling wine. The 2014 growing season in England was exceptional — a long, warm spring and summer followed by a dry September that allowed an early harvest of physiologically ripe fruit in large quantities. Producers across England described it as a once-in-a-generation vintage.</p>
+<h4>Winemaking</h4>
+<p class="prose">Traditional method, or as Coates & Seely call it with characteristic understatement, "méthode Britannique." The rosé colour is achieved through brief skin contact with Pinot Noir before pressing, extracting pigment and aromatic complexity without tannin. As a prestige cuvée, La Perfide receives significantly extended lees ageing compared to the standard NV Rosé, building the autolytic complexity, creamy texture and biscuity depth that distinguish it. This is a deliberately small-production wine from a house that already makes only around 45,000 bottles a year across its entire range.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">A deeper, more intense pink than the NV Rosé. The nose is rich and complex: sour cherry, red plum, truffle, and autolytic notes of brioche and biscuit. The palate has genuine depth and structure — red fruits are concentrated and layered, balanced by electrifying English acidity and a chalky minerality that speaks directly of the Hampshire chalk beneath the vines. The mousse is fine and persistent, the finish long and savoury. This is not a light summer rosé; it is a vintage wine of real ambition and complexity.</p>
+<h4>Vintage 2014</h4>
+<p class="prose">England's 2014 vintage was widely described as exceptional and record-breaking. A mild spring led to early budbreak, followed by a warm, dry summer that gave healthy canopies and abundant fruit set. September brought the dry warmth needed for final ripening, and harvest came earlier than usual with ripe, concentrated grapes in generous quantities. UK wine production hit record highs. Multiple producers, including those in Hampshire, described it as "the vintage of dreams" — a year of natural ripeness and balance that occurs perhaps once a decade in the English climate.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+</div>
+</details>
+<!-- End Sparkling -->
+
+<details class="section-accordion">
+<summary>White Wines</summary>
+<div class="section-body">
+<details class="wine-card">
+<summary>Rias Baixas, Valminor Davila, Albariño, Galicia, Spain 2024</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Adegas Valmiñor</td></tr>
+<tr><td>Appellation</td><td>DO Rías Baixas, Subzone O Rosal</td></tr>
+<tr><td>Region, Country</td><td>Galicia, Spain</td></tr>
+<tr><td>Vintage</td><td>2024</td></tr>
+<tr><td>Alcohol</td><td>~12 % vol.</td></tr>
+<tr><td>Style</td><td>Dry white</td></tr>
+<tr><td>Grape Varieties</td><td>Albariño, Loureiro, Treixadura</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Adegas Valmiñor was founded in 1997 by Carlos Gómez Davila in O Rosal, one of the three original subzones of DO Rías Baixas. The name "Davila" is the surname of the family and means "from the village" in Galician, which is why they chose it for this personal line of wines with limited production. The winemaker is Cristina Mantilla.</p>
+<p class="prose">While most of the world associates Rías Baixas with monovarietal Albariño, this cuvée tells a different story. It is a blend of three indigenous grapes (Albariño, Loureiro and Treixadura), a nod to the traditional field blends that existed in O Rosal long before single-variety bottlings became fashionable. The result is a wine with more complexity and textural interest than a straight Albariño, reflecting the full diversity of what this Atlantic corner of Spain can offer.</p>
+<h4>Viticulture</h4>
+<p class="prose">The grapes are sourced from 20 to 40-year-old vines planted on sandy alluvial and metamorphic schist soils in the O Rosal subzone, the southernmost area of Rías Baixas where the Miño river meets the Atlantic Ocean. The mild Atlantic climate, free from dramatic temperature swings, provides ideal conditions for slow, even ripening of indigenous white varieties. All fruit is hand-harvested to ensure only healthy, optimally ripe clusters reach the winery.</p>
+<h4>Winemaking</h4>
+<p class="prose">Upon arrival at the winery, the grapes are destemmed and given a cold soak to extract primary aromatic compounds before fermentation begins. Fermentation takes place in stainless steel tanks at a controlled temperature of approximately 18 °C over roughly 20 days, preserving freshness and varietal expression. The wine then rests on its fine lees to build texture and complexity. No oak is used at any stage, keeping the focus on purity of fruit and mineral character.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Pale yellow in colour with greenish reflections. The nose is aromatic and intense, offering layers of citrus (grapefruit and lemon) alongside stone fruit such as white peach and nectarine, lifted by delicate floral hints and a distinctive saline mineral undertone. On the palate the wine is fresh and structured, with vibrant acidity driving flavours of ripe citrus and a subtle mineral salinity. The finish is medium-long with a pleasant, slightly bitter edge that invites another sip.</p>
+<h4>Vintage 2024</h4>
+<p class="prose">Harvest 2024 in Galicia was slightly lower in volume than 2023, but all signs point to a great year for quality. The summer was very warm and dry, meaning mildew was not an issue for once in this notoriously damp region (Rías Baixas averages 1,600mm of rainfall annually, nearly three times the Spanish average). Good weather throughout the growing season allowed for a slow, complete ripening. Notably, Rías Baixas experienced its third-largest harvest on record (behind only 2017 and 2021). Temperatures have been steadily rising over the past decade, with 2014 the last vintage where Albariño was picked in October; September is now standard, with some producers picking in late August.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Vinho Verde, Mendes &amp; Symington, Loureiro, Monção &amp; Melgaço, Portugal 2024</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Mendes &amp; Symington</td></tr>
+<tr><td>Appellation</td><td>DOC Vinho Verde, Sub-region Monção &amp; Melgaço</td></tr>
+<tr><td>Region, Country</td><td>Minho, Portugal</td></tr>
+<tr><td>Vintage</td><td>2024</td></tr>
+<tr><td>Alcohol</td><td>12.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry white</td></tr>
+<tr><td>Grape Varieties</td><td>Loureiro (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Mendes & Symington is a joint venture between two wine families with very different pedigrees that somehow make perfect sense together. Symington Family Estates has been making Port since 1882 and is responsible for Graham's, Dow's and Warre's, among others. Anselmo Mendes is widely considered the visionary of modern Vinho Verde, the winemaker who proved that this region could produce wines of seriousness and complexity, not just simple summer sippers.</p>
+<p class="prose">Their partnership began in 2023 when the Symingtons acquired Casa de Rodas, a historic estate in the prestigious Monção and Melgaço sub-region, and brought Anselmo on as winemaker and vineyard consultant. They also acquired the Contacto brand, which Anselmo had built into one of Portugal's most successful wines internationally. This Loureiro is part of that Contacto range: a single-variety expression that showcases one of Portugal's most expressive and underrated white grapes.</p>
+<h4>Viticulture</h4>
+<p class="prose">The grapes come from Quinta da Ferreira in the Ponte de Lima area, at approximately 200 metres above sea level on sloping, well-drained terrain about 25 kilometres inland from the Atlantic coast. The soils are granitic with a sandy-loam texture, featuring alluvial deposits and fluvial terraces that contribute minerality and complexity to the wine. The region benefits from a confluence of continental and oceanic influences, creating significant diurnal temperature variation that helps preserve natural acidity and aromatic intensity in the fruit. All grapes are hand-picked into small boxes and transported quickly to the winery to maintain freshness.</p>
+<h4>Winemaking</h4>
+<p class="prose">Upon arrival the bunches are destemmed and gently pressed. The must is then clarified at extremely cold temperatures for 48 to 72 hours before fermentation begins. Fermentation takes place in stainless steel at a low, controlled temperature (12 to 16 °C) over a prolonged period to maximise aromatic expression. No oak is used; the wine is kept entirely in stainless steel to showcase varietal purity and terroir character.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">The wine presents a light, pale straw colour. On the nose it is expressive with lemon and citrus blossom, hints of white stone fruit (peach, nearing apricot), and subtle floral aromatics typical of Loureiro. The palate is elegant and light-bodied, with crisp, round acidity and a refreshing saline mineral undertone. The finish is long and vibrant, leaving a clean, citrus-driven impression.</p>
+<h4>Vintage 2024</h4>
+<p class="prose">Portugal's 2024 harvest was of above-average quality with variable production by region, thanks to a mild, rainy year and relatively little instability during harvest. For Vinho Verde specifically, 2024 marked a return to more typical conditions after several years of erratic rainfall and prolonged heatwaves. Robert Parker described the 2024 Vinho Verdes as "superb," a vindication for this often-underestimated region. Sogrape's harvest report noted that production varied by area but quality was consistently good, with the mild year favouring aromatic white varieties like Loureiro.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Soave Classico &quot;Calvarino&quot;, Pieropan, Veneto, Italy 2023</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Pieropan</td></tr>
+<tr><td>Appellation</td><td>Soave Classico DOC</td></tr>
+<tr><td>Region, Country</td><td>Veneto, Italy</td></tr>
+<tr><td>Vintage</td><td>2023</td></tr>
+<tr><td>Alcohol</td><td>~12.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry white</td></tr>
+<tr><td>Grape Varieties</td><td>Garganega (70%), Trebbiano di Soave (30%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Pieropan is the family that single-handedly rescued Soave's reputation. In a world where Soave had become synonymous with cheap, industrial white wine, Leonildo Pieropan was the first to bottle a single-vineyard Soave, releasing the inaugural Calvarino in 1971. It was a radical act: proving that this appellation, on volcanic soils with ancient vines, could produce wines of genuine complexity and longevity.</p>
+<p class="prose">Now in its fourth generation, the estate remains a reference point for what Italian white wine can be. The Calvarino vineyard (whose name means "little Calvary," a reference to the steep, punishing terrain) is the spiritual heart of the domaine. It sits alongside La Rocca as one of two single-vineyard wines that have earned Pieropan distinction far beyond the peninsula. All farming is now certified organic.</p>
+<h4>Viticulture</h4>
+<p class="prose">The Calvarino vineyard sits at approximately 250 metres above sea level within the Colombara UGA of the Soave Classico zone. The soils are volcanic basalt with limestone components, a geological profile that imparts distinctive mineral tension and depth. The vineyard is south-facing with steep slopes that Leonildo Pieropan first planted over 60 years ago. The combination of altitude, volcanic soils and old vines creates a wine of a completely different register from generic Soave.</p>
+<h4>Winemaking</h4>
+<p class="prose">Grapes are hand-harvested and undergo gentle whole-cluster pressing. The must is fermented and aged in tulip-shaped, glass-lined concrete tanks, which provide a neutral environment that preserves varietal character while allowing slow, gentle micro-oxygenation. The wine rests on its fine lees for approximately 12 months, building complexity and textural depth before bottling. No oak is used.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Pale straw yellow with greenish reflections when young. The nose is beautifully complex, with aromas of white spring wildflower, honey, citrus (lemon zest), wet flint, Alpine herbs and stone fruit (apricot, poached apple). On the palate the wine shows textural heft and a silky approach, wrapping smoothly across the palate with flavours of green apple, almond, blossom and oyster shell. The finish is chalky and persistent, driven by a crystalline mineral freshness.</p>
+<h4>Vintage 2023</h4>
+<p class="prose">2023 in the Veneto was erratic and atypical. Cooler temperatures in April and May eventually gave way to heat, but rain persisted throughout much of the growing season, reaching an unparalleled peak in July, particularly in the Classico zone. The month also brought localised hailstorms of varying intensity. However, the cooler temperatures ultimately benefited Garganega and Trebbiano, which need time to develop their complex aromatics. The slightly late harvest, combined with the volcanic soils' excellent drainage, meant that producers on the best sites (like Pieropan's elevated Calvarino) came through the difficult year with concentrated, focused wines while lower-lying vineyards struggled.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Riesling Appenheim Ersten Lagen Trocken, Weingut Knewitz, Rheinhessen, Germany 2023</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Weingut Knewitz</td></tr>
+<tr><td>Appellation</td><td>Rheinhessen, Erste Lage (VDP classification)</td></tr>
+<tr><td>Region, Country</td><td>Rheinhessen, Germany</td></tr>
+<tr><td>Vintage</td><td>2023</td></tr>
+<tr><td>Alcohol</td><td>~12.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry white (Trocken)</td></tr>
+<tr><td>Grape Varieties</td><td>Riesling (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">The Knewitz family has been making wine in Appenheim since the 19th century, but it was the current generation, led by Tobias Knewitz, who transformed this modest estate into one of Rheinhessen's most exciting producers. Starting from just 5 hectares that his grandfather Gerold first estate-bottled in 1976, Tobias has grown the property to 15 hectares and earned VDP membership, Germany's most exclusive association of quality-focused estates.</p>
+<p class="prose">What sets Knewitz apart is its location: the foot of the Westerberg, a prehistoric coral reef. This ancient geological formation gives an extraordinary diversity of soils in a small area: chalk, rock, marl and iron ore all within a few hundred metres of each other. Tobias describes his Rieslings as having a characteristic "Knewitz spiciness" that comes from this limestone and chalk, and it is this combination of ancient geology and modern ambition that makes the wines so compelling.</p>
+<h4>Viticulture</h4>
+<p class="prose">This Erste Lage (premier cru equivalent) bottling is grown on limestone and chalk-rich soils at the foot of the Westerberg. The combination of cool westerly winds and warm exposure ensures a very long vegetation period, ideal for Riesling's aromatic development. All grapes are grown organically and hand-harvested at optimal ripeness.</p>
+<h4>Winemaking</h4>
+<p class="prose">Vinification takes place in large, neutral oak barrels (traditional German Stückfass style), which allow slow, gentle fermentation without imparting overt oak flavour. This approach preserves varietal purity while adding subtle textural complexity. The wine is kept on its lees to build structure before bottling.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Dry and crisp with a lively, racy acidity and juicy concentration. The nose presents grapefruit, Pippin apple and green herbal notes. On the palate, flavours gain power at mid-palate with sea salt and stony mineral details emerging towards a crisp, focused finish. The wine balances elegance with concentration, reflecting both the limestone terroir and the characteristic Knewitz spiciness.</p>
+<h4>Vintage 2023</h4>
+<p class="prose">The 2023 growing season in Rheinhessen began with explosive springtime growth driven by warm temperatures and deep subsoil water reserves. Going into July, berry size and bunches appeared small, raising fears of another drought year. But then rain arrived, and the question became whether there would be too much. In the end, a very sunny and dry autumn (September and October) saved the vintage. For Riesling especially, the intense autumn sun allowed grapes in cooler sites and well-prepared vineyards to achieve remarkable concentration. Vinous described the 2023 Rheinhessen Rieslings as "bursting with flavour and delineated by freshness, but moderate in alcohol." The nationwide harvest volume (8.8 million hectolitres) was on par with the long-term average.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Bordeaux Blanc, Château de Moncets, Bordeaux, France 2023</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Château de Moncets (Les Domaines de Moncets)</td></tr>
+<tr><td>Appellation</td><td>AOC Bordeaux Blanc</td></tr>
+<tr><td>Region, Country</td><td>Bordeaux, France</td></tr>
+<tr><td>Vintage</td><td>2023</td></tr>
+<tr><td>Alcohol</td><td>~12.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry white</td></tr>
+<tr><td>Grape Varieties</td><td>Sauvignon Blanc, Sémillon <em>(percentages not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Château de Moncets is one of those Bordeaux properties that quietly goes about making excellent wine without the fanfare of its famous neighbours. The estate sits in the commune of Néac, at the crossroads of Saint-Émilion, Montagne-Saint-Émilion and Pomerol, prestigious company that speaks to the quality of the terroir. The property's history dates back to 1763 when Antoine Roussillon, known as "the prince of grape varieties," settled at this already renowned estate.</p>
+<p class="prose">While Moncets is primarily known as a Lalande de Pomerol red wine producer, this Bordeaux Blanc represents something different: a pioneering style focused on balancing freshness with the inherent power of Bordeaux varieties. The domaine is certified organic (AB label) and combines tradition with modern innovation, making it a property to watch in a region where white wines are increasingly taken seriously.</p>
+<h4>Viticulture</h4>
+<p class="prose">The vineyard surrounds a beautiful 19th-century residence and shaded park. Soils are typical of the Right Bank: clay-limestone and gravel deposits providing excellent drainage. Certified organic, with sustainable practices throughout.</p>
+<h4>Winemaking</h4>
+<p class="prose">Pneumatic pressing is used to extract clean, high-quality juice. Fermentation is temperature-controlled, with the wine seeing a combination of stainless steel and oak depending on the vintage. The goal is a harmonious balance between fruit expression and textural complexity, freshness without austerity.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">The wine opens with fresh aromas of white and exotic fruits (pear, quince, hints of pineapple) combined with delicate floral notes and a subtle herbaceous character typical of Sauvignon Blanc. On the palate it is lively and crisp, with good volume in the mid-palate and a refreshing, fruity finish driven by citrus and mineral undertones. The Sémillon component adds roundness and body.</p>
+<h4>Vintage 2023</h4>
+<p class="prose">2023 in Bordeaux turned out to be the second-hottest vintage on record after 2022, with temperatures above the 30-year average in every month except February and July. Winter was cold and wet, ensuring vines had good water reserves from the start. Budburst came in mid-to-late March (early), raising frost risks that largely did not materialise. For the dry whites, harvest started in the second half of August and finished in early September, capturing grapes with good aromatic intensity. Overall, 2023 Bordeaux wines are lower in alcohol than previous vintages (often by 1%), yet show no green flavours. The whites are aromatically complex, soft and silky, with a vibrance that distinguishes them.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Pinot Bianco Riserva &quot;Vorberg&quot;, Cantina Terlan, Trentino-Alto Adige, Italy 2022</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Cantina Terlan (Kellerei Terlan)</td></tr>
+<tr><td>Appellation</td><td>Alto Adige Terlano DOC</td></tr>
+<tr><td>Region, Country</td><td>Trentino-Alto Adige, Italy</td></tr>
+<tr><td>Vintage</td><td>2022</td></tr>
+<tr><td>Alcohol</td><td>14 % vol.</td></tr>
+<tr><td>Style</td><td>Dry white</td></tr>
+<tr><td>Grape Varieties</td><td>Pinot Bianco (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Few producers anywhere have done more for a single grape variety than Cantina Terlan has done for Pinot Bianco. While the grape is often regarded as a workhorse in Alsace and earns modest respect as Weissburgunder in Germany, Cantina Terlan has gone to extraordinary lengths to explore its full potential, treating it with the seriousness and ambition usually reserved for Chardonnay or Riesling.</p>
+<p class="prose">Vorberg is the proof. Named after the vineyard on the south-facing slopes of Monzoccolo, it was one of the first single-vineyard Pinot Bianco wines ever produced in Alto Adige and remains a benchmark decades later. The cooperative's 150-plus members farm approximately 190 hectares, but it is the specific volcanic terroir of the Vorberg site, and the patience to age the wine properly before release, that sets this apart from anything else made from this grape variety in the world.</p>
+<h4>Viticulture</h4>
+<p class="prose">The Vorberg vineyard sits at altitudes between 450 and 650 metres on steep, south-facing slopes of Monzoccolo. The soils consist of volcanic quartz-porphyry bedrock overlaid with sandy, loamy material rich in quartz and high mineral content. The red porphyric rocks retain the warmth of the day, while the porous soil provides just enough moisture for the roots to extend deep into the mineral-rich subsoil. Warm sun, cool mountain air: the daily tension between the two is what gives Terlan wines their trademark balance of richness and freshness.</p>
+<h4>Winemaking</h4>
+<p class="prose">Grapes are manually harvested and carefully selected. Whole clusters undergo gentle pressing, followed by natural sedimentation for must clarification. Fermentation is slow and temperature-controlled in large traditional oak barrels (70 hl and 30 hl). The wine undergoes full malolactic fermentation and is then aged on its lees in traditional wooden barrels for 12 months, building the creamy texture and complexity that define the Vorberg Riserva.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Intense, bright straw yellow with a light golden sheen. The multifaceted nose presents ripe yellow fruit (honeydew melon, Golden Delicious apple, white peach, quince jelly), alongside camomile, pineapple, hints of cold smoke, crushed oystershell and flint. On the palate the wine is creamy and mid-weight, with a sweet fruit texture balanced by mountain freshness. Refined and polished, with flavours of pie crust, roasted almond and citrus zest, leading to a long, mineral-driven finish.</p>
+<h4>Vintage 2022</h4>
+<p class="prose">In Alto Adige, 2022 began with a very dry and mild winter. A cool spring slightly delayed vine budding, but a very warm and sunny May restored the normal growth cycle, with rapid flowering. Then came the broader Italian drought: an unprecedented heatwave melted Alpine snowpack by end of May, and rain was absent for over 100 days. A hot spell in August briefly slowed ripening. However, abundant rainfall at the end of August broke the drought, and the weather remained stable and very fine through the fall. The official Alto Adige vintage report cites "good sugar levels, below-average acidity, and very healthy grapes" as keywords for 2022. For Cantina Terlan's high-altitude Vorberg site (450-650m), the mountain breezes and elevation mitigated the heat more effectively than for lower vineyards.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Meursault, &quot;Les Grands Charrons&quot;, Philippe Bouzereau, Burgundy, France 2022</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Domaine Philippe Bouzereau &amp; Fils</td></tr>
+<tr><td>Appellation</td><td>AOC Meursault (village level)</td></tr>
+<tr><td>Region, Country</td><td>Côte de Beaune, Burgundy, France</td></tr>
+<tr><td>Vintage</td><td>2022</td></tr>
+<tr><td>Alcohol</td><td>~13 % vol.</td></tr>
+<tr><td>Style</td><td>Dry white</td></tr>
+<tr><td>Grape Varieties</td><td>Chardonnay (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">The Bouzereau family has been in Meursault for generations, but it is their quiet, unhurried approach that distinguishes them. Where some Burgundy domaines have embraced modernity and spectacle, Philippe Bouzereau practices simplicity, observation and vigilance. No more, no less. The philosophy is clear: intervene as little as possible, watch closely, and let the vineyard speak.</p>
+<p class="prose">Les Grands Charrons is a sizeable lieu-dit situated just to the north of the line of Meursault premier crus, so close to premier cru status that many argue it deserves the promotion. Bouzereau holds around 1.5 hectares across five parcels, with vines planted in 1947, 1960, 1982 and 1992. It is this combination of old vines and a privileged site that gives the wine its beautiful concentration and precision, qualities that punch well above village-level expectations.</p>
+<h4>Viticulture</h4>
+<p class="prose">The vineyard is on an eastern-exposed slope, with limestone at the top of the hill and stonier, eroded soil at the bottom. This variation across the five parcels contributes different facets to the blend: the limestone brings mineral definition while the stonier lower sections add depth and body. Average vine age in the older sections is 40 to 60 years.</p>
+<h4>Winemaking</h4>
+<p class="prose">Grapes are harvested at full physiological maturity while preserving natural acidity. Pneumatic pressing is followed by fermentation using only indigenous (natural) yeasts. All wines are barrel-fermented and aged for 12 to 18 months in Burgundian pièces (228-litre barrels) and demi-muids, with an average of 20% new oak. The modest use of new wood allows the terroir and fruit to remain in focus.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">The wine presents a rich yet restrained aromatic profile. The bouquet is engaging, with hints of wild fennel, mint and citrus fruit alongside ripe yellow-fleshed stone fruit, a fresh citrus imprint and floral hints. On the palate there is impressive delineation, with a silver bead of acidity providing structure. The texture is delightfully rich and creamy, with layers of concentration leading to a fine, persistent finish.</p>
+<h4>Vintage 2022</h4>
+<p class="prose">After a mild and dry winter, the 2022 vegetative cycle in Burgundy's Côte de Beaune began in early April. There were minor frost episodes in Saint-Aubin and Puligny-Montrachet, but nothing catastrophic. A spell of warm weather then accelerated growth, requiring intense vineyard work in pruning and de-budding. The summer was hot and dry. Drouhin described the resulting whites as offering "good maturity with particularly aromatic wines: citrus and ripe fruit mingle with delicate floral fragrances." Vinous titled their 2022 white Burgundy report "Made of Titanium," noting the structural density. Comparisons lean toward 2019 but fresher, and after the difficult, tiny 2021 vintage, the generous 2022 was a welcome relief for producers and buyers alike.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Pouilly-Fuissé, Château de Beauregard, Burgundy, France 2022</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Château de Beauregard (Frédéric Burrier)</td></tr>
+<tr><td>Appellation</td><td>AOC Pouilly-Fuissé</td></tr>
+<tr><td>Region, Country</td><td>Mâconnais, Burgundy, France</td></tr>
+<tr><td>Vintage</td><td>2022</td></tr>
+<tr><td>Alcohol</td><td>~13 % vol.</td></tr>
+<tr><td>Style</td><td>Dry white</td></tr>
+<tr><td>Grape Varieties</td><td>Chardonnay (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Frédéric Burrier and Château de Beauregard represent the new guard of Pouilly-Fuissé, an appellation that has fought hard to shed its reputation as "lesser Burgundy." With approximately 19 hectares across the appellation and a portfolio that now includes premier cru sites (awarded in 2020), Beauregard is making the case that the Mâconnais can produce white Burgundy of genuine complexity and ageability.</p>
+<p class="prose">2022 is a milestone vintage: it is the first year the domaine is certified organic. This decision reflects a broader philosophical shift toward expressing terroir without shortcuts. The flagship cuvée draws from 12 of the estate's 19 hectares, blending fruit from different communes to create a complete expression of what Pouilly-Fuissé can be at its best.</p>
+<h4>Viticulture</h4>
+<p class="prose">The vineyards span varied terroirs including clay-limestone slopes and marl across the Pouilly-Fuissé appellation, with different communes contributing distinct characters to the final blend. Now certified organic, with practices designed to preserve soil health and biodiversity.</p>
+<h4>Winemaking</h4>
+<p class="prose">Fermentation is split between traditional 228-litre Burgundian barrels (approximately 50%) and tile-lined concrete vats (50%), a combination designed to balance richness with freshness. The wine is kept on its fine lees for 10 months, then the assemblage is further aged in stainless steel for an additional six months after blending. This extended élevage adds complexity and depth without excessive oak influence.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">The nose is attractively balanced between fresh, fruity aromatics and creamy opulence. Aromas of yellow plum, lemon verbena and light lanolin are present alongside a generous warmth. On the palate the texture is rich and creamy, yet well-balanced with a fine mineral framework and good tension. Flavours of ripe citrus, white peach and subtle almond lead to a long, satisfying finish.</p>
+<h4>Vintage 2022</h4>
+<p class="prose">The same conditions as described for the Bouzereau above applied across the Mâconnais, though the southern location generally means warmer conditions. After a mild, dry winter and early budburst in April, the summer was hot and dry. For Beauregard specifically, this is the first vintage produced under certified organic status, a milestone that coincided with a year where healthy grapes were relatively easy to achieve due to the dry conditions (less disease pressure). The generous 2022 provided impressive ripeness, and the combination of tile-lined vats (50%) and barrel fermentation (50%) allowed Burrier to capture both the opulence of the year and enough freshness to avoid heaviness.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Patrimonio, Domaine Paradella, Vermentino, Corsica, France 2022</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Domaine Paradella</td></tr>
+<tr><td>Appellation</td><td>AOC Patrimonio</td></tr>
+<tr><td>Region, Country</td><td>Corsica, France</td></tr>
+<tr><td>Vintage</td><td>2022</td></tr>
+<tr><td>Alcohol</td><td>~13 % vol.</td></tr>
+<tr><td>Style</td><td>Dry white</td></tr>
+<tr><td>Grape Varieties</td><td>Vermentino (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Patrimonio is Corsica's oldest and most prestigious wine appellation, established in 1968 as the island's first AOC. It is a place where French and Italian winemaking traditions collide on a Mediterranean island with its own fierce identity. Here, Vermentino (called Vermentinu in Corsican) is the only permitted white grape, and it reaches an expression found nowhere else: fuller, more mineral and more structured than its counterparts on the Italian mainland or Sardinia.</p>
+<p class="prose">Domaine Paradella works within this singular terroir. The appellation's clay-limestone soils give the wines their distinctive structure and mineral complexity, while the Mediterranean climate tempered by coastal breezes provides the warmth for generous fruit alongside the cool evenings needed for balanced acidity. It is island winemaking in the truest sense: defined by place, shaped by the sea.</p>
+<h4>Viticulture</h4>
+<p class="prose">Clay-limestone soils characterise the Patrimonio appellation, providing the mineral backbone that distinguishes these wines. The Mediterranean climate benefits from maritime influence and proximity to coastal lakes that create a microclimate preserving natural acidity. Warm days ripen the fruit generously while cool nights maintain freshness.</p>
+<h4>Winemaking</h4>
+<p class="prose">The grapes are carefully harvested and gently pressed to extract clean, aromatic juice. Fermentation is temperature-controlled in stainless steel tanks to preserve the fresh, aromatic character of Vermentino. The wine is kept on fine lees for several months to build texture and complexity. The winemaking philosophy prioritises terroir expression and the grape's natural aromatic profile, with minimal intervention.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">The wine displays a bright, pale gold colour. The nose is pronounced, with characteristic Vermentino aromas of rose petals, citrus fruit (lemon, grapefruit), exotic fruit and fresh herbs. On the palate it is full and generous, with a rounded texture, good concentration and a saline mineral backbone that reflects the limestone terroir. The finish is long and refreshing, with a subtle bitter almond note typical of the grape variety.</p>
+<h4>Vintage 2022</h4>
+<p class="prose">The 2022 vintage in Corsica was exceptionally dry, with harvests in Haute-Corse (northern Corsica, where Patrimonio is located) beginning at the start of August, one to three weeks earlier than usual. France 24 reported this as a direct consequence of climate adaptation across French wine regions. The dryness brought concentration to the wines, and the clay-limestone soils of Patrimonio, which retain moisture better than the granite of other Corsican appellations, helped buffer the vines against the worst effects of drought. The resulting whites show good concentration and structure from the small, thick-skinned berries.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Riesling Kabinett Graacher Himmelreich, Weingut Joh. Jos. Prüm, Mosel, Germany 2021</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Weingut Joh. Jos. Prüm</td></tr>
+<tr><td>Appellation</td><td>Mosel, VDP.Grosse Lage</td></tr>
+<tr><td>Region, Country</td><td>Middle Mosel, Germany</td></tr>
+<tr><td>Vintage</td><td>2021</td></tr>
+<tr><td>Alcohol</td><td>~8 % vol.</td></tr>
+<tr><td>Style</td><td>Off-dry white (Kabinett)</td></tr>
+<tr><td>Grape Varieties</td><td>Riesling (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">J.J. Prüm is the quiet conscience of the Mosel. In a wine world obsessed with power, extraction and newness, this estate has spent generations doing the opposite: making wines of extraordinary lightness, precision and seemingly effortless beauty. Only Riesling is grown. Only traditional methods are used. The wines are never loud.</p>
+<p class="prose">The estate has been in the Prüm family for generations and is currently managed by Dr. Katharina Prüm. They hold 14 hectares in the most revered sites of the Middle Mosel, including Wehlener Sonnenuhr and Graacher Himmelreich. The name "Himmelreich" means "Kingdom of Heaven," and while this is likely a reference to the vineyard's elevated position, it is hard not to hear it as a description of what the wine itself can be in great years.</p>
+<p class="prose">The Kabinett level is, in many ways, what J.J. Prüm does best. At just 8% alcohol, these are wines that achieve more with less: impossibly delicate, yet structured enough to age for decades.</p>
+<h4>Viticulture</h4>
+<p class="prose">The Graacher Himmelreich is a VDP.Grosse Lage (Grand Cru equivalent). The soils are grey Devonian slate (grauer Devonschiefer), which absorbs heat during the day and radiates it back to the vines during cool nights, contributing the hallmark flinty minerality of Mosel Riesling. The steep slopes ensure excellent drainage and optimal sun exposure.</p>
+<h4>Winemaking</h4>
+<p class="prose">The estate adheres to traditional Mosel winemaking methods. Fermentation is entirely spontaneous, using indigenous yeasts, and takes place in traditional wooden Fuder barrels (1,000-litre oval casks). The slow, cool fermentation stops naturally, retaining a delicate balance of residual sugar and racy acidity that defines the Kabinett style. No chaptalization or manipulation is employed.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">The bouquet is bright and expressive, with a complex array of apple, pear, bee pollen, iris blossoms, elderflower and a beautiful base of slate. There is the classic smoky, fumy Prüm style with a deep citrus core. On the palate the wine is superbly focused and straight, with flavours of white peach, lime, yuzu, anise and minty herbs, juicy and rounded in texture despite its light body. The acidity is electric and caressing, leading to a very focused, long and mouthwatering finish.</p>
+<h4>Vintage 2021</h4>
+<p class="prose">2021 was the vintage that Mosel Riesling lovers had been waiting for. After a string of warm years that pushed alcohol levels up and acidity down, 2021 returned to a pattern many thought was gone forever. A cool, wet growing season (with rain and even flooding during summer) meant grapes ripened extremely slowly, finally reaching maturity only in October and November. Farmers had to return to an era where ripeness was sought out rather than slowed down. The payoff: acid levels absolutely unheard of this decade, combined with moderate must weights perfect for the Kabinett style. James Suckling awarded a perfect 100 points to a 2021 Kabinett from the Mosel, calling it "ideal for the category." Vinous titled their report "Tantalizing, Tingling, Thrilling."</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Grüner Veltliner, Ried Lamm Ersten Lagen, Schloss Gobelsburg, Kamptal, Austria 2021</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Weingut Schloss Gobelsburg</td></tr>
+<tr><td>Appellation</td><td>Kamptal DAC, 1ÖTW Erste Lage</td></tr>
+<tr><td>Region, Country</td><td>Kamptal, Lower Austria</td></tr>
+<tr><td>Vintage</td><td>2021</td></tr>
+<tr><td>Alcohol</td><td>~13.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry white</td></tr>
+<tr><td>Grape Varieties</td><td>Grüner Veltliner (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Schloss Gobelsburg is the oldest winery in the Danube region. Its winemaking history dates back to 1171, when Cistercian monks established the estate, and their monastic principles of simplicity and strictness still guide the winemaking today. There is something powerful about a place that has been doing the same thing for over 850 years: it suggests that the terroir is speaking clearly enough to not need reinvention.</p>
+<p class="prose">The estate maintains parcels in several Erste Lagen (premier cru equivalents), with each vineyard given its own distinct identity. Ried Lamm is dedicated exclusively to Grüner Veltliner and is, in character, the most Burgundian of their whites: broader, fuller, richer. This is because the Lamm vineyard sits in a particularly warm notch on the Heiligenstein hill, where deep loess soils ripen fruit exceptionally well. It is the estate's answer to the question of how far Grüner Veltliner can go in terms of weight and complexity without losing its identity.</p>
+<h4>Viticulture</h4>
+<p class="prose">Ried Lamm is a single vineyard (cru) situated on the southeast slope of the Heiligenstein, one of Austria's most revered wine hills. The vineyard is south-facing and very well exposed, where erosion material from the Heiligenstein (perm, red siltstone) meets a high proportion of clay. The significant layer of loess (wind-blown soil) characterises this extremely warm site.</p>
+<h4>Winemaking</h4>
+<p class="prose">Grapes are harvested by hand and vinified with minimal mechanical intervention. Fermentation uses mostly natural yeasts and takes place in large traditional oak casks or steel tanks. For the Ried Lamm, some contact with neutral oak adds subtle textural richness without overt wood flavour. The wine rests on its lees, developing the broader, fuller character that the warm Lamm vineyard naturally produces.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">The wine has a hint of nutty, creamy oak on the nose, alongside ripe pineapple, honeydew melon, apple and bergamot, with subtle savoury notes. On the palate there is a creaminess and a distinctive character of freshly peeled green banana expanding into woodland-scented freshness (moss, herbs). Good complexity, with extractive sweetness balanced by mineral salinity and well-integrated acidity. The finish is long and elegant, with touches of mango and orange peel in the aftertaste.</p>
+<h4>Vintage 2021</h4>
+<p class="prose">In a departure from recent warm vintages, 2021 in Austria started with a chill. A relatively cold winter came with more snow than normal, and these cold, dry conditions held until spring. From mid-May onwards, repeated periods of ample rainfall led to vigorous budding and perfect flowering from mid-June to month's end. July and August brought unusual warmth with sporadic precipitation and some cooler days. The fall then dried out, allowing grapes to finally reach maturity in late October and November. Producers who remained patient were rewarded: quality fruit with acid levels and freshness not seen in years. For the Kamptal specifically, the cooler nights in the valley promised excellent balance between ripeness and vibrant acidity, with wines displaying longevity and vitality.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+</div>
+</details>
+<!-- End White Wines -->
+
+<details class="section-accordion">
+<summary>Rosé Wines</summary>
+<div class="section-body">
+<details class="wine-card">
+<summary>Clarendelle de Clarence Dillon, Bordeaux, France 2025</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Domaine Clarence Dillon</td></tr>
+<tr><td>Appellation</td><td>AOC Bordeaux Rosé</td></tr>
+<tr><td>Region, Country</td><td>Bordeaux, France</td></tr>
+<tr><td>Vintage</td><td>2025</td></tr>
+<tr><td>Alcohol</td><td>~13 % vol.</td></tr>
+<tr><td>Style</td><td>Dry rosé</td></tr>
+<tr><td>Grape Varieties</td><td>Merlot, Cabernet Sauvignon, Cabernet Franc <em>(percentages not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Clarendelle is where one of Bordeaux's most rarefied names meets everyday drinking. Domaine Clarence Dillon is the family behind Château Haut-Brion, a Premier Grand Cru Classé of 1855 and one of the five most prestigious wine estates in the world. Clarendelle was created as a way to offer the Haut-Brion team's expertise and philosophy in an approachable, ready-to-drink format.</p>
+<p class="prose">The rosé is the newest addition to the Clarendelle portfolio and represents something genuinely unusual: a pink wine made under the direction of the same winemaking team responsible for one of Bordeaux's greatest reds. It is not a side project or afterthought. The same eye for balance, the same pursuit of elegance over weight, and the same insistence on freshness that defines Haut-Brion runs through this wine at a completely different scale.</p>
+<h4>Viticulture</h4>
+<p class="prose">Fruit is drawn from carefully selected vineyards across Bordeaux. The soils are typical of the region: gravel, clay-limestone and sandy deposits providing excellent drainage. The selection process ensures only parcels that meet the house standard of elegance and balance make it into the final blend.</p>
+<h4>Winemaking</h4>
+<p class="prose">Grapes are harvested at optimal maturity and undergo gentle pressing with minimal skin contact to extract pale, delicate juice. Fermentation takes place at controlled temperatures in stainless steel to preserve freshness, fruit purity and aromatic vibrancy. The wine is designed to be enjoyed young, drinking beautifully on release.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Pale, iridescent salmon-pink hue. The nose is powerful and expressive, with wonderful hints of tropical fruit led by lychee and pomegranate, alongside ripe strawberry and raspberry aromas. On the palate it is solid and well-balanced, with a smooth structure and tangy fruit that provides liveliness. The finish is fresh and clean, with a gentle persistence.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>'M de Minuty', Minuty, Côtes de Provence, Provence, France 2025</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Château Minuty (LVMH since 2023)</td></tr>
+<tr><td>Appellation</td><td>AOP Côtes de Provence</td></tr>
+<tr><td>Region, Country</td><td>Provence, France</td></tr>
+<tr><td>Vintage</td><td>2025</td></tr>
+<tr><td>Alcohol</td><td>~13 % vol.</td></tr>
+<tr><td>Style</td><td>Dry rosé</td></tr>
+<tr><td>Grape Varieties</td><td>Grenache, Cinsault, Syrah, Tibouren <em>(percentages not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Château Minuty, near Saint-Tropez, is one of the names that defined what modern Provence rosé could be. For decades, the estate has been associated with precise, fresh, elegant wines that highlight purity and finesse. In 2023 LVMH acquired the property, a signal of just how seriously the luxury world takes Provençal rosé.</p>
+<p class="prose">What makes Minuty remarkable is their relationship with Grenache. In the last decade of the 20th century, the family realised that the greatest plots in their vineyard were planted to old Grenache vines. When handled with overwhelming gentleness, Grenache can produce wines of aromatic complexity as well as deep flavours and body without tannin or aggressiveness. This insight transformed their winemaking and remains the foundation of the M de Minuty cuvée.</p>
+<p class="prose">M de Minuty is the estate's most recognisable wine: a multi-terroir blend built to express the diversity of the entire Côtes de Provence appellation rather than a single site. It is also one of the few estates in Provence where harvesting is still done entirely by hand.</p>
+<h4>Viticulture</h4>
+<p class="prose">The cuvée is built from a rigorous selection of grapes from the best terroirs across the Côtes de Provence appellation. The diversity of soils (schist, limestone, clay) and exposures contributes complexity to the final blend. All fruit is hand-harvested.</p>
+<h4>Winemaking</h4>
+<p class="prose">The grapes are cold-pressed (direct pressing) with extreme care to extract only the palest, most delicate free-run juice. Fermentation takes place at cool, controlled temperatures in stainless steel. No malolactic fermentation is carried out, maintaining crisp, vibrant acidity. The wine is kept entirely in stainless steel throughout its élevage, capturing the fresh and contemporary spirit of Provence rosé.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Very pale, luminous pink colour. On the nose, aromas of crisp red fruits emerge, followed by delicate peach and subtle floral notes. The palate seduces with its liveliness and volume, delivering a wonderfully indulgent sensation while remaining bone dry. Light, bright, fresh and smooth, with a clean, refreshing finish.</p>
+<h4>Vintage 2025</h4>
+<p class="prose">Wine Spectator's 2025 Provence report notes that, with better water reserves and less heat than prior years, the vintage shows higher acidity levels than recent warm years. Wines from top terroirs made by meticulous winegrowers successfully match that tension with ample concentration and texture. For Minuty, which hand-harvests and cold-presses with extreme care, these conditions are ideal: the freshness of the vintage aligns perfectly with their house style of pale, crisp, bone-dry rosé.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>'Whispering Angel', Caves d'Esclans, Côtes de Provence, Provence, France 2023 (Magnum)</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Caves d'Esclans (Château d'Esclans)</td></tr>
+<tr><td>Appellation</td><td>AOP Côtes de Provence</td></tr>
+<tr><td>Region, Country</td><td>Provence, France</td></tr>
+<tr><td>Vintage</td><td>2023</td></tr>
+<tr><td>Alcohol</td><td>~13 % vol.</td></tr>
+<tr><td>Style</td><td>Dry rosé</td></tr>
+<tr><td>Grape Varieties</td><td>Grenache (59%), Cinsault (21%), Syrah (9%), Rolle/Vermentino (6%), Carignan (5%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Whispering Angel is the wine that changed how the world drinks rosé. Before Sacha Lichine created it in 2006, premium Provence rosé barely existed as a global category. Lichine, son of the legendary Bordeaux négociant Alexis Lichine, saw an opportunity to create a pale, dry, serious rosé that could command respect far beyond the beaches of the Côte d'Azur. He succeeded beyond anyone's expectations: Whispering Angel became a cultural phenomenon, synonymous with a certain lifestyle of effortless elegance.</p>
+<p class="prose">The estate also produces several ultra-premium rosés (Garrus, Les Clans, Rock Angel) that prove Provence can match Burgundy in ambition and price. But Whispering Angel remains the heart of the operation: sourced from the most choice vineyards in the Esclans Valley and nearby areas, made in serious volumes without compromising on the freshness and quality that built its reputation.</p>
+<p class="prose">The name comes from the chapel ceiling at Château d'Esclans, where carved angels appear to whisper to each other across the vaulted stone.</p>
+<h4>Viticulture</h4>
+<p class="prose">Grapes are sourced from amongst the most choice vineyards in the vicinity of the Esclans Valley and nearby areas within the Côtes de Provence. Harvesting is conducted during the nighttime to avoid the heat of the day and to keep the crop fresh, preserving delicate aromatic compounds and natural acidity.</p>
+<h4>Winemaking</h4>
+<p class="prose">Upon arrival at the winery, grapes are soft-crushed, then the temperature is reduced to enhance freshness and vivacity. Nitrogen pressing produces three grades of primarily free-run juice and ensures there is no oxidation. Depending on the grade of juice, fermentation takes place either in barrel or in stainless steel, with the majority in stainless steel at controlled temperatures. The wine is a blend of the best free-run and press juices. No malolactic fermentation, preserving the crisp, bone-dry character.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Very pale in colour with the classic Provençal hue. The nose offers crisp berry and peach fruit with delicate floral nuances. On the palate the taste profile is full and lush while remaining bone dry, with a smooth, rounded texture and a mouthwatering finish. The wine delivers freshness and approachability in equal measure. The Magnum format allows for slower, more graceful evolution.</p>
+<h4>Vintage 2023</h4>
+<p class="prose">Provence's 2023 was a vintage of excellent balance. After several warm years that pushed the region's wines toward richness, 2023 brought more moderate growing conditions that allowed for even ripening while maintaining the freshness and acidity essential for high-quality rosé. For Whispering Angel specifically, the nighttime harvesting and nitrogen pressing ensure that whatever conditions the vintage brings are captured at their freshest. The Magnum format (1.5L) adds another dimension: the larger volume-to-surface-area ratio means slower, more graceful evolution, finer bubbles and greater complexity than the same wine in a standard bottle.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Umathum, Rosa, Burgenland, Austria 2022</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Weingut Umathum</td></tr>
+<tr><td>Appellation</td><td>Burgenland</td></tr>
+<tr><td>Region, Country</td><td>Burgenland, Austria</td></tr>
+<tr><td>Vintage</td><td>2022</td></tr>
+<tr><td>Alcohol</td><td>12.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry rosé</td></tr>
+<tr><td>Grape Varieties</td><td>Zweigelt (33%), Sankt Laurent (33%), Blaufränkisch (33%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Josef "Pepi" Umathum is Austria's great champion of Zweigelt and the dark-skinned indigenous varieties that most of the world overlooks in favour of the country's more famous whites. A former landscape architecture student, Pepi jumped at the chance to take over his parents' winery (founded in 1958 near the vast Lake Neusiedlersee) and has since grown it from 10 to nearly 90 acres.</p>
+<p class="prose">His farming is deeply principled. He has practiced selection massale (propagating vines from the entire vineyard rather than selected clones) since the late 1980s, converted to biodynamics in 2005, and now keeps a flock of sheep in the vineyards for manure and pest control. The estate is solar-powered.</p>
+<p class="prose">Rosa is not a typical summer rosé. It is Pepi's idea of what a rosé can be when made from serious, thick-skinned red grapes with real substance: darker, more structured, almost a light red. He calls it the "perfect winter rosé," and it drinks like a basket of forest berries and spiced cherries.</p>
+<h4>Viticulture</h4>
+<p class="prose">From vines up to 46 years old near Lake Neusiedlersee in Burgenland. Equal proportions of Zweigelt, Sankt Laurent and Blaufränkisch, all indigenous Austrian varieties grown biodynamically. The Pannonian climate with hot, dry summers produces grapes of excellent concentration and intensity.</p>
+<h4>Winemaking</h4>
+<p class="prose">The Rosa is produced using the saignée method: juice is "bled off" from red grapes after skin maceration and before full fermentation. The must is run off the mash with a pink colour and fermented without pressing in stainless steel tanks to preserve freshness. The wine is aged in stainless steel, maintaining purity and vibrancy. Minimal intervention throughout.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Darker and more substantial than typical rosés, with a deep pink colour from the thick-skinned grapes. On the nose and palate it offers lively acidity that marks cherry, strawberry and stony mineral notes. Details of heather and spice elongate the finish. It drinks almost like a light, chillable red, tasting like a basket of forest berries and spiced cherries.</p>
+<h4>Vintage 2022</h4>
+<p class="prose">Burgenland's 2022 was warm and dry, consistent with the broader European pattern that year. For Umathum's biodynamically farmed old vines (up to 46 years old), the warmth concentrated the fruit beautifully. The saignée method draws juice off before full fermentation begins, meaning the growing season's concentration translates into more intense colour and fruit character in the rosé. The stainless steel ageing then preserves the lively acidity that prevents the wine from becoming heavy despite its deeper, more substantial character.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+</div>
+</details>
+<!-- End Rosé Wines -->
+
+<details class="section-accordion">
+<summary>Red Wines</summary>
+<div class="section-body">
+<details class="wine-card">
+<summary>Sancerre &quot;Prémices&quot;, Pierre Morin, Loire Valley, France 2023</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Domaine Gérard &amp; Pierre Morin</td></tr>
+<tr><td>Appellation</td><td>AOC Sancerre (rouge)</td></tr>
+<tr><td>Region, Country</td><td>Loire Valley, France</td></tr>
+<tr><td>Vintage</td><td>2023</td></tr>
+<tr><td>Alcohol</td><td>~13 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Pinot Noir (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Sancerre rouge is one of wine's great secrets. While the world drinks Sancerre white without a second thought, very few people realise that this appellation also produces some of France's most elegant Pinot Noir outside Burgundy. Pierre Morin is one of the people making that case.</p>
+<p class="prose">Pierre studied in Burgundy and worked at Domaine Dujac under Jeremy Seysses, an experience that shaped his entire approach to Pinot Noir. He returned to the family estate in Bué, three kilometres from Sancerre, with the conviction that great wine can only come from low yields, hand-harvesting and meticulous sorting. He prefers to work naturally in both vineyard and cellar, avoiding herbicides and using indigenous yeasts for fermentation.</p>
+<p class="prose">The family's vines are planted on a steep hard-calcaire (Kimmeridgian limestone) amphitheatre surrounding Bué, the same type of limestone that defines Chablis. It gives the reds a freshness and mineral precision that distinguish them from Burgundy Pinot Noir, making them lighter, crunchier and immediately charming.</p>
+<h4>Viticulture</h4>
+<p class="prose">Steep slopes of Kimmeridgian limestone surrounding the commune of Bué. Low yields from carefully tended vines. No herbicides. Hand-harvested with meticulous sorting in the vineyard.</p>
+<h4>Winemaking</h4>
+<p class="prose">Fermentation uses natural yeasts. The wine is partly aged in wood (barrels), which adds structure and subtle complexity while preserving the fresh, fruit-driven character. The approach is focused on balance between red fruit and acidity, with polished texture from the partial wood ageing.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Bright and expressive on the nose, showing ripe cherry and fresh strawberry aromas layered with subtle spice and cedar nuances. On the palate, the wine is juicy and vibrant, driven by a core of crunchy red fruit and refreshing acidity. The texture is smooth and soft, with fine tannins and a succulent, polished finish.</p>
+<h4>Vintage 2023</h4>
+<p class="prose">Sancerre's 2023 growing season in the Loire Valley benefited from the same general pattern seen across France's northern regions: a wet spring that caused concern, followed by a warm, dry summer and extended autumn that allowed full maturity. The Kimmeridgian limestone soils around Bué drain well, which helped mitigate the wet start. For Pinot Noir in Sancerre specifically, the warmth of recent vintages has been transformative: the grape achieves a ripeness and depth unimaginable two decades ago, when red Sancerre was considered a minor curiosity. Pierre Morin's low-yielding, hand-harvested approach further concentrated the fruit.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Pinot Noir &quot;Zipsin&quot;, Ziereisen, Jaspis, Baden, Germany 2022</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Weingut Ziereisen</td></tr>
+<tr><td>Appellation</td><td>Badischer Landwein (Jaspis series)</td></tr>
+<tr><td>Region, Country</td><td>Baden (Markgräflerland), Germany</td></tr>
+<tr><td>Vintage</td><td>2022</td></tr>
+<tr><td>Alcohol</td><td>~13.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Pinot Noir (Spätburgunder) 100%</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Hanspeter Ziereisen makes wines that should not exist in Germany. Located in Efringen-Kirchen, directly on the Rhine at the Dreiländereck ("three-country corner" of Germany, Alsace and Switzerland), his estate sits in a pocket of Baden so far south it has more in common with Burgundy than with the Mosel. And he knows it.</p>
+<p class="prose">His ambition is clear and unapologetic: "We produce muscular wines. Not sumo wrestlers but decathletes: smooth, elegant, strong and athletic. Strength and balance is our target." Recipe winemaking is, in his words, "a horror." Individuality is the signature of Ziereisen.</p>
+<p class="prose">The Jaspis series represents his top tier, named after the red jasper stone found in the vineyard soils. The Zipsin bottling comes from a specific plot on limestone, aged for approximately 2.5 years in neutral oak, and bottled unfined and unfiltered. It is among the most serious Pinot Noirs made in Germany, from a region that remains surprisingly under-recognised despite its exceptional quality.</p>
+<h4>Viticulture</h4>
+<p class="prose">Vineyards on limestone soils in the southernmost part of Baden. Sustainable viticulture. The warm microclimate of the Dreiländereck allows full phenolic ripeness in Pinot Noir, something that much of Germany cannot consistently achieve.</p>
+<h4>Winemaking</h4>
+<p class="prose">Hand-harvested grapes undergo extended maceration to build structure and depth. Fermentation uses indigenous yeasts. The wine is aged in neutral oak barrels for approximately 2.5 years, allowing slow development of complexity without overt oak influence. Bottled unfined and unfiltered, as is standard for all Jaspis wines.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Deep in colour, ripe and seductive on the elegant nose, displaying perfectly ripe cherry and dark berry aromas intertwined with meaty, floral and delicate earthy nuances. On the palate the wine is structured and powerful yet refined, with flavours of blackberry, plum and stony minerality backed by dusty tannins and good acidity that lends freshness. The finish is long and complex.</p>
+<h4>Vintage 2022</h4>
+<p class="prose">The 2022 vintage in southern Baden brought warm, dry conditions ideal for Pinot Noir, continuing a trend of increasingly ripe vintages in this part of Germany. For the Dreiländereck (at the Swiss-French-German border), where temperatures consistently allow full phenolic ripeness, 2022 delivered concentrated fruit without the issues of drought stress seen further north. Ziereisen's limestone soils retained moisture well, and the extended 2.5-year barrel ageing further integrated the vintage's natural power. The resulting wines show excellent depth while retaining the freshness and structure characteristic of this terroir.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Tatomer, Pinot Noir, Santa Barbara County, California, USA 2022</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Tatomer</td></tr>
+<tr><td>Appellation</td><td>Santa Barbara County</td></tr>
+<tr><td>Region, Country</td><td>California, USA</td></tr>
+<tr><td>Vintage</td><td>2022</td></tr>
+<tr><td>Alcohol</td><td>~13 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Pinot Noir (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Graham Tatomer is one of California's most compelling young winemakers, and the reason is what he chooses not to do. In a state where Pinot Noir often means ripe, extracted, oak-heavy wines pushing 14-15% alcohol, Tatomer goes in the opposite direction. He is drawn to the coldest sites, the lightest weights, and the kind of nuanced flavours that only emerge when a winemaker steps back and lets the vineyard lead.</p>
+<p class="prose">His first love is actually Riesling (unusual for California), and that same cool-climate sensibility carries over to his Pinot Noir. The county cuvée blends fruit predominantly from Drum Canyon, with smaller portions from Kick-on Ranch and Sanford & Benedict, all located in and around the Sta. Rita Hills, some of the coldest, most wind-swept vineyard land in California. The result is a Pinot Noir that would feel at home in Burgundy or the Mosel Valley: light, precise, and quietly powerful.</p>
+<h4>Viticulture</h4>
+<p class="prose">From among the coldest vineyard sites in Santa Barbara County, in and around the Sta. Rita Hills appellation. These coastal vineyards experience significant marine influence, producing grapes of lighter weight, nuanced flavours and bracing acidity. Multiple clones from multiple sites provide complexity in the final blend.</p>
+<h4>Winemaking</h4>
+<p class="prose">Minimalist approach: letting fruit and vineyard character speak without heavy-handed intervention. Approximately 50% whole-cluster fermentation provides aromatic lift and palate feel. Natural yeast fermentation. Restrained oak ageing. Elegance comes from balance rather than extraction.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">The aromas are bright, pure and savoury, with struck flint, raspberry, dried cranberry, hibiscus and cinnamon on the nose. There is a quick snap of acidity on the palate, where subtle cherry, turned earth and sagebrush flavours align. The texture is velvety yet spry, finishing with subtly chalky tannins and excellent length.</p>
+<h4>Vintage 2022</h4>
+<p class="prose">Santa Barbara County's 2022 vintage was marked by cool coastal conditions that define the Sta. Rita Hills. While much of California battled heat and drought in 2022, the marine influence of the Pacific (which funnels directly into the east-west oriented valleys of Santa Barbara) kept temperatures moderate and extended the growing season. For Tatomer's style of light-bodied, high-acid Pinot Noir, these conditions are ideal: enough warmth for phenolic ripeness without the high sugars that would push alcohol beyond his preferred 13%. The multiple vineyard sources (Drum Canyon, Kick-on Ranch, Sanford & Benedict) all benefited from these conditions, producing fruit of purity and definition.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>The Restaurant Gordon Ramsay Collection, Bordeaux, France 2022</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Gordon Ramsay Wines</td></tr>
+<tr><td>Appellation</td><td>AOC Bordeaux</td></tr>
+<tr><td>Region, Country</td><td>Bordeaux, France</td></tr>
+<tr><td>Vintage</td><td>2022</td></tr>
+<tr><td>Alcohol</td><td>~13.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Bordeaux blend <em>(percentages not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">This wine exists because of a specific need: Restaurant Gordon Ramsay, the three-Michelin-star flagship in Chelsea, wanted a house Bordeaux that could sit credibly alongside some of the world's finest wines on their list while remaining accessible and restaurant-ready. It is not a vanity label. Ramsay's name goes on it because the wine is made to his specification, designed to complement fine dining rather than compete with it.</p>
+<p class="prose">The wine is produced from selected vineyards within the Bordeaux region under the guidance of a winemaking team with deep Bordelais credentials. The 2022 vintage across Bordeaux was described as "dazzling" by critics, though the growing season was far from easy: frost, hail and prolonged hot, dry weather all tested the resolve of vignerons. What emerged from those conditions was fruit of unusual concentration and intensity.</p>
+<h4>Viticulture</h4>
+<p class="prose">Selected vineyards across the Bordeaux appellation. The 2022 growing season reduced yields but concentrated flavours, resulting in deeply coloured wines with powerful tannins and surprising freshness.</p>
+<h4>Winemaking</h4>
+<p class="prose">Temperature-controlled fermentation to preserve fruit purity. Oak ageing builds complexity and softens tannins. The wine is vinified for approachability: designed to drink well on release without needing years of cellaring.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Intense ruby red colour. Aromas of fresh redcurrant, blackberry and a touch of flint. The wine has depth and texture on the palate with approachable tannins and a soft, succulent finish. It offers immediate pleasure while showing enough structure for medium-term development.</p>
+<h4>Vintage 2022</h4>
+<p class="prose">Heat and drought are the markers of Bordeaux 2022, along with frost (nights of 3-4 April), hail and even forest fires in the Landiras. Four heatwaves brought temperatures up to 40°C, and the drought was described as "unprecedented." Yet the wines tell a different story. As Omri Ram of Château Lafleur explained, the dry conditions in early 2022 actually prepared the vines: "They self-regulated, growing smaller canopies. Unlike 2018, when the vines were fat and lazy, these vines were in training... they were marathon runners." The result broke expectations: deeply coloured wines with powerful tannins and, against all odds, a surprising degree of freshness. Jancis Robinson's team at the Wine Society described it simply: "hot and dry, high temperatures, low rainfall," yet producers who sorted thoroughly produced extraordinary wines.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Xanadu, Circa 77, Cabernet Sauvignon, Margaret River, Australia 2022</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Xanadu Wines</td></tr>
+<tr><td>Appellation</td><td>Margaret River GI</td></tr>
+<tr><td>Region, Country</td><td>Margaret River, Western Australia</td></tr>
+<tr><td>Vintage</td><td>2022</td></tr>
+<tr><td>Alcohol</td><td>~14 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Cabernet Sauvignon (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Xanadu has been in Margaret River since 1977, and the "Circa 77" name honours that founding year. But the real story is what happened more recently: in a competition featuring over 12,000 entries from around the world at the International Wine & Spirit Competition, a Xanadu Cabernet was selected as the number one red wine in the world. For an estate that many still consider "under the radar," this was a statement moment.</p>
+<p class="prose">Under winemaker Glenn Goodall's leadership since 2006, the approach is traditional but precise: hand-harvesting, wild fermentation, sustainable farming, and an unshakeable belief that Margaret River is one of the great Cabernet Sauvignon regions on earth. The Circa 77 range embodies their love for this place, reflecting the beauty of the region through structured, elegant wines that speak of their gravelly terroir.</p>
+<h4>Viticulture</h4>
+<p class="prose">Relatively flat vineyards rooted in free-draining deep, gravelly loam soil over clay. The original varieties planted in 1977 include Cabernet Sauvignon and Sémillon. Margaret River's maritime climate provides consistent conditions: warm enough to ripen Cabernet fully, cool enough to preserve structure and freshness.</p>
+<h4>Winemaking</h4>
+<p class="prose">Hand-harvested grapes undergo wild (indigenous) fermentation to allow full terroir expression. The wine is matured in French oak barrels with precise selection of cooperages to build structure while respecting the varietal character. The approach favours elegance and regional typicity over excessive extraction.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Plump cherry, blackcurrant, pencil lead, dried savoury herbs and a toasty, chocolaty oak aroma. The palate is full-figured but with freshness and structure, wound tightly by savoury, slightly drying tannins. Dark fruits of the forest, mulberries, and cassis intermingle with hints of graphite on the long finish.</p>
+<h4>Vintage 2022</h4>
+<p class="prose">Margaret River's 2022 was a warmer-than-average vintage. Xanadu described it as producing wines with "excellent fruit concentration and structure." The maritime influence of the Indian Ocean, which defines Margaret River's climate by keeping temperatures moderated, remained the saving grace even in a warm year. The region's gravelly loam soils retain enough moisture to avoid vine stress. For context, it was in this competitive vintage that Xanadu's Cabernet achieved its extraordinary IWSC recognition, suggesting the warmth in 2022 was not excessive but rather ideal for full Cabernet Sauvignon ripeness in this maritime-influenced region.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Côte-Rôtie &quot;La Landonne&quot;, E. Guigal, Rhône Valley, France 2020</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>E. Guigal</td></tr>
+<tr><td>Appellation</td><td>AOC Côte-Rôtie</td></tr>
+<tr><td>Region, Country</td><td>Northern Rhône Valley, France</td></tr>
+<tr><td>Vintage</td><td>2020</td></tr>
+<tr><td>Alcohol</td><td>~13.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Syrah (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">La Landonne is one third of the most legendary trilogy in the Rhône Valley. Together with La Mouline and La Turque, the "La La" wines of Guigal have defined what Côte-Rôtie can be at its most extreme and ambitious. La Mouline debuted in 1966, La Landonne in 1978, and each wine represents a different facet of the appellation's terroir.</p>
+<p class="prose">What makes La Landonne unique within the trilogy is its origin on the Côte Brune: iron-rich schist and mica soils that produce wines of exceptional power, depth and tannic structure, the darkest and most muscular of the three. The vineyard itself is almost impossibly steep, a 45-degree slope that requires harvesters to start picking from the bottom and work their way up, placing grape bunches in bins set on sleds that are dragged up the hill.</p>
+<p class="prose">Guigal vinifies an astonishing 40% of all wine produced in the entire Côte-Rôtie appellation. Yet La Landonne remains tiny, rare, and almost mythically concentrated. The 42 months of ageing in new French oak (3.5 years) would overwhelm a lesser wine, but here the oak is absorbed into the structure as if it were always there.</p>
+<h4>Viticulture</h4>
+<p class="prose">One of the steepest vineyards of the Côte Brune, on a 45-degree slope. Iron-rich schist and mica soils. These dark, heavy soils produce wines of exceptional power compared to the lighter, more elegant wines of the Côte Blonde across the appellation.</p>
+<h4>Winemaking</h4>
+<p class="prose">Minimal destemming. Extended maceration to extract maximum colour, tannin and flavour. Aged for 42 months (3.5 years) in new French oak barrels. This prolonged élevage integrates the oak seamlessly into the wine's powerful structure. The result is a wine of exceptional concentration, complexity, and decades-long ageing potential.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">The wine explodes from the glass with smoky blackberry jam, menthol, crushed rocks, cured meat, iodine, licorice, cloves and black olive tapenade. On the palate it is full-bodied and concentrated, with building tannins and incredible structure. The wine possesses riveting depth and brings together all the finest elements of the Guigal house style.</p>
+<h4>Vintage 2020</h4>
+<p class="prose">Drought and heat were the main concerns throughout the growing season in the Northern Rhône. Despite this, an early harvest led to surprisingly fresh wines. For Côte-Rôtie specifically, the conditions were ideal for Syrah on the steep schist slopes, which retained just enough moisture to avoid shutdown. The vintage produced wines of extraordinary concentration but also unexpected freshness, a combination that critics found remarkable. Robert Parker's reviewer awarded the 2020 La Landonne a potentially perfect score. The recommendation: hide bottles for at least a decade, then enjoy over 50 years of drinking life (2035-2075).</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Haut-Médoc, &quot;Les Brulières de Beychevelle&quot;, Château Beychevelle, Bordeaux, France 2020</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Château Beychevelle</td></tr>
+<tr><td>Appellation</td><td>AOC Haut-Médoc</td></tr>
+<tr><td>Region, Country</td><td>Bordeaux, France</td></tr>
+<tr><td>Vintage</td><td>2020</td></tr>
+<tr><td>Alcohol</td><td>~13.4 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Cabernet Sauvignon, Merlot <em>(percentages not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Château Beychevelle is a Fourth Growth (Quatrième Grand Cru Classé) of the legendary 1855 Classification, located in Saint-Julien. Its name comes from the legend of the Duc d'Épernon, Admiral of France, whose passing ships would "lower their sails" (baisser les voiles, becoming "Beychevelle" in Gascon dialect) as a mark of respect. The château's label still features its iconic griffin-prowed ship.</p>
+<p class="prose">Les Brulières de Beychevelle is a separate wine, distinct from both the Grand Vin and the second wine (Amiral de Beychevelle). It comes from the estate's Haut-Médoc vineyards rather than their Saint-Julien plots, giving it a different appellation but the same meticulous attention. It is vinified at a separate winery but produced with the same level of care, expertise and ambition as the classified wines. Think of it as Beychevelle's philosophy applied to a more accessible terroir.</p>
+<h4>Viticulture</h4>
+<p class="prose">From Château Beychevelle's Haut-Médoc vineyards. Classic Left Bank soils of gravel and clay providing excellent drainage and heat retention. The overall estate is planted to 52% Cabernet Sauvignon, 40% Merlot, 5% Cabernet Franc and 3% Petit Verdot.</p>
+<h4>Winemaking</h4>
+<p class="prose">Traditional Bordelais vinification with temperature-controlled fermentation and ageing in oak barrels. The same winemaking team and quality standards as the classified wines, applied with the same precision and rigour.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">A delightful blend of black fruits, blackcurrant, blackberries, violet, cedarwood, licorice, and spices. Rich yet not overwhelming density, with dark fruit notes and a touch of chocolate, all wrapped in a smooth, silky texture. Refined tannins and a long, elegant finish.</p>
+<h4>Vintage 2020</h4>
+<p class="prose">2020 in Bordeaux followed a now-familiar pattern: wet spring, dry hot summer, warm harvest. A mild, wet spring brought mildew problems that reduced yields. Then from 18 June to 11 August came fifty-four consecutive days of drought, almost unheard of. Temperatures in the low to mid-30s during September further concentrated berries. Jancis Robinson called it "a really good but variable year" and noted the pattern is similar to 2016, 2018 and 2019. For the Haut-Médoc (where Beychevelle sits), estates with older vines and water-retentive soils made the best wines. Despite the heat, 2020 is notably lower in alcohol than 2018.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Zuccardi, Apelación Cabernet Franc, Paraje Altamira, Uco Valley 2020</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Familia Zuccardi</td></tr>
+<tr><td>Appellation</td><td>Paraje Altamira, Uco Valley</td></tr>
+<tr><td>Region, Country</td><td>Mendoza, Argentina</td></tr>
+<tr><td>Vintage</td><td>2020</td></tr>
+<tr><td>Alcohol</td><td>~14 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Cabernet Franc (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Familia Zuccardi has been named the World's Best Vineyard multiple times, and the reason is not what they grow but how they think. While Argentina is synonymous with Malbec, Sebastián Zuccardi has spent the last two decades asking a different question: what does each specific place want to be? In Paraje Altamira, at 1,100 metres in the Uco Valley, the answer turned out to be Cabernet Franc.</p>
+<p class="prose">The "Apelación" series is Zuccardi's purest expression of terroir. Each wine is a single variety from a single place, and the Cabernet Franc from Paraje Altamira shows why this grape variety has found a second home in Argentina's high-altitude vineyards. The alluvial soils here are rich in calcium carbonate and large stones, creating wines of remarkable tension and mineral precision that feel closer to the Loire than to Bordeaux.</p>
+<p class="prose">Their philosophy is direct: "Our challenge is to faithfully interpret the diversity of each place to express its identity in the wine." Grape movement by gravity, native yeasts, concrete vats, bottled unfiltered. Nothing added, nothing taken away.</p>
+<h4>Viticulture</h4>
+<p class="prose">Planted at approximately 1,100 metres above sea level in Paraje Altamira, a high-altitude mountain desert. Complex alluvial soils rich in large stones, sand and calcium carbonate. Temperate climate with cold nights and significant diurnal temperature variation. The landscape is dominated by vineyards planted amidst large rocks, framed by the Cordón del Portillo and the Andean mountain range. Irrigated from the Tunuyán River via the historic Uco Canal.</p>
+<h4>Winemaking</h4>
+<p class="prose">Grape movement by gravity. Fermentation in concrete vats with native yeasts. Maceration of 20 to 25 days. Aged in a combination of barrels and concrete vats. Bottled unfiltered to preserve the full expression of terroir.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Deep, vibrant colour. The nose offers concentrated aromas of red and dark fruit with herbal complexity, earthy mineral notes and subtle spice. On the palate it is structured and precise, with fine-grained tannins, fresh acidity and a long, stony mineral finish that reflects the calcium-rich soils of Paraje Altamira.</p>
+<h4>Vintage 2020</h4>
+<p class="prose">The Uco Valley's 2020 growing season benefited from the consistent conditions that high altitude provides: significant diurnal temperature variation (warm days, cold nights) that is the region's defining climatic feature. At 1,100 metres, Paraje Altamira's vineyards are above many of the weather extremes that affect lower-lying regions. The alluvial soils rich in calcium carbonate and large stones provide excellent drainage while retaining just enough moisture from the Tunuyán River irrigation. Zuccardi's gravity-flow winery and concrete-vat fermentation with native yeasts meant the character of this specific growing season was captured without manipulation.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Clos Apalta, &quot;Le Petit Clos&quot;, Apalta, Colchagua Valley, Chile 2018</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Domaines Bournet-Lapostolle (Clos Apalta)</td></tr>
+<tr><td>Appellation</td><td>Apalta, Colchagua Valley</td></tr>
+<tr><td>Region, Country</td><td>Chile</td></tr>
+<tr><td>Vintage</td><td>2018</td></tr>
+<tr><td>Alcohol</td><td>~14.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Carménère (53%), Cabernet Sauvignon (32%), Merlot (12%), Petit Verdot (3%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Clos Apalta tells one of wine's great stories of rediscovery. When the Marnier-Lapostolle family (of Grand Marnier fame) acquired this hillside property in Chile's Apalta Valley, the 30 hectares were already planted with vines of Cabernet Sauvignon and Carménère dating back to 1915. For decades these old vines had been quietly producing fruit of extraordinary character, waiting for someone to recognise their potential.</p>
+<p class="prose">The Grand Vin, Clos Apalta, quickly became one of South America's most celebrated wines. Le Petit Clos was created in 2014 as a different interpretation of the same terroir: using the mastery of blending that is the heart of the domaine's philosophy, but in a more immediate, accessible style. The estate is certified organic and biodynamic.</p>
+<p class="prose">What makes Clos Apalta unusual is the centrality of Carménère. While Bordeaux abandoned this grape variety after phylloxera, it survived in Chile (long misidentified as Merlot) and here, on century-old vines, it reaches an expression found nowhere else: earthy, stony, deeply complex.</p>
+<h4>Viticulture</h4>
+<p class="prose">Vineyards in the Apalta Valley, Colchagua, with vines dating back to 1915. Granitic hillside soils. Certified organic and biodynamic. The unique microclimate of Apalta produces wines of great concentration and earthy complexity.</p>
+<h4>Winemaking</h4>
+<p class="prose">Fermentation followed by ageing in French oak barrels, initially in new oak, then continuing in a combination of new and seasoned barrels. The blend is assembled to express the signature Apalta character of earthiness and power while remaining more immediately accessible than the Grand Vin.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Ripe and powerful with the Apalta signature: earthy and stony. The nose displays deep dark fruit, spice and subtle oak influence. On the palate the wine shows excellent concentration, with rich layers of dark berry, cassis and herbal complexity, supported by firm but polished tannins. The finish is long, with mineral and earthy undertones.</p>
+<h4>Vintage 2018</h4>
+<p class="prose">In Colchagua's Apalta Valley, the 2018 vintage delivered excellent conditions for both Carménère and Cabernet Sauvignon. The Clos Apalta Grand Vin from the same year uses 64% Carménère (with 18% Cabernet Sauvignon and 18% Merlot), reaching 15% alcohol, indicating the warmth and ripeness of the vintage. Le Petit Clos, as the second wine with its own distinct blend (53% Carménère, 32% Cabernet Sauvignon), captures the Apalta signature at a more accessible level. The century-old vines and organic/biodynamic practices gave the fruit a complexity and depth that younger plantings simply cannot replicate.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Pessac-Léognan, Château La Garde, Bordeaux, France 2016</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Château La Garde</td></tr>
+<tr><td>Appellation</td><td>AOC Pessac-Léognan</td></tr>
+<tr><td>Region, Country</td><td>Bordeaux, France</td></tr>
+<tr><td>Vintage</td><td>2016</td></tr>
+<tr><td>Alcohol</td><td>~13.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Cabernet Sauvignon (52%), Merlot (45%), Petit Verdot (3%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Pessac-Léognan is the appellation that Bordeaux insiders drink when they want serious wine without the price tag of the Médoc's classified growths. Château La Garde, with its 54 hectares of vineyard on classic Graves terroir, makes benchmark wines from this area: deep, structured and well-balanced clarets that quietly over-deliver.</p>
+<p class="prose">The estate's terroir is typical of the best Pessac-Léognan: deep gravel beds over clay and limestone that provide excellent drainage and heat retention. The blend for this vintage leans on Cabernet Sauvignon (52%) for structure and ageability, supported by Merlot (45%) for roundness and a touch of Petit Verdot (3%) for colour and spice. With nearly a decade of bottle age, the 2016 is now in a beautiful drinking window, showing the kind of integration and complexity that reward patience.</p>
+<h4>Viticulture</h4>
+<p class="prose">A 54-hectare estate on deep Graves gravel soils over clay and limestone. The 2016 growing season was characterised by a very wet first half followed by a very dry finish, which concentrated the fruit beautifully. The contrast between the two halves of the season is what gives the vintage its distinctive character of ripe fruit married with freshness.</p>
+<h4>Winemaking</h4>
+<p class="prose">Traditional Bordelais vinification with temperature-controlled fermentation in stainless steel and concrete vats. Ageing in French oak barrels for approximately 14 to 16 months. The final blend is assembled to create the most complete expression of the vintage.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Deep colour with an appealingly scented dark fruit bouquet. Aromas of cassis, dark plum and tobacco on the nose. On the palate there is good fruit density, depth and structure with refined tannins and a lingering finish. A classy, well-balanced claret.</p>
+<h4>Vintage 2016</h4>
+<p class="prose">The first half of the 2016 growing season in Bordeaux was one of the wettest, cooler periods in recent history. By mid-June, according to several growers, the vintage looked like "a disaster in the making." Even vineyards with good drainage were simply too wet, with 750mm of rainfall recorded between January and 23 June. Then everything changed. From late June onward, many areas saw only a tenth of the 30-year average rainfall: Jancis Robinson reported parts of Bordeaux receiving just 14mm versus a normal 140mm over 12 weeks, the driest stretch in 25 years. The wet spring proved to be a hidden blessing: it gave vines the water reserves to survive this exceptional drought. Old vines with deep roots on gravel soils with good water retention relished the conditions. Cabernet Sauvignon excelled. The red wines that emerged are structured and firm, with deep colour and concentrated tannins. For Pessac-Léognan reds specifically, 2016 produced "future legendary" wines.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Hermitage, Jean-Louis Chave, Rhône Valley, France 1997</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Domaine Jean-Louis Chave</td></tr>
+<tr><td>Appellation</td><td>AOC Hermitage</td></tr>
+<tr><td>Region, Country</td><td>Northern Rhône Valley, France</td></tr>
+<tr><td>Vintage</td><td>1997</td></tr>
+<tr><td>Alcohol</td><td>~13 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Syrah (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">The Chave family has been making wine in Hermitage for 16 generations, tracing their lineage back to 1481. That is not a misprint. Over 540 years of unbroken family winemaking on the same hill. If any estate on earth can claim to understand its terroir completely, it is this one.</p>
+<p class="prose">Hermitage is considered the spiritual home of the Syrah grape, and Domaine Jean-Louis Chave is widely regarded as its greatest interpreter. The domaine holds parcels across multiple lieux-dits on the Hermitage hill, including granitic slopes, clay sections, and alluvial flats. Each parcel is fermented and aged separately until the final blending, which is the moment when the domaine's generations of knowledge come together: knowing exactly how much of each site to use, how each will evolve, and how together they create something greater than the sum of their parts.</p>
+<p class="prose">The wines are never loud. They are built on purity, minerality and a patience that only 16 generations can teach. At nearly 30 years old, this 1997 is now at a magnificent point of maturity, revealing layers that were invisible in its youth.</p>
+<h4>Viticulture</h4>
+<p class="prose">Multiple lieux-dits on the Hermitage hill. Steep, south-facing slopes with varied soils of granite, clay, limestone and alluvial deposits. Each plot contributes different facets to the final blend. The diversity of terroirs within a single appellation is what gives Chave Hermitage its legendary complexity.</p>
+<h4>Winemaking</h4>
+<p class="prose">Each parcel fermented and aged separately in a mix of concrete, stainless steel and oak vats. Some grapes are destemmed, but a proportion of whole bunches is included for aromatic complexity and structural lift. The finished wine matures for approximately 18 months in oak barrels, with around 10% new oak, a restrained approach that allows terroir and Syrah character to dominate.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">At nearly 30 years of age, this wine has evolved into a complex and deeply layered expression of Hermitage Syrah. Concentrated aromas of blackberry, cassis, violet, smoky minerality, black pepper and herbs, alongside tertiary notes of leather, truffle, dried flowers and earth. The palate is powerful yet refined, with resolved tannins and remarkable length.</p>
+<h4>Vintage 1997</h4>
+<p class="prose">The 1997 vintage in the northern Rhône was a ripe, generous year that delivered wines of approachable richness. It was not one of the region's monumental vintages (those honours go to 1990, 1998, 1999 and 2003), but it provided conditions that rewarded experienced winemakers. For Chave, whose multi-parcel approach and generational knowledge allow adaptation to any conditions, 1997 produced a wine of real depth and longevity. Now at nearly 30 years of age, it has reached a point of maturity where tertiary complexity (leather, truffle, dried flowers, earth) has fully developed while the fruit core remains intact. This is what Chave means when they say their wines are "built on patience."</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+</div>
+</details>
+<!-- End Red Wines -->
+
+<details class="section-accordion">
+<summary>Petrus</summary>
+<div class="section-body">
+<details class="wine-card">
+<summary>Petrus, Pomerol, France 2015</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Château Pétrus (Famille Moueix)</td></tr>
+<tr><td>Appellation</td><td>AOC Pomerol</td></tr>
+<tr><td>Region, Country</td><td>Bordeaux, France</td></tr>
+<tr><td>Vintage</td><td>2015</td></tr>
+<tr><td>Alcohol</td><td>~14.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Merlot (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Pétrus is, simply, the most famous Merlot in the world. It carries no classification (Pomerol has none) yet outprices every First Growth in the Médoc. There is no château building, no grand entrance, no corporate ownership. Just 11.4 hectares of vineyard, a modest winery, and one wine.</p>
+<p class="prose">What makes Pétrus singular is beneath the surface. The vineyard sits at the highest point of the Pomerol plateau on a seam of blue clay that is approximately 40 million years old, laced with iron-rich deposits known locally as crasse de fer. This clay exists nowhere else in the wine world in such concentration. The entire Pétrus vineyard sits directly on top of it, while neighbouring properties may have only a portion. The clay is so dense and hard that roots cannot penetrate it, instead spreading laterally and drawing mineral complexity from its surface.</p>
+<p class="prose">The Moueix family has owned and managed the property since 1970. Jean-Claude Berrouet was cellar master for over 40 years (1964-2007), succeeded by his son Olivier. Only Merlot is grown. Only one wine is made. There is no second label. Everything that is not good enough for Pétrus simply does not become Pétrus.</p>
+<h4>Viticulture</h4>
+<p class="prose">The vineyard sits at the highest point of the Pomerol plateau, approximately 40 metres above sea level. Two layers of clay: the topsoil of dark clay is 60 to 80 centimetres thick, and below it lies the unique subsoil of very dense, deep, dark blue clay not found in any other vineyard. 100% Merlot. Hand-harvested with meticulous sorting.</p>
+<h4>Winemaking</h4>
+<p class="prose">Fermentation in concrete vats. Ageing in 50% new French oak barrels for approximately 18 to 20 months. The winemaking is one of precision and restraint, allowing the extraordinary terroir to express itself fully.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">The wine opens with an extremely precise, controlled bouquet, layering ripe black cherries, truffle and crystalline red and black fruit. More mineral character emerges than in some recent vintages. On the palate it reveals beautiful mid-palate depth, sweet tannins, and a voluptuous yet weightless texture that needs to be tasted to be believed. A masterclass in balance, reconciling strength with finesse.</p>
+<h4>Vintage 2015</h4>
+<p class="prose">Pomerol's 2015 was exceptional for Merlot. Moderated heat (not the extremes of 2003 or 2022) coupled with timely precipitation produced conditions many growers described as ideal. The Right Bank excelled particularly that year, with Pomerol widely considered its strongest appellation. The Wine Cellar Insider described the best 2015 Pomerols as "bottled decadence, hedonistic thrill rides of almost unequalled sensual pleasure," comparing them to the best 2009s. For Pétrus specifically, the 2015 was aged in 50% new oak, and tasters noted more mineral character than in some recent vintages, perhaps because there was less "puppy fat" obscuring the terroir expression.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Petrus, Pomerol, France 2003</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Château Pétrus (Famille Moueix)</td></tr>
+<tr><td>Appellation</td><td>AOC Pomerol</td></tr>
+<tr><td>Region, Country</td><td>Bordeaux, France</td></tr>
+<tr><td>Vintage</td><td>2003</td></tr>
+<tr><td>Alcohol</td><td>~14.5 % vol.</td></tr>
+<tr><td>Style</td><td>Dry red</td></tr>
+<tr><td>Grape Varieties</td><td>Merlot (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">The same estate as above, but the 2003 tells a very different story. The summer of 2003 brought an extreme heatwave across Europe that devastated many vineyards, and Merlot on the Right Bank suffered more than most. Pomerol estates saw widespread problems: overripe fruit, unbalanced wines, heat-stressed vines. Many of the region's finest names produced disappointing wines that year.</p>
+<p class="prose">Pétrus did not. And the reason is, again, that blue clay. While other Pomerol vineyards on gravel and sand lost moisture rapidly in the scorching heat, Pétrus's deep clay subsoil retained water like a sponge, keeping the vines hydrated and the fruit balanced when everything around it struggled. The 2003 Pétrus emerged as one of the great successes of the vintage, a wine that defies the very circumstances of its creation. It is a testament not just to the winemaking team (Jean-Claude Berrouet and Christian Moueix) but to the terroir itself: a vineyard so perfectly suited to its grape variety that it can produce greatness even in the most extreme conditions.</p>
+<h4>Viticulture</h4>
+<p class="prose">Same vineyard, same blue clay, same 100% Merlot. But in 2003 the terroir proved its worth under pressure: the dense clay retained moisture during the record heatwave, keeping vines hydrated when neighbouring vineyards on lighter soils suffered catastrophically.</p>
+<h4>Winemaking</h4>
+<p class="prose">Fermentation in concrete vats with careful temperature management. Aged in approximately 50% new French oak for 18 to 20 months. The experience of the Moueix/Berrouet team proved decisive in navigating the extreme conditions of the vintage.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">One of the great successes of 2003 in Pomerol. Deep garnet hue. Complex bouquet of truffles, dark chocolate, black cherry, roasted coffee, figs and black cherry jam. Gloriously vivid, with extraordinary freshness that always surprises in this very hot vintage. On the palate it is powerfully huge, but the fruit is so rich and superb that the tannins become part of a complete whole. Dense, minerally, with a fleshy generosity and a long, mouth-filling finish.</p>
+<h4>Vintage 2003</h4>
+<p class="prose">The 2003 European heatwave was catastrophic for many Pomerol estates. Merlot, with its thin skins and preference for cooler conditions, suffered terribly on light, sandy and gravelly soils that dried out rapidly. Many Right Bank wines from that year are overripe, unbalanced or simply disappointing. Pétrus was a remarkable exception. Wine Enthusiast called it "one of the great successes of 2003, and a surprise given the problems with Merlot in Pomerol." The explanation lies in the blue clay: while neighbouring vineyards on lighter soils lost moisture catastrophically, Pétrus's dense clay subsoil acted as a reservoir, keeping roots hydrated through the worst of the heat. Sotheby's tasting notes describe "a gloriously vivid, almost rose-hip nose and extraordinary freshness, which is always the surprise in this very hot vintage."</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+</div>
+</details>
+<!-- End Petrus -->
+
+<details class="section-accordion">
+<summary>Sweet Wines</summary>
+<div class="section-body">
+<details class="wine-card">
+<summary>Coteaux de l'Aubance Doux, Nicolas Réau, Loire Valley, France 2024</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Nicolas Réau</td></tr>
+<tr><td>Appellation</td><td>AOC Coteaux de l'Aubance</td></tr>
+<tr><td>Region, Country</td><td>Loire Valley, France</td></tr>
+<tr><td>Vintage</td><td>2024</td></tr>
+<tr><td>Alcohol</td><td>~11 % vol.</td></tr>
+<tr><td>Style</td><td>Sweet white</td></tr>
+<tr><td>Grape Varieties</td><td>Chenin Blanc (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Nicolas Réau is a core member of the Loire Valley's natural wine movement, a community of winemakers who reject industrial farming and heavy-handed winemaking in favour of something more honest. His wines are naturally farmed and naturally fermented, with minimal intervention at every stage.</p>
+<p class="prose">The Coteaux de l'Aubance is a small, relatively obscure appellation that produces exclusively sweet wines from Chenin Blanc, one of the world's most versatile grapes. While Chenin can make everything from bone-dry to sparkling to unctuously sweet, it is in these sweet expressions that it reveals something magical: an ability to balance richness with razor-sharp acidity, sweetness with freshness. This is not a cloying dessert wine. It is sweet wine that makes you want another glass.</p>
+<h4>Viticulture</h4>
+<p class="prose">Vineyards on schist and limestone soils in the Aubance valley. Naturally farmed with no herbicides. Grapes are hand-harvested at late-harvest ripeness, when sugars have concentrated naturally on the vine through extended hang time and, when conditions allow, noble rot.</p>
+<h4>Winemaking</h4>
+<p class="prose">Direct pressing of the late-harvested grapes. Fermentation with natural yeasts and minimal intervention. Fermentation stops naturally before all sugar is converted, retaining the residual sweetness that defines the appellation. No heavy manipulation; the focus is on purity and terroir expression.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Distinguished by aromas of candied fruit and honey, with a beautiful freshness that prevents any cloying sensation. The palate shows concentrated sweetness balanced by the bright, natural acidity of Chenin Blanc, with nuances of citrus, quince and stone fruit. A wine of elegance rather than weight.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Moscato d'Asti, Contero, Strevi, Piedmont, Italy 2024</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Contero</td></tr>
+<tr><td>Appellation</td><td>DOCG Moscato d'Asti</td></tr>
+<tr><td>Region, Country</td><td>Piedmont (Strevi), Italy</td></tr>
+<tr><td>Vintage</td><td>2024</td></tr>
+<tr><td>Alcohol</td><td>~5.5 % vol.</td></tr>
+<tr><td>Style</td><td>Sweet, lightly sparkling (frizzante)</td></tr>
+<tr><td>Grape Varieties</td><td>Moscato Bianco (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Contero is based in Strevi, in the province of Alessandria, a village historically considered one of the finest areas for Moscato cultivation in all of Piedmont. The vines here are superbly tended and produce fruit of stunning quality. While Moscato d'Asti is sometimes dismissed as simple party wine, producers like Contero remind you what this style can be when taken seriously: the Moscato is lifted, fresh and frothing, with a lovely purity that only comes from excellent fruit.</p>
+<p class="prose">At just 5.5% alcohol, Moscato d'Asti occupies a unique position in the wine world. It is not a wine for contemplation; it is a wine for joy. The low alcohol, the gentle sweetness, the delicate sparkle, all of it designed to be immediate, effortless pleasure. But behind that simplicity is a winemaking process that requires real precision to achieve.</p>
+<h4>Viticulture</h4>
+<p class="prose">Moscato Bianco (Muscat Blanc à Petits Grains), one of the world's most aromatic grape varieties, grown on the hillsides of Strevi. The terroir benefits from the continental climate of Piedmont moderated by the Langhe hills.</p>
+<h4>Winemaking</h4>
+<p class="prose">Grapes are gently pressed and fermented at low temperatures to maximise fragrance. During fermentation the must is filtered several times. The wine is drawn from the vat at just 5.5% alcohol, then stabilised and bottled under pressure to maintain the slight sparkle. This single cool tank fermentation locks in natural CO2 and residual sweetness while preserving the grape's head-turning aromatics.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Lifted, fresh and frothing. Delicate notes of peach, sage, lime blossom, white flowers and fresh grape. Light, sweet and effervescent, with bright acidity providing a refreshing counterpoint to the residual sugar. The low alcohol makes it an easy, joyful wine.</p>
+<h4>Vintage 2024</h4>
+<p class="prose">After two particularly poor vintages of rainfall, 2024 brought welcome rains from late February onward with above-average temperatures, favouring healthy vine development and excellent aromatic expression in the Moscato grapes.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Recioto di Soave, Le Colombare, Pieropan, Veneto, Italy 2021</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Pieropan</td></tr>
+<tr><td>Appellation</td><td>DOCG Recioto di Soave Classico</td></tr>
+<tr><td>Region, Country</td><td>Veneto, Italy</td></tr>
+<tr><td>Vintage</td><td>2021</td></tr>
+<tr><td>Alcohol</td><td>~12 % vol.</td></tr>
+<tr><td>Style</td><td>Sweet white (passito)</td></tr>
+<tr><td>Grape Varieties</td><td>Garganega (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">This is the same Pieropan estate that produces the Calvarino, but Le Colombare represents something entirely different: an ancient winemaking tradition that predates Soave as we know it. Recioto was actually the original wine of this area, made for centuries before anyone thought to produce dry white Soave. The name comes from "recie" (ears), referring to the upper wings of the grape cluster that receive the most sun and are selected for drying.</p>
+<p class="prose">Le Colombare is only produced in the best years, making it genuinely rare. From old-vine Garganega at 300 metres on volcanic soils, organically farmed, hand-picked and dried on bamboo mats. This is a wine that connects you to a tradition stretching back centuries, when sweet wine was not a niche product but the very definition of quality winemaking.</p>
+<h4>Viticulture</h4>
+<p class="prose">Old-vine Garganega grown at 300 metres above sea level on volcanic soils within the Soave Classico zone. Organic farming. Only made in exceptional years, when the fruit achieves the concentration and health needed for the appassimento process.</p>
+<h4>Winemaking</h4>
+<p class="prose">Grapes are hand-picked and then dried on bamboo mats (appassimento method), slowly dehydrating to intensify sugars, acids and flavours. After several months of drying, a slow fermentation follows. The wine then undergoes extended ageing, building the complexity, spiced character and tropical-fruit depth that define great Recioto.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">A rare sweet treat. Pineapple, tinned peaches, orange peel and marzipan dance out of the glass. The richness and sweetness on the palate are counteracted by vibrant acidity that prevents the wine from being cloying. Dried apricot, baked apple, citrus zest, roasted hazelnut and honey emerge on the long, complex finish.</p>
+<h4>Vintage 2021</h4>
+<p class="prose">A favourable year for passito production. Cool conditions preserved excellent acidity in the fruit prior to the drying process, providing the essential backbone that balances the concentrated sweetness of the finished wine.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Muskat Ottonel Spätlese, Neusiedlersee, Austria 2020</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Neusiedlersee producer</td></tr>
+<tr><td>Appellation</td><td>Neusiedlersee</td></tr>
+<tr><td>Region, Country</td><td>Burgenland, Austria</td></tr>
+<tr><td>Vintage</td><td>2020</td></tr>
+<tr><td>Alcohol</td><td>~10 % vol.</td></tr>
+<tr><td>Style</td><td>Sweet white (Spätlese)</td></tr>
+<tr><td>Grape Varieties</td><td>Muskat Ottonel (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">The Neusiedlersee region is Austria's sweet wine paradise. Located on the eastern shore of Lake Neusiedl, Central Europe's largest steppe lake, it is one of the few places in Europe where noble rot (botrytis cinerea) can be relied upon almost every autumn. The lake's shallow, warm waters generate misty mornings that settle over the surrounding vineyards, creating perfect conditions for the fungus to develop and concentrate the grapes.</p>
+<p class="prose">Muskat Ottonel is one of the most aromatically expressive grape varieties used for sweet wine here. Unlike the heavier, richer styles made from Welschriesling or Chardonnay, Muskat Ottonel brings a floral elegance and perfumed character that makes for sweet wines of delicacy rather than density. It is the prettier, more fragrant side of Neusiedlersee.</p>
+<h4>Viticulture</h4>
+<p class="prose">Vineyards on the eastern shore of Lake Neusiedl. The Pannonian climate is characterised by hot, dry summers and cold winters. The lake's influence generates the autumn mists essential for noble rot development and natural concentration in the grapes.</p>
+<h4>Winemaking</h4>
+<p class="prose">Late-harvested grapes with naturally concentrated sugars are gently pressed and fermented at cool temperatures in stainless steel to preserve the delicate Muskat aromatics. Fermentation is stopped at the desired sweetness level, retaining the grape's natural floral character.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Intensely aromatic with floral notes of elderflower and rose, exotic fruit (lychee, mango), and honeyed sweetness balanced by refreshing acidity. The palate is elegant and perfumed, with a silky texture and clean finish.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Lentsch, Spätlese Rot, Burgenland, Austria 2019</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Weingut Lentsch</td></tr>
+<tr><td>Appellation</td><td>Burgenland</td></tr>
+<tr><td>Region, Country</td><td>Burgenland (Neusiedlersee), Austria</td></tr>
+<tr><td>Vintage</td><td>2019</td></tr>
+<tr><td>Alcohol</td><td>~11 % vol.</td></tr>
+<tr><td>Style</td><td>Sweet red (Spätlese Rot)</td></tr>
+<tr><td>Grape Varieties</td><td>Zweigelt <em>(variety not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Sweet red wine is one of Austria's least-known specialties, and Weingut Lentsch is among the producers keeping this tradition alive. Located in the Neusiedlersee region, where the misty autumn influence of Lake Neusiedl creates ideal conditions for late-harvest wines of all colours, Lentsch produces a Spätlese Rot that is unlike anything most people have encountered.</p>
+<p class="prose">The concept is simple but unusual: take thick-skinned red grapes, allow them to hang late on the vine until sugars concentrate naturally, then vinify gently to produce a sweet wine from red varieties. The result sits somewhere between a dessert wine and a light red, with the berry fruit character of one and the sweetness of the other. It is a style that defies easy categorisation, which is precisely what makes it interesting.</p>
+<h4>Viticulture</h4>
+<p class="prose">Neusiedlersee region on the eastern shore of Lake Neusiedl. The Pannonian climate with hot, dry summers allows the red grapes to reach high sugar levels for late-harvest style. The lake's influence on microclimate extends the ripening season.</p>
+<h4>Winemaking</h4>
+<p class="prose">Late-harvested red grapes with elevated natural sugar levels. Gentle extraction preserving fruit character and natural sweetness. Limited skin contact maintains elegance. The wine balances residual sugar with the natural acidity of the fruit.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Sweet red with aromas of raisin, fig, dark berry fruit, vanilla and spice. Juicy and rich on the palate, with concentrated dark fruit sweetness balanced by a good level of acidity that provides freshness and prevents heaviness. Warm, lingering finish.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Royal Tokaji, 5 Puttonyos Aszú, Hungary 2018</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Royal Tokaji Company</td></tr>
+<tr><td>Appellation</td><td>Tokaji</td></tr>
+<tr><td>Region, Country</td><td>Tokaj, Hungary</td></tr>
+<tr><td>Vintage</td><td>2018</td></tr>
+<tr><td>Alcohol</td><td>~11 % vol.</td></tr>
+<tr><td>Style</td><td>Sweet white (Aszú)</td></tr>
+<tr><td>Grape Varieties</td><td>Furmint, Hárslevelű <em>(percentages not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Tokaji Aszú is the world's oldest documented sweet wine, with records dating back to the 17th century. Louis XIV called it "the wine of kings and the king of wines." Royal Tokaji was founded in 1990 to restore this legacy after decades of communist-era neglect, when Hungary's greatest wines were reduced to industrial production for Soviet bloc markets.</p>
+<p class="prose">The company holds parcels in several of Tokaj's classed growth vineyards (classified in 1700, over a century before Bordeaux's 1855 classification). The region's volcanic rhyolite soils, unique microclimate and indigenous grape varieties combine with subterranean cellars covered in a thick layer of beneficial mould (cladosporium cellare) to create wines that exist nowhere else on earth.</p>
+<p class="prose">The 2018 was exceptional: the quality and size of the Aszú harvest allowed Royal Tokaji to make 6 Puttonyos wines from all five of their classed growth vineyards for the first time in a decade. The 5 Puttonyos designation indicates at least 120 g/l of residual sugar, achieved entirely through noble rot.</p>
+<h4>Viticulture</h4>
+<p class="prose">Volcanic rhyolite soils in the Tokaj region. Rich volcanic clay with a unique microclimate ideal for botrytis cinerea (noble rot). Indigenous grape varieties Furmint and Hárslevelű, selected as Aszú berries (individually picked, botrytis-affected grapes).</p>
+<h4>Winemaking</h4>
+<p class="prose">Aszú berries are macerated into a concentrated base wine. Aged in Hungarian oak barrels (approximately 40% new for this vintage) for two years before bottling. The solera-like cellar environment, with its thick coating of beneficial mould, contributes to the unique character of these wines.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Deep gold and vibrant. Intensely aromatic with outstanding purity of papaya and stone fruit, lifted orange zest, honey and sweet blossom. Medium- to full-bodied with vivid, mouthwatering acidity and a dense, creamy texture. Bright and harmonious, integrating pureed apricot, dried raspberry, orange marmalade, praline and crystallized honey. The finish is long, elegant and expressive.</p>
+<h4>Vintage 2018</h4>
+<p class="prose">The 2018 harvest in Tokaj was exceptional in both quality and size. Royal Tokaji was able to make 6 Puttonyos wines from all five of their classed growth vineyards for the first time in a decade, a testament to how uniformly excellent the botrytis development was across the region. The volcanic rhyolite soils and the unique microclimate of the Tokaj hills (warm days, cool nights from the Carpathian foothills, and morning mists from the Bodrog river) combined perfectly in 2018. The wines were aged in Hungarian oak (40% new) for two years before bottling in June 2021.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Château Suduiraut, Sauternes 1er Cru Classé, Bordeaux, France 2013</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Château Suduiraut</td></tr>
+<tr><td>Appellation</td><td>AOC Sauternes, 1er Cru Classé (1855)</td></tr>
+<tr><td>Region, Country</td><td>Bordeaux, France</td></tr>
+<tr><td>Vintage</td><td>2013</td></tr>
+<tr><td>Alcohol</td><td>~14 % vol.</td></tr>
+<tr><td>Style</td><td>Sweet white</td></tr>
+<tr><td>Grape Varieties</td><td>Sémillon, Sauvignon Blanc <em>(percentages not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">If Yquem is the king of Sauternes, Suduiraut is the queen: almost as old, almost as grand, and in many vintages nearly as good. The estate is a Premier Cru Classé of 1855, and its park-like grounds, with stunning gardens and lakes designed by Le Nôtre (the architect of Versailles), make it one of the most beautiful properties in all of Bordeaux.</p>
+<p class="prose">The property dates back to the 16th century, but it was the Count who commissioned Le Nôtre's gardens who elevated it to something truly special. Today Suduiraut consistently produces some of Sauternes' most opulent, generous wines, with a richness and unction that distinguish them from the more linear, citrus-driven style of Yquem. Where Yquem is about precision and eternity, Suduiraut is about seduction and indulgence.</p>
+<h4>Viticulture</h4>
+<p class="prose">The vineyard is planted predominantly to Sémillon with some Sauvignon Blanc on classic Sauternes terroir. The Ciron river generates morning mists essential for botrytis cinerea development. Multiple selective passes through the vineyard harvest only botrytis-affected grapes at optimal concentration.</p>
+<h4>Winemaking</h4>
+<p class="prose">Fermentation in oak barrels. Extended barrel ageing builds richness and complexity. The 2013 carries approximately 150 g/l of residual sugar, balanced by tight acidity that gives structure and longevity. Full, rich and powerful, built for long-term ageing.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Deep, pure and refined on the nose, with aromas of exotic fruits, hazelnut and honey complicated by smoky botrytis. Opulent on the attack, then large-scaled and solidly structured in the middle palate. Very pure, precise flavours of caramel apple, mango, papaya, grapefruit and honey. Fresh and zesty with an almost minty-herbal edge. Deceptively rich: the acidity is present but wrapped in fruit, leading to a long, linear finish.</p>
+<h4>Vintage 2013</h4>
+<p class="prose">Sauternes excelled in 2013, a year that was otherwise mixed across Bordeaux for dry reds. The key for sweet wines came from mid-September onwards, when alternate wet and dry spells led to the emergence of botrytis cinerea on very fine, ripe, healthy grapes. Wine Enthusiast described the result as "full and rich, a powerful wine packed with botrytis-driven flavours of wild honey and peach, balanced by tight acidity." The 150 g/l residual sugar is held in check by that acidity, making this a Sauternes built for long-term ageing rather than immediate gratification.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Château d'Yquem 1er Cru Classé Supérieur, Bordeaux, France 2008</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Château d'Yquem (LVMH)</td></tr>
+<tr><td>Appellation</td><td>AOC Sauternes, 1er Cru Supérieur (1855)</td></tr>
+<tr><td>Region, Country</td><td>Bordeaux, France</td></tr>
+<tr><td>Vintage</td><td>2008</td></tr>
+<tr><td>Alcohol</td><td>~14 % vol.</td></tr>
+<tr><td>Style</td><td>Sweet white</td></tr>
+<tr><td>Grape Varieties</td><td>Sémillon, Sauvignon Blanc <em>(percentages not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Château d'Yquem is the sole Premier Cru Supérieur of the 1855 Classification. In a system that ranked five levels of red wine estates, only one sweet wine property was placed above all others, in a class entirely by itself. Two centuries later, that distinction remains unchallenged.</p>
+<p class="prose">The estate sits on a hill overlooking the Sauternes appellation, 113 hectares of vineyard producing sometimes as little as one glass of wine per vine. The unique microclimate created by the Ciron river generates the morning mists essential for botrytis cinerea (noble rot), which concentrates sugars, acids and flavours to extraordinary levels. Multiple selective passes through the vineyard, sometimes over several weeks, harvest only perfectly botrytized grapes. In years that do not meet their standard, Yquem is simply not produced.</p>
+<p class="prose">Fermentation and ageing take place in 100% new French oak barrels for approximately 20 months. The wines are among the longest-lived in the world: the oldest bottles from the 18th and 19th centuries remain drinkable and extraordinary today.</p>
+<h4>Viticulture</h4>
+<p class="prose">The 113-hectare vineyard on the highest hill in Sauternes, planted predominantly to Sémillon with Sauvignon Blanc. The Ciron river creates morning mists for botrytis development. Multiple selective passes harvest only perfectly botrytized grapes. Production is tiny, reflecting an absolute refusal to compromise.</p>
+<h4>Winemaking</h4>
+<p class="prose">Fermentation in 100% new French oak barrels. Approximately 20 months of barrel ageing. Each vintage is a testament to extreme patience and precision. In some years Yquem is not produced at all if quality standards cannot be met.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">After over 15 years in bottle, the 2008 shows extraordinary complexity. Golden amber colour. Aromas of dried apricot, orange marmalade, saffron, crème brûlée, exotic spices and beeswax. The palate is unctuous yet lifted by electric acidity, with layers of candied citrus, tropical fruit, honey and caramel. The finish extends seemingly without end.</p>
+<h4>Vintage 2008</h4>
+<p class="prose">A challenging year across Bordeaux for red wines, but Sauternes excelled. The cool, humid autumn provided precisely what botrytis needs: morning mists from the Ciron river followed by afternoon warmth to prevent grey rot. The same cold, wet season that produced brilliant 2008 Champagne was a gift to Sauternes, where humidity is an asset, not a problem. The result was concentrated, elegant sweet wines with vibrant acidity that gives exceptional ageing potential. After over 15 years in bottle, the 2008 Yquem is now entering a magnificent drinking window.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Château d'Yquem 1er Cru Classé Supérieur, Bordeaux, France 1999</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Château d'Yquem (LVMH)</td></tr>
+<tr><td>Appellation</td><td>AOC Sauternes, 1er Cru Supérieur (1855)</td></tr>
+<tr><td>Region, Country</td><td>Bordeaux, France</td></tr>
+<tr><td>Vintage</td><td>1999</td></tr>
+<tr><td>Alcohol</td><td>~14 % vol.</td></tr>
+<tr><td>Style</td><td>Sweet white</td></tr>
+<tr><td>Grape Varieties</td><td>Sémillon, Sauvignon Blanc <em>(percentages not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Same estate as above. But the 1999 adds 9 more years of bottle age to the equation, and with Yquem, time does not diminish the wine; it transforms it. At 27 years old, this is a wine that has had a quarter-century to develop tertiary complexity: the fresh tropical fruit of youth giving way to caramel, dried flowers, tobacco and marmalade. It is Yquem at the point where it stops being about the vintage and starts being about eternity.</p>
+<p class="prose">The 1999 is considered among the finest Sauternes of its year, produced in conditions that were ideal for botrytis development. It has decades of life still ahead.</p>
+<h4>Viticulture</h4>
+<p class="prose">Same 113-hectare vineyard on the highest hill in Sauternes. Same Ciron-influenced microclimate generating morning mists. Same multiple selective passes harvesting only perfectly botrytized grapes. Same uncompromising standards.</p>
+<h4>Winemaking</h4>
+<p class="prose">Fermentation in 100% new French oak barrels. Extended barrel ageing. The 1999 benefited from excellent botrytis conditions that allowed for perfectly concentrated, noble-rot-affected grapes.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">At 27 years of age, the 1999 Yquem is a monument of Sauternes. Deep gold to amber colour. The nose unfolds layers of dried tropical fruit, candied orange, toasted almond, caramel, saffron, tobacco and dried flowers. On the palate it is majestic, with an unctuously rich texture perfectly counterbalanced by bright, cleansing acidity. Flavours of marmalade, honeycomb, roasted nuts and spice persist for minutes on the finish.</p>
+<h4>Vintage 1999</h4>
+<p class="prose">1999 is considered one of the great Sauternes vintages of the modern era. Ideal botrytis conditions produced wines of extraordinary richness and concentration. The warmth of the year provided generous fruit, while the Ciron's mists ensured noble rot developed evenly and cleanly. At 27 years of age, the 1999 Yquem has undergone a complete transformation: the primary tropical fruit of its youth has evolved into dried fruit, caramel, tobacco and dried flowers. It will continue to evolve for decades. Yquem from the 18th and 19th centuries remains drinkable today, so this bottle has virtually unlimited potential.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+</div>
+</details>
+<!-- End Sweet Wines -->
+
+<details class="section-accordion">
+<summary>Fortified Wines</summary>
+<div class="section-body">
+<details class="wine-card">
+<summary>Clos du Gravillas, Muscat Saint-Jean-de-Minervois &quot;Douce Providence&quot;, France 2023</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Clos du Gravillas (Nicole &amp; John Bojanowski)</td></tr>
+<tr><td>Appellation</td><td>AOC Muscat de Saint-Jean-de-Minervois</td></tr>
+<tr><td>Region, Country</td><td>Languedoc, France</td></tr>
+<tr><td>Vintage</td><td>2023</td></tr>
+<tr><td>Alcohol</td><td>~15 % vol.</td></tr>
+<tr><td>Style</td><td>Vin Doux Naturel (fortified sweet white)</td></tr>
+<tr><td>Grape Varieties</td><td>Muscat à Petits Grains (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Clos du Gravillas is a micro estate in every sense: just 5 hectares, 1,200 cases a year, and two people, Nicole and John Bojanowski, doing everything themselves. They are perched on the high hillsides of Saint-Jean-de-Minervois, a tiny village in the Parc Naturel du Haut Languedoc that is famous for one thing: the ripe, pure bottling of the Muscat grape in its fortified sweet form.</p>
+<p class="prose">The name "Douce Providence" (sweet providence) captures both the style and the philosophy. This is a wine that relies on the natural generosity of its terroir: very stony limestone soils at high elevation, where gradual ripening produces grapes of remarkable concentration and freshness. The fortification is gentle, barely enough to halt fermentation, resulting in a wine that is sweet without being heavy, fortified without being hot. It is what Muscat tastes like when everything is done with care and nothing is rushed.</p>
+<h4>Viticulture</h4>
+<p class="prose">Very stony limestone soils at high elevation in Saint-Jean-de-Minervois. The geological and climatic environment promotes gradual ripening and a naturally taut balance. Hand-harvested with meticulous sorting. Yield management at 25 hl/ha.</p>
+<h4>Winemaking</h4>
+<p class="prose">Lightly fortified (mutage) to halt fermentation at the appellation minimum of 125 g/l residual sugar. This gentle fortification preserves the fresh, aromatic Muscat character while retaining natural sweetness. The result is lower in alcohol than most VDN styles, keeping the wine vibrant and drinkable.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Rich and flattering floral nose with lots of mineral freshness and bright colour. The palate is smooth and very voluptuous, filled with pineapple and tropical fruit, leading into a refreshing finish. Weight and depth in spades, yet never heavy or cloying.</p>
+<h4>Vintage 2023</h4>
+<p class="prose">Good conditions for Muscat production in the limestone hills. The elevated terroir and stony soils provided the gradual ripening needed for concentrated yet balanced sweet wines.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Gérard Bertrand, Maury Tuilé &quot;Légend Vintage&quot;, France 1976</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Gérard Bertrand</td></tr>
+<tr><td>Appellation</td><td>AOC Maury (Vin Doux Naturel)</td></tr>
+<tr><td>Region, Country</td><td>Roussillon, France</td></tr>
+<tr><td>Vintage</td><td>1976</td></tr>
+<tr><td>Alcohol</td><td>~16 % vol.</td></tr>
+<tr><td>Style</td><td>Vin Doux Naturel (fortified, tuilé/oxidative)</td></tr>
+<tr><td>Grape Varieties</td><td>Grenache Noir <em>(variety not confirmed for this vintage)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Gérard Bertrand's "Légend Vintage" collection is something extraordinary: single-vintage Vin Doux Naturel wines that have been ageing in oxidative conditions for decades, sometimes close to a century. The 1976 has spent nearly 50 years developing the complex rancio character that defines tuilé-style Maury.</p>
+<p class="prose">Maury is a Vin Doux Naturel appellation in the Roussillon, where grapes are fortified on the whole grains (mutage sur grains), meaning grape spirit is added while the skins are still in contact with the juice. This technique gives the wines more colour, tannin and structure than other VDN methods. What happens next is the real story: the wine is then left to age in oxidative conditions for years, decades, or in this case, nearly half a century. Oxygen slowly transforms the wine, developing the flavours the French call rancio: a savoury, nutty, caramelised complexity that cannot be achieved any other way.</p>
+<p class="prose">These are wines to discover today or in 100 years. Time is essentially irrelevant to them.</p>
+<h4>Viticulture</h4>
+<p class="prose">Schist soils in the Roussillon. Hot, dry Mediterranean climate producing grapes of extraordinary ripeness and concentration. The 1976 vintage grapes were grown in a pre-industrial era of Roussillon viticulture.</p>
+<h4>Winemaking</h4>
+<p class="prose">Fortified on the whole grains (mutage sur grains) during fermentation. Then aged for nearly 50 years in oxidative conditions (tuilé style). The decades of controlled oxidation in barrel develop the complex rancio character: nuts, dried fruits, caramel, coffee, beeswax.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Loaded with rich nut and rancio flavours. Aromas of dried orange peel, gingerbread, toasted macadamia nut, molasses, cocoa, coffee and caramel. Flavours of dried red plum, fig, honey, walnuts, beeswax and soft white pepper. Complex, spicy and full, with an endless finish that is smooth and lingering.</p>
+<h4>Vintage 1976</h4>
+<p class="prose">A single-vintage wine that has spent nearly 50 years in oxidative ageing. The extraordinary concentration and complexity are the product of half a century of patient maturation.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Emilio Hidalgo, Pedro Ximénez, Spain NV</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Bodegas Emilio Hidalgo</td></tr>
+<tr><td>Appellation</td><td>DO Jerez-Xérès-Sherry</td></tr>
+<tr><td>Region, Country</td><td>Jerez de la Frontera, Andalusia, Spain</td></tr>
+<tr><td>Vintage</td><td>NV (Solera system)</td></tr>
+<tr><td>Alcohol</td><td>~15 % vol.</td></tr>
+<tr><td>Style</td><td>Sweet fortified (Pedro Ximénez sherry)</td></tr>
+<tr><td>Grape Varieties</td><td>Pedro Ximénez (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Pedro Ximénez sherry is one of the most extreme wines in the world. It begins not in a winery but on a rooftop: after harvest, the PX grapes are laid out in the scorching Andalusian sun until they become practically raisins, a process called asoleo. What you are tasting in the glass started as dried fruit on straw mats.</p>
+<p class="prose">Bodegas Emilio Hidalgo is a family-owned house in the heart of Jerez de la Frontera, producing sherry since the 19th century. Their PX ages in the traditional Criaderas y Solera system, a fractional blending method where younger wines are periodically introduced into barrels containing older wines, meaning the solera contains a thread of the oldest wine in its history. No individual bottle has a vintage because every bottle contains a blend of ages stretching back decades.</p>
+<p class="prose">The result is a wine of almost impossible density and concentration: ebony-coloured, thick enough to coat the glass, sweet enough to pour over ice cream, yet balanced by the oxidative complexity that only decades in porous oak can provide.</p>
+<h4>Viticulture</h4>
+<p class="prose">Pedro Ximénez grapes grown on limestone-rich albariza, clay-dominant barros and sandy arenas soils in Jerez. Sun-dried (asoleo) immediately after harvest until practically raisins, concentrating sugars to extraordinary levels.</p>
+<h4>Winemaking</h4>
+<p class="prose">After sun-drying, fermentation starts slowly from the dense, sweet grape must and is halted by fortification to maintain all natural sugars. The wine then ages in the traditional Criaderas y Solera system, exposed to controlled oxidation in porous oak barrels over many years.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Ebony in colour with iodine highlights. Incredibly dense and concentrated. Aromas of figs, raisins, dates and molasses. Enormously sweet, velvety and soft on the palate, yet well balanced. The viscous texture coats the mouth with flavours of dried fruit, dark caramel and bittersweet chocolate. The finish is very long.</p>
+<h4>Ageing</h4>
+<p class="prose">Non-vintage, produced through the solera fractional blending system which combines wines of multiple ages, ensuring consistency and layered complexity in every bottling.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<h3 class="sub-header">Port</h3>
+<details class="wine-card">
+<summary>Quinta da Vacaria, Late Bottled Vintage 2016</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Quinta da Vacaria</td></tr>
+<tr><td>Appellation</td><td>DOC Porto (LBV)</td></tr>
+<tr><td>Region, Country</td><td>Douro Valley, Portugal</td></tr>
+<tr><td>Vintage</td><td>2016</td></tr>
+<tr><td>Alcohol</td><td>~20 % vol.</td></tr>
+<tr><td>Style</td><td>Late Bottled Vintage Port</td></tr>
+<tr><td>Grape Varieties</td><td>Traditional Douro varieties <em>(percentages not confirmed)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Late Bottled Vintage Port occupies a clever position in the Port world. It offers much of the character and depth of a vintage or even a declared Vintage Port, but without requiring decades of cellaring or the ritual of decanting. The wine is aged in oak for 4 to 6 years at the winery before bottling, meaning it arrives ready to drink.</p>
+<p class="prose">Quinta da Vacaria is a property in the Douro Valley that produces this style with care and conviction. The traditional field blend of indigenous Portuguese grape varieties (Touriga Nacional, Touriga Franca, Tinta Roriz among them) is foot-trodden or mechanically trodden in lagares, and the fermentation is halted by the addition of grape spirit (aguardente) at approximately 77% vol., the moment that defines Port: capturing that natural sweetness and locking it in.</p>
+<h4>Viticulture</h4>
+<p class="prose">Traditional field blend of indigenous Portuguese varieties planted on schist terraces along the steep hillsides of the Douro. The region's extreme continental climate with very hot, dry summers produces grapes of extraordinary concentration and intensity.</p>
+<h4>Winemaking</h4>
+<p class="prose">Grapes are trodden in lagares. Fermentation halted by addition of grape spirit, retaining natural residual sugar. Aged in oak for 4 to 6 years before bottling (LBV style), combining depth with earlier accessibility.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Deep ruby-purple colour. Rich aromas of dark berry fruit, plum, chocolate and spice. Full-bodied and concentrated on the palate, with firm but integrated tannins, sweet dark fruit and a long, warming finish.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Sandeman, Quinta do Seixo, Vintage, Portugal 2013</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Sandeman (Sogrape Vinhos)</td></tr>
+<tr><td>Appellation</td><td>DOC Porto (Vintage Port)</td></tr>
+<tr><td>Region, Country</td><td>Douro Valley, Portugal</td></tr>
+<tr><td>Vintage</td><td>2013</td></tr>
+<tr><td>Alcohol</td><td>~20 % vol.</td></tr>
+<tr><td>Style</td><td>Vintage Port</td></tr>
+<tr><td>Grape Varieties</td><td>Traditional Douro varieties <em>(percentages not confirmed)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Sandeman is one of Port's most iconic brands, recognisable by its Don (the mysterious cloaked figure in a Portuguese student's cape and a Spanish hat) created in 1928. The house was founded in 1790 by George Sandeman, a Scotsman who came to London with £300 from his father and a determination to build a wine business.</p>
+<p class="prose">Quinta do Seixo is Sandeman's flagship estate, located in the prestigious Cima Corgo sub-region of the Douro. The name references the stones (seixos) found throughout the vineyard, a detail that says everything about the terroir: schist and stone, heat and slope, the raw materials from which Port is built. A Vintage Port from a single year offers the complexity and concentration of a declared vintage in a more accessible format.</p>
+<h4>Viticulture</h4>
+<p class="prose">Terraced vineyards on schist soils in the Cima Corgo, overlooking the Douro river. The estate's stony character contributes to the concentration and mineral backbone of the wines.</p>
+<h4>Winemaking</h4>
+<p class="prose">Traditional Port vinification: grapes are trodden, fermentation halted by fortification with grape spirit. Aged in oak casks before bottling as a single-vintage wine.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Deep colour with youthful purple hues. Intense aromas of black fruit, violets and spice. Full and rich on the palate with concentrated fruit, firm structure and a long, balanced finish.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Graham's, Tawny, Douro, Portugal 10Y</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>W. &amp; J. Graham's (Symington Family Estates)</td></tr>
+<tr><td>Appellation</td><td>DOC Porto (Tawny Port)</td></tr>
+<tr><td>Region, Country</td><td>Douro Valley, Portugal</td></tr>
+<tr><td>Vintage</td><td>NV (10 Year Old)</td></tr>
+<tr><td>Alcohol</td><td>~20 % vol.</td></tr>
+<tr><td>Style</td><td>Tawny Port (aged)</td></tr>
+<tr><td>Grape Varieties</td><td>Traditional Douro field blend</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Graham's is one of the great names in Port, established in 1820 and now part of the Symington Family Estates, the family that also owns Dow's, Warre's and Cockburn's. If the Symingtons dominate Port today, it is because of houses like Graham's: known for a rich, concentrated, generous style that favours opulence over austerity.</p>
+<p class="prose">The 10 Year Old Tawny is the entry point to their aged Tawny range, but "entry point" is relative. Ten years of slow oxidative ageing in small oak pipes in the lodges of Vila Nova de Gaia transforms what was once a dark, tannic ruby wine into something completely different: tawny in colour, nutty and smooth, with the rough edges polished away and replaced by caramel, dried fruit and spice.</p>
+<h4>Winemaking & Ageing</h4>
+<p class="prose">After fortification, the wine ages in small oak casks (pipes) for an average of 10 years in the lodges of Vila Nova de Gaia. Extended oxidative ageing develops the characteristic tawny colour, nutty complexity and smooth texture. The final blend is assembled from wines of different ages to achieve the consistent house style.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Tawny amber colour. Elegant nose of butterscotch, almond, dried fruit and subtle vanilla. Smooth and mellow on the palate with flavours of caramel, orange peel and walnut. Medium-sweet with a clean, lingering finish.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Quinta das Carvalhas, Tawny, Douro, Portugal 30Y</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Quinta das Carvalhas (Real Companhia Velha)</td></tr>
+<tr><td>Appellation</td><td>DOC Porto (Tawny Port)</td></tr>
+<tr><td>Region, Country</td><td>Douro Valley, Portugal</td></tr>
+<tr><td>Vintage</td><td>NV (30 Year Old)</td></tr>
+<tr><td>Alcohol</td><td>~20 % vol.</td></tr>
+<tr><td>Style</td><td>Tawny Port (aged)</td></tr>
+<tr><td>Grape Varieties</td><td>Traditional Douro field blend</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Quinta das Carvalhas is one of the most visually dramatic properties in the entire Douro Valley: a vast amphitheatre of terraced vineyards on the south-facing slopes overlooking Pinhão, the heart of Port country. It belongs to Real Companhia Velha, one of the oldest Port houses, founded in 1756 by Royal Charter of King José I to regulate and protect the Douro wine trade. That makes it not just old, but historically significant: this is the company that was created to define what Port is.</p>
+<p class="prose">A 30 Year Old Tawny from this house carries the weight of that history. Three decades of patient oxidative ageing in small oak casks develops extraordinary depth: dried fig, walnut, toffee, orange marmalade, tobacco. The wine becomes silky, unctuous, and seemingly endless on the finish.</p>
+<h4>Winemaking & Ageing</h4>
+<p class="prose">Fortified and then aged in small oak casks for an average of 30 years. Extended barrel ageing in the lodges develops extraordinary concentration, complexity and silky texture. Fractional blending ensures consistency across bottlings.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Deep amber-mahogany colour. Complex bouquet of dried fig, walnut, toffee, orange marmalade, tobacco and exotic spices. Silky and unctuous on the palate, with extraordinary depth, layers of caramel, roasted nut and dried fruit, and a seemingly endless finish.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Graham's, Tawny, Douro, Portugal 40Y</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>W. &amp; J. Graham's (Symington Family Estates)</td></tr>
+<tr><td>Appellation</td><td>DOC Porto (Tawny Port)</td></tr>
+<tr><td>Region, Country</td><td>Douro Valley, Portugal</td></tr>
+<tr><td>Vintage</td><td>NV (40 Year Old)</td></tr>
+<tr><td>Alcohol</td><td>~20 % vol.</td></tr>
+<tr><td>Style</td><td>Tawny Port (aged)</td></tr>
+<tr><td>Grape Varieties</td><td>Traditional Douro field blend</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">The 40 Year Old is the pinnacle of Graham's aged Tawny range, and it represents something close to the limit of what oxidative ageing can achieve. After four decades in small oak casks, the wine has been transformed so completely from its original state that it bears almost no resemblance to the young, fiery ruby Port it once was. What remains is pure essence: concentrated, ethereal, almost timeless.</p>
+<p class="prose">To create a 40 Year Old Tawny, the blender selects from the oldest reserves in the lodge, wines that have been slowly evaporating and concentrating for decades. The loss to evaporation (the "angel's share") means these old casks contain very little liquid, but what remains is of extraordinary intensity. The art is in the blending: assembling wines from different decades to create something that tastes not of a specific year but of accumulated time itself.</p>
+<h4>Winemaking & Ageing</h4>
+<p class="prose">After fortification, wines are aged in small oak pipes for an average of 40 years in the lodges of Vila Nova de Gaia. This exceptional length of ageing concentrates flavours to an extraordinary degree through slow evaporation and oxidation. The blend is carefully assembled from the oldest reserves to represent the ultimate expression of Graham's Tawny style.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Deep golden amber with olive-green rim. Extraordinary aromatic complexity: honeyed nuts, dried exotic fruits, candied orange, dark toffee, sandalwood, cinnamon and aged balsamic. On the palate it is ethereally smooth and concentrated, with layers upon layers of flavour unfolding. The finish lingers for minutes.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<h3 class="sub-header">Madeira</h3>
+<details class="wine-card">
+<summary>Justino's, Fine Rich Reserve, Madeira, Portugal 5Y</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Justino's Madeira Wines</td></tr>
+<tr><td>Appellation</td><td>DOC Madeirense</td></tr>
+<tr><td>Region, Country</td><td>Madeira, Portugal</td></tr>
+<tr><td>Vintage</td><td>NV (5 Year Reserve)</td></tr>
+<tr><td>Alcohol</td><td>~19 % vol.</td></tr>
+<tr><td>Style</td><td>Madeira (medium-rich)</td></tr>
+<tr><td>Grape Varieties</td><td>Tinta Negra <em>(variety not confirmed)</em></td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Justino's is one of Madeira's oldest and largest producers, founded in 1870. In a region where many of the most famous houses are tiny and rarefied, Justino's fills an important role: making serious, well-crafted Madeira at accessible levels. Their 5 Year Reserve is an introduction to the Madeira style, designed to show what makes this island's wines unique without requiring the commitment (or price) of a 20-year-old single variety.</p>
+<p class="prose">The "Rich" designation indicates a medium-sweet style, the most approachable entry point for those new to Madeira. But even at this level, you can taste the hallmarks of the style: the warmth from the fortification, the caramelised character from the ageing process, and crucially, the acidity. That acidity is what makes Madeira Madeira; it prevents the sweetness from ever feeling heavy and gives even a 5-year-old wine a freshness that is surprising for its style.</p>
+<h4>Winemaking & Ageing</h4>
+<p class="prose">After fermentation on the volcanic island, the wine is fortified with grape spirit. Ageing uses the canteiro method (natural warming in heated lofts) or estufagem (heated tanks) for a minimum of 5 years. The heat accelerates the development of the characteristic oxidised, caramelised flavours.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Amber colour. Aromas of dried fruit, caramel, toffee and toasted nuts. Medium-sweet on the palate with warm, rounded flavours of raisin, burnt sugar and subtle spice. Good acidity provides balance and freshness. Clean, warming finish.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>H.M. Borges, Malvasia, Madeira, Portugal 20Y</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>H.M. Borges</td></tr>
+<tr><td>Appellation</td><td>DOC Madeirense</td></tr>
+<tr><td>Region, Country</td><td>Madeira, Portugal</td></tr>
+<tr><td>Vintage</td><td>NV (20 Year Old)</td></tr>
+<tr><td>Alcohol</td><td>~20 % vol.</td></tr>
+<tr><td>Style</td><td>Madeira (sweet/rich)</td></tr>
+<tr><td>Grape Varieties</td><td>Malvasia (Malmsey) 100%</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">H.M. Borges is a family-owned Madeira house established in 1877, one of the smaller producers on the island who maintain a traditional, artisanal approach. Malvasia (known internationally as Malmsey) is the richest and sweetest of Madeira's four noble grape varieties, and it is the style that first made the island famous centuries ago. Shakespeare wrote about Malmsey; the Duke of Clarence allegedly drowned in a butt of it.</p>
+<p class="prose">At 20 years old, this Malvasia has spent two decades developing in the canteiro system: natural warming in the attic lofts of the Borges lodges, where the subtropical Madeiran heat slowly transforms the wine. The combination of extreme sweetness from the Malvasia grape and extreme acidity from Madeira's volcanic terroir creates a tension that few other wines in the world can match. It should be overwhelming, but instead it is harmonious: lusciously sweet yet never heavy.</p>
+<h4>Viticulture</h4>
+<p class="prose">Malvasia grown on the island's lower, warmer south-facing slopes on volcanic soils. The grape variety requires warmth to ripen fully, and Madeira's south coast provides it with a subtropical generosity.</p>
+<h4>Winemaking & Ageing</h4>
+<p class="prose">Fortified during fermentation to retain natural sweetness. Aged for 20 years using the canteiro method (natural warming in attic lofts). Extended oxidative ageing in seasoned oak casks develops extraordinary complexity while Madeira's signature high acidity preserves freshness.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Deep amber-mahogany colour. Rich, complex nose of burnt caramel, dried fig, orange peel, dark chocolate, coffee and exotic spices. Lusciously sweet on the palate but never heavy, thanks to Madeira's trademark searing acidity. The finish is endless, with flavours of toffee, roasted nuts and candied fruit lingering beautifully.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+<details class="wine-card">
+<summary>Blandy's, Sercial, Madeira, Portugal 1980</summary>
+<div class="card-body">
+<table>
+<tr><td>Producer</td><td>Blandy's (Madeira Wine Company)</td></tr>
+<tr><td>Appellation</td><td>DOC Madeirense (Frasqueira/Vintage)</td></tr>
+<tr><td>Region, Country</td><td>Madeira, Portugal</td></tr>
+<tr><td>Vintage</td><td>1980</td></tr>
+<tr><td>Alcohol</td><td>~20 % vol.</td></tr>
+<tr><td>Style</td><td>Madeira (dry)</td></tr>
+<tr><td>Grape Varieties</td><td>Sercial (100%)</td></tr>
+</table>
+<h4>The Producer</h4>
+<p class="prose">Blandy's is the only family of all the original founders of the Madeira wine trade to still be involved in production and management. They have been making wine on this volcanic Atlantic island since 1811, and the family name has become virtually synonymous with Madeira itself.</p>
+<p class="prose">Sercial is the driest of Madeira's four noble grape varieties, and arguably the most thrilling. Grown at the island's highest, coolest vineyards (up to 800 metres), it produces grapes of screamingly high natural acidity that, when fortified and aged for decades, creates wines of breathtaking vitality and seemingly immortal freshness. A 1980 Sercial has spent over 40 years in cask, yet tastes as alive and energetic as a wine a fraction of its age.</p>
+<p class="prose">This is what makes Madeira unique among all the world's wines: the combination of heat (the canteiro ageing method uses natural warmth) and acidity means these wines are essentially indestructible. Bottles from the 18th and 19th centuries remain not just drinkable but extraordinary today.</p>
+<h4>Viticulture</h4>
+<p class="prose">Sercial grown at the island's highest, coolest vineyards on volcanic soils. The extreme altitude produces grapes of very high natural acidity, the defining characteristic that gives old Madeira its seemingly eternal freshness.</p>
+<h4>Winemaking & Ageing</h4>
+<p class="prose">Fortified after fermentation (allowing nearly all sugar to be consumed, hence the dry style). Aged for over 40 years in seasoned oak casks using the canteiro method (natural warming in heated lofts). The Frasqueira (vintage) designation requires a minimum of 20 years in cask; this wine far exceeds that threshold.</p>
+<h4>Tasting Notes</h4>
+<p class="prose">Amber-golden colour with olive rim. Extraordinarily complex nose of toasted almonds, citrus peel, dried herbs, caramel, smoke, sea salt and iodine. On the palate bone-dry, with searing acidity and incredibly concentrated flavours of roasted nuts, orange zest, coffee and spice. The finish is endless. A wine of breathtaking vitality for its age.</p>
+<h4>Vintage 1980</h4>
+<p class="prose">Over 40 years of ageing in cask. This Frasqueira Madeira represents the pinnacle of the Sercial style: virtually indestructible, and will continue to evolve for decades to come.</p>
+<div class="print-card-btn"><button onclick="printCard(this)">&#128424; Print</button></div>
+</div>
+</details>
+</div>
+</details>
+<!-- End Fortified Wines -->
+
+<div class="footer" onclick="document.querySelector('.print-unlock').style.display='block'">Fiorella Atencio</div>
+<div class="print-unlock" id="printUnlock">
+<input type="password" id="printKey" placeholder="Print key" onkeydown="if(event.key==='Enter')unlockPrint()">
+<button onclick="unlockPrint()">Unlock</button>
+<div class="msg" id="printMsg"></div>
+</div>
+</div>
+<script>
+// Disable copy/paste/cut
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+// Disable print screen key
+document.addEventListener('keyup',function(e){
+if(e.key==='PrintScreen'){navigator.clipboard.writeText('');document.body.style.display='none';setTimeout(function(){document.body.style.display='';},100);}
+});
+// Disable Ctrl+P default print
+document.addEventListener('keydown',function(e){
+if((e.ctrlKey||e.metaKey)&&e.key==='p'){e.preventDefault();}
+if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();}
+if((e.ctrlKey||e.metaKey)&&e.key==='u'){e.preventDefault();}
+});
+// Print unlock — shows print icons on each card
+function unlockPrint(){
+var key=document.getElementById('printKey').value;
+if(key==='fiorella2026'){
+document.querySelector('style').textContent=document.querySelector('style').textContent.replace('@media print{body{display:none !important}}','');
+document.querySelectorAll('.print-card-btn').forEach(function(el){el.style.display='block';});
+document.getElementById('printMsg').textContent='Print enabled';
+document.getElementById('printKey').value='';
+document.querySelector('.print-unlock').style.display='none';
+}else{
+document.getElementById('printMsg').textContent='Incorrect key';
+document.getElementById('printKey').value='';
+}
+}
+// Print individual card
+function printCard(btn){
+var card=btn.closest('.card-body');
+var title=btn.closest('.wine-card').querySelector('summary').textContent;
+var content=card.cloneNode(true);
+content.querySelector('.print-card-btn').remove();
+var win=window.open('','_blank');
+win.document.write('<html><head><title>'+title+'</title>');
+win.document.write('<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">');
+win.document.write('<style>');
+win.document.write('@page{size:A4 portrait;margin:20mm 25mm 20mm 25mm}');
+win.document.write('body{font-family:Inter,sans-serif;padding:0;color:#2c2c2c;line-height:1.6;margin:0}');
+win.document.write('.print-header{font-family:Cormorant Garamond,serif;font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#888;text-align:center;margin-bottom:20px}');
+win.document.write('h2{font-family:Cormorant Garamond,serif;font-size:22px;color:#5c1a1a;margin-bottom:16px;text-align:center}');
+win.document.write('table{width:100%;border-collapse:collapse;margin-bottom:14px}');
+win.document.write('table td{padding:4px 0;font-size:13px;vertical-align:top}');
+win.document.write('table td:first-child{font-weight:600;width:28%;color:#555}');
+win.document.write('h4{font-size:12px;text-transform:uppercase;letter-spacing:0.8px;color:#5c1a1a;margin:16px 0 6px;padding-bottom:3px;border-bottom:1px solid #f0ebe5}');
+win.document.write('p{font-size:13px;color:#444;text-align:justify;margin-bottom:10px}');
+win.document.write('em{font-style:italic}');
+win.document.write('.print-footer{position:fixed;bottom:15mm;right:0;font-size:10px;color:#666;font-family:Inter,sans-serif;letter-spacing:0.5px}');
+win.document.write('</style></head><body>');
+win.document.write('<div class="print-header">Petrus — By the Glass Selection</div>');
+win.document.write('<h2>'+title+'</h2>');
+win.document.write(content.innerHTML);
+win.document.write('<div class="print-footer">F. Atencio</div>');
+win.document.write('</body></html>');
+win.document.close();
+setTimeout(function(){win.print();},400);
+}
+</script>
+</body>
+</html>

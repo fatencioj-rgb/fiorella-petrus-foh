@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipes — Petrus Sommeliers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --green:#5c1a1a; --green-dark:#2d0a0a; --gold:#b89650; --cream:#faf7f1; --sans:'Inter',sans-serif; --serif:'Cormorant Garamond',serif; }
+body { font-family:var(--sans); background:var(--cream); color:#2c2c2c; min-height:100vh; }
+.top-bar { background:var(--green-dark); padding:12px 24px; display:flex; align-items:center; justify-content:space-between; }
+.top-bar a { color:var(--gold); text-decoration:none; font-size:12px; letter-spacing:1px; text-transform:uppercase; }
+.top-bar a:hover { color:#fff; }
+.top-bar h2 { font-family:var(--serif); color:#fff; font-size:18px; margin:0; }
+.content { max-width:600px; margin:80px auto; padding:0 20px; text-align:center; }
+.content h1 { font-family:var(--serif); font-size:32px; color:var(--green); margin-bottom:12px; }
+.content p { font-size:14px; color:#888; }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="sommeliers.html">&larr; Back</a>
+  <h2>Petrus</h2>
+  <span></span>
+</div>
+<div class="content">
+  <h1>Recipes</h1>
+  <p>Coming soon.</p>
+</div>
+
+<!-- Firebase + Auth -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="auth.js"></script>
+<script>
+auth.onAuthStateChanged((user) => {
+  if (!user) { window.location.href = 'index.html'; }
+});
+</script>
+</body>
+</html>

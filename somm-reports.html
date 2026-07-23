@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reports — Petrus Sommeliers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#5c1a1a;--green-dark:#2d0a0a;--gold:#b89650;--cream:#faf7f1;--sans:'Inter',sans-serif;--serif:'Cormorant Garamond',serif}
+body{font-family:var(--sans);background:var(--cream);color:#2c2c2c;min-height:100vh}
+.top-bar{background:var(--green-dark);padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.top-bar a{color:var(--gold);text-decoration:none;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+.top-bar a:hover{color:#fff}
+.top-bar h2{font-family:var(--serif);color:#fff;font-size:18px;margin:0}
+.page{max-width:800px;margin:0 auto;padding:32px 16px 60px}
+.page>h1{font-family:var(--serif);font-size:28px;color:var(--green);margin-bottom:20px}
+.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
+.filters label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#888}
+.filters input[type="date"]{padding:7px 10px;border:1px solid #d4b87a;border-radius:5px;font-family:var(--sans);font-size:12px;outline:none}
+.filters select{padding:7px 10px;border:1px solid #d4b87a;border-radius:5px;font-family:var(--sans);font-size:12px;outline:none}
+.filters .btn{padding:8px 16px;background:var(--gold);color:#fff;border:none;border-radius:5px;font-family:var(--sans);font-size:11px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px}
+.filters .btn:hover{background:#a07e3a}
+.report-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:12px}
+.report-table th{background:var(--green-dark);color:#fff;padding:8px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.5px}
+.report-table td{padding:7px 10px;border-bottom:1px solid #e8e0d4;vertical-align:top}
+.report-table tr:hover td{background:#fdf9f2}
+.no-data{text-align:center;padding:40px;color:#aaa;font-size:13px}
+.summary{margin-top:20px;padding:14px;background:#fff;border:1px solid #e8e0d4;border-radius:8px;font-size:12px;color:#555}
+.summary strong{color:var(--green)}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="sommeliers.html">&larr; Back</a>
+  <h2>Petrus</h2>
+  <span></span>
+</div>
+<div class="page">
+  <h1>Reports</h1>
+  <div class="filters">
+    <label>From</label><input type="date" id="dateFrom">
+    <label>To</label><input type="date" id="dateTo">
+    <label>Type</label>
+    <select id="reportType">
+      <option value="wastages">Wastages</option>
+      <option value="deliveries">Deliveries</option>
+      <option value="tasks">Completed Tasks</option>
+    </select>
+    <button class="btn" onclick="generateReport()">Generate</button>
+  </div>
+  <div id="reportOutput"><div class="no-data">Select dates and type, then click Generate</div></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="auth.js"></script>
+<script>
+auth.onAuthStateChanged(user=>{
+  if(!user){window.location.href='index.html';return;}
+  logAccess(user,'page_view','somm-reports.html');
+  // Default: last 3 weeks
+  const today=new Date();
+  const from=new Date();from.setDate(today.getDate()-21);
+  document.getElementById('dateTo').value=today.toISOString().slice(0,10);
+  document.getElementById('dateFrom').value=from.toISOString().slice(0,10);
+  document.getElementById('dateTo').max=today.toISOString().slice(0,10);
+});
+
+async function generateReport(){
+  var from=document.getElementById('dateFrom').value;
+  var to=document.getElementById('dateTo').value;
+  var type=document.getElementById('reportType').value;
+  if(!from||!to){alert('Select both dates');return;}
+
+  var output=document.getElementById('reportOutput');
+  output.innerHTML='<div class="no-data">Loading...</div>';
+
+  try{
+    // Completed tasks report
+    if(type==='tasks'){
+      var tsnap=await db.collection('somm_tasks_completed').get();
+      var tasks=[];
+      tsnap.forEach(function(doc){var d=doc.data();if(d.completedDate>=from&&d.completedDate<=to)tasks.push(d);});
+      tasks.sort(function(a,b){return a.completedDate>b.completedDate?1:-1;});
+      if(tasks.length===0){output.innerHTML='<div class="no-data">No completed tasks for this period</div>';return;}
+      var h='<table class="report-table"><thead><tr><th>Completed</th><th>Task</th><th>Created by</th><th>Completed by</th></tr></thead><tbody>';
+      for(var i=0;i<tasks.length;i++){
+        var t=tasks[i];
+        var dl=new Date(t.completedDate+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+        h+='<tr><td>'+dl+'</td><td>'+t.text+'</td><td>'+t.createdBy+'</td><td>'+t.completedBy+'</td></tr>';
+      }
+      h+='</tbody></table>';
+      h+='<div class="summary"><strong>'+tasks.length+'</strong> tasks completed</div>';
+      output.innerHTML=h;return;
+    }
+
+    var snap=await db.collection('somm_orders')
+      .where('date','>=',from)
+      .where('date','<=',to)
+      .orderBy('date','asc')
+      .get();
+
+    var allItems=[];
+    snap.forEach(function(doc){
+      var d=doc.data();var date=d.date;
+      ['lunch','dinner'].forEach(function(shift){
+        var key=shift+'_'+type;
+        (d[key]||[]).forEach(function(item){allItems.push({name:item.name,qty:item.qty,unit:item.unit,author:item.author,actions:item.actions,menuTypes:item.menuTypes,date:date,shift:shift});});
+      });
+    });
+
+    if(allItems.length===0){output.innerHTML='<div class="no-data">No data found for this period</div>';return;}
+
+    var h='<table class="report-table"><thead><tr><th>Date</th><th>Shift</th><th>Item</th>';
+    if(type==='wastages') h+='<th>Qty</th><th>Unit</th>';
+    if(type==='deliveries') h+='<th>Status</th>';
+    h+='<th>By</th></tr></thead><tbody>';
+
+    for(var i=0;i<allItems.length;i++){
+      var item=allItems[i];
+      var dateLabel=new Date(item.date+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+      h+='<tr><td>'+dateLabel+'</td><td>'+item.shift+'</td><td>'+item.name+'</td>';
+      if(type==='wastages') h+='<td>'+(item.qty||'—')+'</td><td>'+(item.unit||'')+'</td>';
+      if(type==='deliveries'){
+        var acts=item.actions||{};var status=[];
+        ['closed','pw','horizon','menu'].forEach(function(a){var v=acts[a]||'default';if(v==='done')status.push('✓ '+a);else if(v==='already')status.push('— '+a);else if(v==='pending')status.push('○ '+a);});
+        var mt=item.menuTypes&&item.menuTypes.length?'Menu: '+item.menuTypes.join(',').toUpperCase():'';
+        h+='<td>'+(status.length?status.join(', '):'—')+(mt?' | '+mt:'')+'</td>';
+      }
+      h+='<td>'+(item.author||'')+'</td></tr>';
+    }
+    h+='</tbody></table>';
+    h+='<div class="summary"><strong>'+allItems.length+'</strong> items from <strong>'+from+'</strong> to <strong>'+to+'</strong></div>';
+    output.innerHTML=h;
+  }catch(e){
+    console.error(e);
+    output.innerHTML='<div class="no-data">Error loading data.</div>';
+  }
+}
+</script>
+</body>
+</html>

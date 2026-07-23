@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operations — Petrus</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --green:#5c1a1a; --green-dark:#2d0a0a; --gold:#b89650; --gold-light:#d4b87a; --cream:#faf7f1; --sans:'Inter',sans-serif; --serif:'Cormorant Garamond',serif; }
+body { font-family:var(--sans); background:var(--cream); color:#2c2c2c; min-height:100vh; }
+.top-bar { background:var(--green-dark); padding:12px 24px; display:flex; align-items:center; justify-content:space-between; }
+.top-bar a { color:var(--gold); text-decoration:none; font-size:12px; letter-spacing:1px; text-transform:uppercase; }
+.top-bar a:hover { color:#fff; }
+.top-bar h2 { font-family:var(--serif); color:#fff; font-size:18px; margin:0; }
+.page { max-width:700px; margin:0 auto; padding:60px 24px; text-align:center; }
+.page h1 { font-family:var(--serif); font-size:34px; color:var(--green); margin-bottom:8px; }
+.page .sub { font-size:13px; color:#888; letter-spacing:1px; margin-bottom:40px; }
+.profiles { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
+.profile-card {
+  flex:1; min-width:200px; max-width:280px;
+  background:#fff; border:1px solid #e8e0d4; border-radius:10px;
+  padding:40px 24px; text-decoration:none; color:#2c2c2c;
+  transition:all 0.3s ease; text-align:center;
+}
+.profile-card:hover {
+  border-color:var(--gold); transform:translateY(-4px);
+  box-shadow:0 8px 30px rgba(92,26,26,0.08);
+}
+.profile-card h3 {
+  font-family:var(--serif); font-size:22px; color:var(--green);
+  margin-bottom:8px; letter-spacing:1px;
+}
+.profile-card p { font-size:12px; color:#888; line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="index.html">&larr; Back</a>
+  <h2>Petrus</h2>
+  <span></span>
+</div>
+<div class="page">
+  <h1>Operations</h1>
+  <p class="sub">Admin tools</p>
+  <div class="profiles">
+    <a href="menus.html" class="profile-card">
+      <h3>Menus</h3>
+      <p>Edit and print service menus</p>
+    </a>
+    <a href="bookings.html" class="profile-card">
+      <h3>Bookings</h3>
+      <p>Upload and manage daily reservations</p>
+    </a>
+  </div>
+</div>
+
+<!-- Firebase + Auth -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="auth.js"></script>
+<script src="guard-admin.js"></script>
+</body>
+</html>

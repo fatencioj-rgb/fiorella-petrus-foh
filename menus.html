@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menus — Petrus</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green: #5c1a1a; --green-dark: #2d0a0a;
+  --gold: #b89650; --gold-light: #d4b87a; --cream: #faf7f1;
+  --sans: 'Inter', sans-serif; --serif: 'Cormorant Garamond', serif;
+}
+body { font-family: var(--sans); background: var(--cream); color: #2c2c2c; min-height: 100vh; }
+.top-bar { background: var(--green-dark); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
+.top-bar a { color: var(--gold); text-decoration: none; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+.top-bar a:hover { color: #fff; }
+.top-bar h2 { font-family: var(--serif); color: #fff; font-size: 18px; margin: 0; }
+.content { max-width: 1400px; margin: 32px auto; padding: 0 20px; }
+.content > h1 { font-family: var(--serif); font-size: 32px; color: var(--green); margin-bottom: 8px; }
+.content > .subtitle { font-size: 13px; color: #888; margin-bottom: 28px; }
+.selectors { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+.selectors select { padding: 10px 14px; border: 1px solid #d4b87a; border-radius: 6px; font-family: var(--sans); font-size: 13px; background: #fff; color: #333; cursor: pointer; outline: none; min-width: 160px; }
+.selectors select:focus { border-color: var(--green); }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+.btn { padding: 10px 20px; border-radius: 6px; font-family: var(--sans); font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; border: none; }
+.btn-gold { background: var(--gold); color: #fff; }
+.btn-gold:hover { background: #a07e3a; }
+.btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--green); }
+.btn-outline:hover { background: var(--gold); color: #fff; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+</style>
+<style>
+/* Menu preview — replicates the printed card */
+.split-view { display: flex; gap: 24px; align-items: flex-start; }
+.split-left { flex: 1; min-width: 0; position: sticky; top: 20px; }
+.split-right { flex: 1; min-width: 0; max-height: 85vh; overflow-y: auto; }
+.menu-preview { background: #fff; border: 1px solid #e8e0d4; border-radius: 8px; padding: 48px 32px; min-height: 500px; text-align: center; }
+.menu-title { font-family: var(--serif); font-size: 22px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: #1a1a1a; margin-bottom: 40px; }
+.course-separator { font-size: 14px; color: #999; margin: 16px 0; user-select: none; }
+.course-dish { font-family: var(--serif); font-size: 17px; font-weight: 600; color: #1a1a1a; line-height: 1.3; }
+.course-desc { font-family: var(--serif); font-size: 15px; font-weight: 300; color: #333; margin-top: 2px; }
+.course-supplement { font-family: var(--serif); font-size: 14px; font-weight: 300; color: #555; margin-top: 2px; }
+.course-wine { font-family: var(--serif); font-size: 13px; font-style: italic; color: #555; margin-top: 6px; }
+.menu-price { font-family: var(--serif); font-size: 16px; color: #1a1a1a; margin-top: 32px; }
+.menu-pairings { margin-top: 24px; }
+.menu-pairings p { font-family: var(--serif); font-size: 14px; font-weight: 300; color: #333; line-height: 1.8; }
+.menu-footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #ddd; }
+.menu-footer p { font-family: var(--sans); font-size: 9px; color: #888; line-height: 1.6; }
+/* Editor */
+.editor-panel { background: #f5f0e8; border: 1px solid #e0d5c5; border-radius: 8px; padding: 20px; display: none; }
+.editor-panel h3 { font-family: var(--serif); font-size: 20px; color: var(--green); margin-bottom: 16px; }
+.editor-section { margin-bottom: 20px; }
+.editor-section h4 { font-family: var(--sans); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.course-editor { margin-bottom: 12px; padding: 12px; background: #fff; border-radius: 6px; border: 1px solid #e8e0d4; }
+.course-editor label { display: block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 3px; }
+.course-editor input { width: 100%; padding: 7px 10px; border: 1px solid #ddd; border-radius: 4px; font-family: var(--sans); font-size: 13px; outline: none; margin-bottom: 6px; }
+.course-editor input:focus { border-color: var(--gold); }
+.add-course-btn { width: 100%; padding: 10px; border: 2px dashed var(--gold); background: transparent; border-radius: 6px; color: var(--gold); font-size: 13px; cursor: pointer; margin-top: 8px; }
+.add-course-btn:hover { background: rgba(184,150,80,0.08); }
+.remove-course { float: right; background: none; border: none; color: #c0392b; font-size: 16px; cursor: pointer; }
+.meta-editor label { display: block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 3px; }
+.meta-editor input, .meta-editor textarea { width: 100%; padding: 7px 10px; border: 1px solid #ddd; border-radius: 4px; font-family: var(--sans); font-size: 13px; outline: none; margin-bottom: 8px; }
+.meta-editor textarea { resize: vertical; min-height: 60px; font-size: 12px; }
+.status-msg { position: fixed; bottom: 24px; right: 24px; background: var(--green); color: var(--cream); padding: 12px 20px; border-radius: 6px; font-size: 13px; opacity: 0; transition: opacity 0.3s; z-index: 9999; }
+.status-msg.show { opacity: 1; }
+</style>
+<style>
+@media print {
+  body { background: #fff !important; margin: 0; padding: 0; }
+  .top-bar, .content > h1, .content > .subtitle, .selectors, .actions, .editor-panel, .status-msg, .split-right, #menuPreviewPlaceholder { display: none !important; }
+  .content { max-width: 100%; margin: 0; padding: 0; }
+  .split-view { display: block !important; }
+  .split-left { position: static; }
+  .menu-preview { border: none !important; border-radius: 0 !important; padding: 0 !important; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .menu-title { font-size: 18px; margin-bottom: 30px; }
+  .course-dish { font-size: 15px; }
+  .course-desc { font-size: 13px; }
+  .course-supplement { font-size: 12px; }
+  .course-wine { font-size: 11px; }
+  .course-separator { margin: 12px 0; }
+  .menu-price { font-size: 14px; }
+  .menu-pairings p { font-size: 12px; }
+  .menu-footer p { font-size: 8px; }
+}
+@media (max-width: 600px) {
+  .selectors { flex-direction: column; }
+  .selectors select { min-width: 100%; }
+  .menu-preview { padding: 32px 16px; }
+  .split-view { flex-direction: column; }
+  .split-left { position: static; }
+  .split-right { max-height: none; }
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="operations.html">&larr; Back</a>
+  <h2>Petrus</h2>
+  <span></span>
+</div>
+<div class="content">
+  <h1>Menus</h1>
+  <p class="subtitle">Select a menu to view, edit, or print for service.</p>
+  <div class="selectors">
+    <select id="menuType">
+      <option value="">— Select Menu —</option>
+      <option value="prestige">Prestige</option>
+      <option value="discovery">Discovery</option>
+      <option value="alc">À la Carte</option>
+      <option value="lunch">Lunch</option>
+      <option value="cheese">Cheese</option>
+    </select>
+    <select id="menuVariant"><option value="">— Variant —</option></select>
+    <select id="menuSize"><option value="">— Print Size —</option></select>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline" id="btnLoad" disabled onclick="loadMenu()">Load Menu</button>
+    <button class="btn btn-gold" id="btnPrint" disabled onclick="printMenu()">🖨 Print</button>
+    <button class="btn btn-gold" id="btnSave" style="display:none" onclick="saveMenu()">Save Changes</button>
+  </div>
+  <div class="split-view" id="splitView" style="display:none;">
+    <div class="split-left">
+      <div class="menu-preview" id="menuPreview"></div>
+    </div>
+    <div class="split-right">
+      <div class="editor-panel" id="editorPanel">
+        <h3>Edit Menu</h3>
+        <div class="editor-section"><h4>Courses</h4><div id="courseEditors"></div>
+          <button class="add-course-btn" onclick="addCourseEditor()">+ Add Course</button>
+        </div>
+        <div class="editor-section meta-editor">
+          <h4>Price &amp; Pairings</h4>
+          <label>Price line</label><input type="text" id="editPrice" oninput="updateMeta('price',this.value)">
+          <label>Pairing options (one per line)</label><textarea id="editPairings" oninput="updateMeta('pairings',this.value)"></textarea>
+          <label>Footer text</label><textarea id="editFooter" oninput="updateMeta('footer',this.value)"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="menu-preview" id="menuPreviewPlaceholder">
+    <p style="font-family:var(--serif);font-size:18px;color:#aaa;padding:80px 20px;">Select a menu above to begin</p>
+  </div>
+</div>
+<div class="status-msg" id="statusMsg"></div>
+
+<!-- Firebase + Auth -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="auth.js"></script>
+<script src="guard-admin.js"></script>
+<script>
+const MENU_CONFIG = {
+  prestige: { label:'PRESTIGE MENU', variants:['normal','pescatarian','vegetarian','no-seafood','wine-pairing'], sizes:['statement','custom'] },
+  discovery: { label:'DISCOVERY MENU', variants:['normal','pescatarian','vegetarian','no-seafood','wine-pairing'], sizes:['statement','custom'] },
+  alc: { label:'À LA CARTE', variants:['normal','pescatarian','vegetarian','no-seafood','wine-pairing'], sizes:['statement','custom'] },
+  lunch: { label:'LUNCH MENU', variants:['normal','pescatarian','vegetarian','no-seafood','wine-pairing'], sizes:['statement'] },
+  cheese: { label:'CHEESE MENU', variants:['standard'], sizes:['statement'] }
+};
+const VARIANT_LABELS = {'normal':'Normal','pescatarian':'Pescatarian','vegetarian':'Vegetarian','no-seafood':'No Seafood','wine-pairing':'Wine Pairings','standard':'Standard'};
+const SIZE_LABELS = {'statement':'Statement (5.5 × 8.5 in)','custom':'Custom (17.70 × 29.30 cm)'};
+const DEFAULT_FOOTER = 'All prices are inclusive of VAT.\nA 15% discretionary service charge will be added to your bill.\nIf you have a food allergy, intolerance or sensitivity, please speak to your waiter\nabout ingredients in our dishes before you order your meal.';
+const DEFAULT_PAIRINGS = 'Non-alcoholic pairing £80\n3 Wines £90\nMatching wines £150\nThe Connoisseur matching wines £325\nThe Indulgence matching wines £975';
+
+let currentMenu = null;
+const selType = document.getElementById('menuType');
+const selVariant = document.getElementById('menuVariant');
+const selSize = document.getElementById('menuSize');
+const btnLoad = document.getElementById('btnLoad');
+const btnPrint = document.getElementById('btnPrint');
+const btnSave = document.getElementById('btnSave');
+
+selType.addEventListener('change', () => {
+  const type = selType.value;
+  selVariant.innerHTML = '<option value="">— Variant —</option>';
+  selSize.innerHTML = '<option value="">— Print Size —</option>';
+  btnLoad.disabled = true; btnPrint.disabled = true;
+  if (!type) return;
+  const cfg = MENU_CONFIG[type];
+  if (type === 'cheese') { selVariant.innerHTML = '<option value="standard">Standard</option>'; }
+  else { cfg.variants.forEach(v => { selVariant.innerHTML += `<option value="${v}">${VARIANT_LABELS[v]}</option>`; }); }
+  cfg.sizes.forEach(s => { selSize.innerHTML += `<option value="${s}">${SIZE_LABELS[s]}</option>`; });
+  if (cfg.sizes.length === 1) selSize.value = cfg.sizes[0];
+  if (type === 'cheese') selVariant.value = 'standard';
+  checkReady();
+});
+selVariant.addEventListener('change', checkReady);
+selSize.addEventListener('change', checkReady);
+function checkReady() { btnLoad.disabled = !(selType.value && selVariant.value && selSize.value); }
+</script>
+<script>
+// LOAD — tries Firestore first, falls back to example template
+async function loadMenu() {
+  const type = selType.value, variant = selVariant.value, size = selSize.value;
+  const docId = `${type}_${variant}`;
+  btnLoad.disabled = true; btnLoad.textContent = 'Loading...';
+
+  let data = null;
+  try { const doc = await db.collection('menus').doc(docId).get(); if (doc.exists) data = doc.data(); } catch(e) { console.log('Firestore unavailable, using template'); }
+
+  if (data) {
+    currentMenu = { id: docId, type, variant, size, ...data };
+  } else {
+    // Template based on the printed Prestige Menu
+    currentMenu = {
+      id: docId, type, variant, size,
+      title: MENU_CONFIG[type].label,
+      courses: [
+        { dish:'Violina Pumpkin', desc:'Maitake, coffee, shiso', supplement:'add seared duck liver £15', wine:'' },
+        { dish:'Isle of Skye Scallop', desc:'Coastal herbs, lemon, olive oil sabayon', supplement:'', wine:'' },
+        { dish:'Rack of Dover Sole', desc:'Brassica, prawns, Vin Jaune', supplement:'', wine:'' },
+        { dish:'Aynhoe Park Deer', desc:'Beetroot, blueberry, Roquefort', supplement:'', wine:'' },
+        { dish:'Selection of British and French Cheeses', desc:'(3 cheeses £20, 5 cheeses £30)', supplement:'', wine:'' },
+        { dish:'Sorbet', desc:'Calvados, apple', supplement:'', wine:'' },
+        { dish:'Pear Tart', desc:'Frangipane, mascarpone, cardamom', supplement:'', wine:'' }
+      ],
+      price: '£150 per person',
+      pairings: DEFAULT_PAIRINGS,
+      footer: DEFAULT_FOOTER
+    };
+  }
+  renderPreview();
+  renderEditor();
+  btnPrint.disabled = false;
+  btnLoad.disabled = false; btnLoad.textContent = 'Load Menu';
+  showStatus('Menu loaded');
+}
+
+// RENDER PREVIEW — exactly like the printed card
+function renderPreview() {
+  if (!currentMenu) return;
+  const p = document.getElementById('menuPreview');
+  const showWine = currentMenu.variant === 'wine-pairing';
+  let h = `<div class="menu-title">${currentMenu.title}</div>`;
+  (currentMenu.courses || []).forEach((c, i) => {
+    if (i > 0) h += '<div class="course-separator">–</div>';
+    h += '<div class="course-block">';
+    h += c.dish ? `<div class="course-dish">${c.dish}</div>` : '<div class="course-dish" style="color:#ccc">· · ·</div>';
+    if (c.desc) h += `<div class="course-desc">${c.desc}</div>`;
+    if (c.supplement) h += `<div class="course-supplement">(${c.supplement})</div>`;
+    if (showWine && c.wine) h += `<div class="course-wine">${c.wine}</div>`;
+    h += '</div>';
+  });
+  if (currentMenu.price) { h += '<div class="course-separator">–</div>'; h += `<div class="menu-price">${currentMenu.price}</div>`; }
+  if (currentMenu.pairings) { h += '<div class="menu-pairings">'; currentMenu.pairings.split('\n').forEach(l => { if(l.trim()) h += `<p>${l.trim()}</p>`; }); h += '</div>'; }
+  if (currentMenu.footer) { h += '<div class="menu-footer">'; currentMenu.footer.split('\n').forEach(l => { if(l.trim()) h += `<p>${l.trim()}</p>`; }); h += '</div>'; }
+  p.innerHTML = h;
+}
+</script>
+<script>
+// EDITOR — always shown (only admin reaches this page anyway)
+function renderEditor() {
+  document.getElementById('splitView').style.display = 'flex';
+  document.getElementById('menuPreviewPlaceholder').style.display = 'none';
+  const panel = document.getElementById('editorPanel');
+  const container = document.getElementById('courseEditors');
+  panel.style.display = 'block';
+  btnSave.style.display = 'inline-block';
+  container.innerHTML = '';
+  const showWine = currentMenu.variant === 'wine-pairing';
+  (currentMenu.courses || []).forEach((c, i) => {
+    container.innerHTML += `<div class="course-editor">
+      <button class="remove-course" onclick="removeCourse(${i})">&times;</button>
+      <label>Dish</label><input type="text" value="${esc(c.dish)}" oninput="upd(${i},'dish',this.value)">
+      <label>Description</label><input type="text" value="${esc(c.desc)}" oninput="upd(${i},'desc',this.value)">
+      <label>Supplement</label><input type="text" value="${esc(c.supplement)}" oninput="upd(${i},'supplement',this.value)">
+      ${showWine ? `<label>Wine</label><input type="text" value="${esc(c.wine)}" oninput="upd(${i},'wine',this.value)">` : ''}
+    </div>`;
+  });
+  document.getElementById('editPrice').value = currentMenu.price || '';
+  document.getElementById('editPairings').value = currentMenu.pairings || '';
+  document.getElementById('editFooter').value = currentMenu.footer || '';
+}
+function esc(s) { return (s||'').replace(/"/g,'&quot;'); }
+function upd(i, f, v) { currentMenu.courses[i][f] = v; renderPreview(); }
+function updateMeta(f, v) { currentMenu[f] = v; renderPreview(); }
+function addCourseEditor() { currentMenu.courses.push({dish:'',desc:'',supplement:'',wine:''}); renderEditor(); }
+function removeCourse(i) { currentMenu.courses.splice(i,1); renderEditor(); renderPreview(); }
+
+// SAVE TO FIRESTORE
+async function saveMenu() {
+  if (!currentMenu) return;
+  btnSave.disabled = true; btnSave.textContent = 'Saving...';
+  try {
+    await db.collection('menus').doc(currentMenu.id).set({
+      title: currentMenu.title, type: currentMenu.type, variant: currentMenu.variant,
+      courses: currentMenu.courses, price: currentMenu.price || '',
+      pairings: currentMenu.pairings || '', footer: currentMenu.footer || '',
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedBy: auth.currentUser?.displayName || auth.currentUser?.email || 'unknown'
+    }, { merge: true });
+    showStatus('Saved ✓');
+  } catch(e) { console.error(e); showStatus('Error saving'); }
+  btnSave.disabled = false; btnSave.textContent = 'Save Changes';
+}
+
+// PRINT
+function printMenu() {
+  const size = selSize.value || 'statement';
+  let ps = document.getElementById('printSizeStyle');
+  if (!ps) { ps = document.createElement('style'); ps.id = 'printSizeStyle'; document.head.appendChild(ps); }
+  ps.textContent = size === 'statement' ? '@page{size:5.5in 8.5in;margin:0.6in 0.5in}' : '@page{size:17.70cm 29.30cm;margin:1.2cm 1cm}';
+  setTimeout(() => window.print(), 150);
+}
+
+function showStatus(msg) { const el = document.getElementById('statusMsg'); el.textContent = msg; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2500); }
+</script>
+</body>
+</html>

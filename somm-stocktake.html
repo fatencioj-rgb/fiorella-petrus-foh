@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stocktake — Petrus Sommeliers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#5c1a1a;--green-dark:#2d0a0a;--gold:#b89650;--gold-light:#d4b87a;--cream:#faf7f1;--sans:'Inter',sans-serif;--serif:'Cormorant Garamond',serif}
+body{font-family:var(--sans);background:var(--cream);color:#2c2c2c;min-height:100vh}
+.top-bar{background:var(--green-dark);padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.top-bar a{color:var(--gold);text-decoration:none;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+.top-bar a:hover{color:#fff}
+.top-bar h2{font-family:var(--serif);color:#fff;font-size:18px;margin:0}
+.page{max-width:1100px;margin:0 auto;padding:24px 16px 80px}
+.page-title{font-family:var(--serif);font-size:28px;color:var(--green);margin-bottom:20px;text-align:center}
+
+/* Tabs */
+.tabs{display:flex;gap:8px;justify-content:center;margin-bottom:24px;flex-wrap:wrap}
+.tab-btn{padding:10px 24px;border:2px solid var(--green);border-radius:6px;background:transparent;color:var(--green);font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.tab-btn:hover{background:var(--green);color:#fff}
+.tab-btn.active{background:var(--green);color:#fff}
+.tab-btn.disabled{opacity:0.4;cursor:not-allowed;border-color:#ccc;color:#999}
+
+/* Controls */
+.controls{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:20px;padding:16px;background:#fff;border:1px solid #e8e0d4;border-radius:8px}
+.ctrl-group{display:flex;flex-direction:column;gap:4px}
+.ctrl-group label{font-size:10px;text-transform:uppercase;letter-spacing:0.8px;color:#888;font-weight:500}
+.ctrl-group select,.ctrl-group input[type="date"]{padding:8px 12px;border:1px solid #ddd;border-radius:5px;font-family:var(--sans);font-size:13px;outline:none}
+.ctrl-group select:focus,.ctrl-group input[type="date"]:focus{border-color:var(--gold)}
+.upload-area{margin-left:auto;display:flex;align-items:center;gap:8px}
+.upload-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--gold);color:#fff;border:none;border-radius:5px;font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;transition:background 0.2s}
+.upload-btn:hover{background:#a07d3a}
+#csvFile{display:none}
+
+/* Table */
+.stock-table-wrap{background:#fff;border:1px solid #e8e0d4;border-radius:8px;overflow-x:auto;margin-bottom:20px}
+.stock-table{width:100%;border-collapse:collapse;min-width:900px}
+.stock-table thead{background:var(--green-dark);position:sticky;top:0;z-index:2}
+.stock-table th{padding:10px 10px;color:var(--gold);font-size:9px;text-transform:uppercase;letter-spacing:0.8px;font-weight:600;text-align:left;white-space:nowrap}
+.stock-table tbody tr{border-bottom:1px solid #f0ebe3;transition:background 0.1s}
+.stock-table tbody tr:hover{background:#fdf9f3}
+.stock-table td{padding:7px 10px;font-size:11px;vertical-align:middle}
+.stock-table td.cat-cell{color:var(--gold);font-weight:600;font-size:10px}
+.stock-table td.name-cell{font-weight:500;max-width:260px}
+.stock-table td.num-cell{text-align:center;color:#666}
+.stock-table .qty-input{width:58px;padding:6px 6px;border:1px solid #ddd;border-radius:4px;font-size:12px;font-family:var(--sans);text-align:center;outline:none;background:#fffef8}
+.stock-table .qty-input:focus{border-color:var(--gold);box-shadow:0 0 0 2px rgba(184,150,80,0.18)}
+
+/* Category separator */
+.cat-row td{background:#f9f5ef;font-size:12px;font-weight:600;color:var(--green);padding:10px 12px}
+
+/* Total column */
+.total-header{background:var(--gold) !important;color:#fff !important}
+.total-cell{text-align:center;font-weight:700;color:var(--green);font-size:12px;background:#f9f5ef}
+
+/* Actions */
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.action-btn{padding:12px 28px;border:none;border-radius:6px;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.btn-export{background:#2c6e49;color:#fff}
+.btn-export:hover{background:#1b4d34}
+
+/* Empty */
+.empty-state{text-align:center;padding:60px 20px;color:#aaa}
+.empty-state h3{font-family:var(--serif);font-size:22px;color:#999;margin-bottom:8px}
+.empty-state p{font-size:13px}
+
+/* Status */
+.status-msg{position:fixed;bottom:20px;right:20px;background:var(--green);color:var(--cream);padding:10px 18px;border-radius:6px;font-size:12px;opacity:0;transition:opacity 0.3s;z-index:9999}
+.status-msg.show{opacity:1}
+
+/* Info bar */
+.info-bar{font-size:11px;color:#888;margin-bottom:12px;display:flex;gap:16px;flex-wrap:wrap}
+.info-bar span{background:#fff;padding:4px 10px;border-radius:4px;border:1px solid #e8e0d4}
+
+@media(max-width:700px){
+  .controls{flex-direction:column;align-items:stretch}
+  .upload-area{margin-left:0;justify-content:center}
+  .tab-btn{padding:8px 14px;font-size:10px}
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="sommeliers.html">&larr; Back</a>
+  <h2>Petrus</h2>
+  <span></span>
+</div>
+
+<div class="page">
+  <h1 class="page-title">Stocktake</h1>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('bar')">Bar</button>
+    <button class="tab-btn disabled" onclick="return false">Wine</button>
+    <button class="tab-btn disabled" onclick="return false">Glassware</button>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="ctrl-group">
+      <label>Month</label>
+      <select id="monthSelect"></select>
+    </div>
+    <div class="ctrl-group">
+      <label>Date</label>
+      <input type="date" id="dateInput">
+    </div>
+    <div class="upload-area">
+      <input type="file" id="csvFile" accept=".csv">
+      <button class="upload-btn" onclick="document.getElementById('csvFile').click()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Upload CSV
+      </button>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="info-bar" id="infoBar" style="display:none">
+    <span id="infoCount"></span>
+    <span id="infoMeta"></span>
+  </div>
+
+  <!-- Table -->
+  <div id="tableArea">
+    <div class="empty-state">
+      <h3>No items yet</h3>
+      <p>Upload your Procure Wizard CSV to get started.</p>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions" id="actionsArea" style="display:none">
+    <button class="action-btn btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+  </div>
+</div>
+
+<div class="status-msg" id="statusMsg"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="auth.js"></script>
+<script>
+// ── State ──
+var currentUser = null;
+var currentTab = 'bar';
+var metaLine = '';      // First line of CSV (do not delete or edit)
+var headerLine = '';    // Second line (column headers)
+var headers = [];       // Parsed header names
+var rows = [];          // Array of arrays (each row = array of cell values)
+var closeFC_idx = -1;   // Index of [E]Close FC column
+var closeSC_idx = -1;   // Index of [E]Close SC column
+var cat_idx = -1;       // Index of Tertiary Category
+var name_idx = -1;      // Index of Brand & Description
+var hiddenCols = [];    // Columns hidden from view but kept in data
+
+// Location columns for counting
+var LOCATIONS = ['Cellar','Downstairs','Premium Fridge','Bar Fridge','Wine Fridge'];
+var locationData = [];  // Array of objects: [{cellar:0, downstairs:0, ...}, ...]
+
+// Columns to hide visually (still exported in CSV)
+var HIDDEN_HEADERS = ['pid','[e]stock type','[e]bin number','[e]pos','tertiary category','[e]close fc','[e]close sc'];
+
+function buildHiddenCols(){
+  hiddenCols = [];
+  for(var h=0; h<headers.length; h++){
+    var col = headers[h].trim().toLowerCase();
+    if(HIDDEN_HEADERS.indexOf(col) > -1){
+      hiddenCols.push(h);
+    }
+  }
+}
+
+function isHidden(colIdx){
+  return hiddenCols.indexOf(colIdx) > -1;
+}
+
+// ── Auth ──
+auth.onAuthStateChanged(function(user){
+  if(!user){window.location.href='index.html';return;}
+  currentUser = user;
+  logAccess(user,'page_view','somm-stocktake.html');
+  initControls();
+  loadStocktake();
+});
+
+function initControls(){
+  var sel = document.getElementById('monthSelect');
+  var now = new Date();
+  for(var i=0; i<6; i++){
+    var d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    var val = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+    var label = d.toLocaleDateString('en-GB',{month:'long', year:'numeric'});
+    var opt = document.createElement('option');
+    opt.value = val;
+    opt.textContent = label;
+    sel.appendChild(opt);
+  }
+  sel.addEventListener('change', function(){ loadStocktake(); });
+  document.getElementById('dateInput').value = new Date().toISOString().slice(0,10);
+}
+
+function getSelectedMonth(){
+  return document.getElementById('monthSelect').value;
+}
+function getSelectedDate(){
+  return document.getElementById('dateInput').value;
+}
+
+// ── CSV Parsing ──
+document.getElementById('csvFile').addEventListener('change', function(e){
+  var file = e.target.files[0];
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev){
+    parseFullCSV(ev.target.result);
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+});
+
+function parseCSVLine(line){
+  var result = [];
+  var current = '';
+  var inQuotes = false;
+  for(var i=0; i<line.length; i++){
+    var ch = line[i];
+    if(ch === '"'){
+      inQuotes = !inQuotes;
+    } else if(ch === ',' && !inQuotes){
+      result.push(current);
+      current = '';
+    } else {
+      current += ch;
+    }
+  }
+  result.push(current);
+  return result;
+}
+
+function parseFullCSV(text){
+  var lines = text.split(/\r?\n/);
+
+  // Line 1: metadata
+  metaLine = lines[0] || '';
+
+  // Line 2: headers
+  headerLine = lines[1] || '';
+  headers = parseCSVLine(headerLine);
+
+  // Find key column indices
+  closeFC_idx = -1; closeSC_idx = -1; cat_idx = -1; name_idx = -1;
+  for(var h=0; h<headers.length; h++){
+    var col = headers[h].trim().toLowerCase();
+    if(col === '[e]close fc') closeFC_idx = h;
+    if(col === '[e]close sc') closeSC_idx = h;
+    if(col.indexOf('tertiary') > -1 || col.indexOf('category') > -1) cat_idx = h;
+    if(col.indexOf('brand') > -1 || col.indexOf('description') > -1) name_idx = h;
+  }
+  buildHiddenCols();
+
+  // Parse data rows (line 3 onwards)
+  rows = [];
+  for(var i=2; i<lines.length; i++){
+    var line = lines[i].trim();
+    if(!line) continue;
+    // Remove trailing comma if present
+    if(line.endsWith(',')) line = line.slice(0,-1);
+    var cells = parseCSVLine(line);
+    rows.push(cells);
+  }
+
+  // Sort by category
+  if(cat_idx > -1){
+    rows.sort(function(a,b){
+      var ca = (a[cat_idx]||'').toLowerCase();
+      var cb = (b[cat_idx]||'').toLowerCase();
+      if(ca < cb) return -1;
+      if(ca > cb) return 1;
+      return 0;
+    });
+  }
+
+  // Initialize location data for each row
+  initLocationData();
+
+  renderTable();
+  showStatus(rows.length + ' items loaded from CSV');
+  // Auto-save the uploaded CSV so others can access it
+  autoSave();
+}
+
+function initLocationData(){
+  locationData = [];
+  for(var i=0; i<rows.length; i++){
+    var loc = {};
+    for(var l=0; l<LOCATIONS.length; l++){
+      loc[LOCATIONS[l]] = '';
+    }
+    locationData.push(loc);
+  }
+}
+
+function calcTotal(rowIdx){
+  var total = 0;
+  for(var l=0; l<LOCATIONS.length; l++){
+    var v = parseFloat(locationData[rowIdx][LOCATIONS[l]]);
+    if(!isNaN(v)) total += v;
+  }
+  return total;
+}
+
+// ── Render ──
+function renderTable(){
+  var area = document.getElementById('tableArea');
+  if(rows.length === 0){
+    area.innerHTML = '<div class="empty-state"><h3>No items yet</h3><p>Upload your Procure Wizard CSV to get started.</p></div>';
+    document.getElementById('actionsArea').style.display = 'none';
+    document.getElementById('infoBar').style.display = 'none';
+    return;
+  }
+
+  // Info bar
+  document.getElementById('infoBar').style.display = 'flex';
+  document.getElementById('infoCount').textContent = rows.length + ' products';
+  document.getElementById('infoMeta').textContent = metaLine.replace('<-- Do not delete or edit','').replace(/,/g,' ').trim();
+
+  var html = '<div class="stock-table-wrap"><table class="stock-table"><thead><tr>';
+  // Render CSV headers (skip hidden)
+  var visibleCount = 0;
+  for(var h=0; h<headers.length; h++){
+    if(isHidden(h)) continue;
+    html += '<th>' + escHtml(headers[h].trim()) + '</th>';
+    visibleCount++;
+  }
+  // Add location columns + total
+  for(var l=0; l<LOCATIONS.length; l++){
+    html += '<th>' + escHtml(LOCATIONS[l]) + '</th>';
+  }
+  html += '<th class="total-header">Total</th>';
+  var totalCols = visibleCount + LOCATIONS.length + 1;
+  html += '</tr></thead><tbody>';
+
+  var lastCat = '';
+  for(var i=0; i<rows.length; i++){
+    var row = rows[i];
+
+    // Category separator — shown exactly as written in CSV
+    if(cat_idx > -1){
+      var thisCat = (row[cat_idx]||'').trim();
+      if(thisCat && thisCat !== lastCat){
+        html += '<tr class="cat-row"><td colspan="' + totalCols + '">' + escHtml(thisCat) + '</td></tr>';
+        lastCat = thisCat;
+      }
+    }
+
+    html += '<tr>';
+    // CSV visible columns
+    for(var c=0; c<headers.length; c++){
+      if(isHidden(c)) continue;
+      var val = (row[c]||'').trim();
+      if(c === name_idx){
+        html += '<td class="name-cell">' + escHtml(val) + '</td>';
+      } else {
+        html += '<td class="num-cell">' + escHtml(val) + '</td>';
+      }
+    }
+    // Location inputs
+    for(var l=0; l<LOCATIONS.length; l++){
+      var locVal = locationData[i] ? (locationData[i][LOCATIONS[l]] || '') : '';
+      html += '<td><input class="qty-input" type="number" min="0" step="0.5" value="' + escHtml(String(locVal)) + '" data-row="' + i + '" data-loc="' + LOCATIONS[l] + '" onchange="setLocValue(this)"></td>';
+    }
+    // Total (auto-sum → writes to [E]Close SC)
+    var total = calcTotal(i);
+    var totalDisplay = total > 0 ? total : '';
+    html += '<td class="total-cell">' + totalDisplay + '</td>';
+    html += '</tr>';
+  }
+
+  html += '</tbody></table></div>';
+  area.innerHTML = html;
+  document.getElementById('actionsArea').style.display = 'flex';
+}
+
+function setLocValue(el){
+  var r = parseInt(el.getAttribute('data-row'));
+  var loc = el.getAttribute('data-loc');
+  locationData[r][loc] = el.value;
+  // Update [E]Close SC with the total
+  var total = calcTotal(r);
+  if(closeSC_idx > -1){
+    rows[r][closeSC_idx] = total > 0 ? String(total) : '';
+  }
+  // Update total cell without full re-render (keep focus)
+  var tr = el.closest('tr');
+  var totalCell = tr.querySelector('.total-cell');
+  if(totalCell) totalCell.textContent = total > 0 ? total : '';
+  // Auto-save after short delay
+  autoSave();
+}
+
+var saveTimer = null;
+function autoSave(){
+  if(saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(function(){
+    if(rows.length === 0) return;
+    var author = currentUser.displayName || currentUser.email.split('@')[0].replace(/\./g,' ');
+    var payload = {
+      section: 'bar',
+      month: getSelectedMonth(),
+      date: getSelectedDate(),
+      metaLine: metaLine,
+      headerLine: headerLine,
+      headers: headers,
+      rows: rows,
+      locationData: locationData,
+      updatedBy: author,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    db.collection('somm_stocktake').doc(getDocId()).set(payload, {merge:true}).then(function(){
+      showStatus('Auto-saved ✓');
+    }).catch(function(e){
+      console.error(e);
+      showStatus('Error saving');
+    });
+  }, 1200);
+}
+
+function escHtml(str){
+  if(!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Export CSV (same format as Procure Wizard) ──
+function exportCSV(){
+  if(rows.length === 0){ showStatus('Nothing to export'); return; }
+
+  var csvContent = metaLine + '\r\n' + headerLine + '\r\n';
+
+  for(var i=0; i<rows.length; i++){
+    var line = '';
+    for(var c=0; c<rows[i].length; c++){
+      var val = rows[i][c] || '';
+      // Wrap in quotes if it contains comma or quotes
+      if(val.indexOf(',') > -1 || val.indexOf('"') > -1){
+        val = '"' + val.replace(/"/g,'""') + '"';
+      } else {
+        val = '"' + val + '"';
+      }
+      line += val;
+      if(c < rows[i].length - 1) line += ',';
+    }
+    line += ','; // trailing comma as in original
+    csvContent += line + '\r\n';
+  }
+
+  var blob = new Blob([csvContent], {type:'text/csv;charset=utf-8;'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'Petrus-Stocktake-' + getSelectedMonth() + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+  showStatus('CSV exported ✓');
+}
+
+// ── Firestore Save / Load ──
+function getDocId(){
+  return 'stocktake_bar_' + getSelectedMonth();
+}
+
+function loadStocktake(){
+  var id = getDocId();
+  db.collection('somm_stocktake').doc(id).get().then(function(doc){
+    if(doc.exists){
+      var data = doc.data();
+      metaLine = data.metaLine || '';
+      headerLine = data.headerLine || '';
+      headers = data.headers || [];
+      rows = data.rows || [];
+      // Re-detect column indices
+      closeFC_idx = -1; closeSC_idx = -1; cat_idx = -1; name_idx = -1;
+      for(var h=0; h<headers.length; h++){
+        var col = headers[h].trim().toLowerCase();
+        if(col === '[e]close fc') closeFC_idx = h;
+        if(col === '[e]close sc') closeSC_idx = h;
+        if(col.indexOf('tertiary') > -1 || col.indexOf('category') > -1) cat_idx = h;
+        if(col.indexOf('brand') > -1 || col.indexOf('description') > -1) name_idx = h;
+      }
+      buildHiddenCols();
+      if(data.date) document.getElementById('dateInput').value = data.date;
+      // Load location data
+      if(data.locationData && data.locationData.length === rows.length){
+        locationData = data.locationData;
+      } else {
+        initLocationData();
+      }
+      renderTable();
+      showStatus('Loaded ' + rows.length + ' items');
+    } else {
+      rows = []; headers = []; metaLine = ''; headerLine = '';
+      renderTable();
+    }
+  }).catch(function(e){ console.error(e); });
+}
+
+// ── Tab ──
+function switchTab(tab){
+  if(tab !== 'bar') return;
+  currentTab = tab;
+}
+
+// ── Status ──
+function showStatus(msg){
+  var el = document.getElementById('statusMsg');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(function(){ el.classList.remove('show'); }, 2500);
+}
+</script>
+</body>
+</html>
